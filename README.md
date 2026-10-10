@@ -146,8 +146,8 @@ limitations: [`docs/EVALUATION.md`](docs/EVALUATION.md).
 | `DeBERTa-v3-base-mnli-fever-anli` (default) | **0.675** | **0.671** |
 | `nli-deberta-v3-small` (documented fallback) | 0.448 | 0.458 |
 
-**End-to-end** — 8 hand-labelled live claims: **4/8** matched the expected status (see the
-limitations below).
+**End-to-end** — 8 hand-labelled live claims: **4/8** matched the expected status (original run;
+the single-source safeguard was added afterwards — see the limitations below).
 <!-- EVAL_SUMMARY_END -->
 
 ## Deployment
@@ -169,10 +169,11 @@ docker run -p 7860:7860 verityai      # http://127.0.0.1:7860
 - Retrieval covers only the configured permitted sources — **not the entire internet**.
 - NLI scores are per evidence-claim pair, not truth probabilities; models can be wrong, especially
   on numeric, temporal and negation-heavy claims.
-- **Known false-positive mode**: a nonsense claim can be reported `SUPPORTED` from a single passage.
-  In the end-to-end check, *"Zorbax-9 was the first spacecraft to land on the Sun"* returned
-  `SUPPORTED` — with `limited_corroboration = true`, but still a verdict. Treat single-source
-  verdicts with suspicion.
+- **Single-source verdicts are gated**: a verdict resting on one independent source must clear a
+  higher NLI bar (`tau_single`, default 0.75) or it returns `INSUFFICIENT_EVIDENCE`. This closes a
+  recorded false positive — *"Zorbax-9 was the first spacecraft to land on the Sun"* was once
+  reported `SUPPORTED` from a single passage (entailment 0.52); re-checked live after the fix it
+  returns `INSUFFICIENT_EVIDENCE`. A confident single-source error (score ≥ 0.75) is still possible.
 - Retrieval can pull a *different entity* with a similar name (the Eiffel Tower page vs Eiffel Tower
   (Paris, Texas)), which can surface as `CONFLICTING_EVIDENCE` for an otherwise simple claim.
 - English-first. Hindi/Hinglish input is accepted but **not verified** (see

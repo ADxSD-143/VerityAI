@@ -177,10 +177,21 @@ indicative only.
   independent source, but it still returned `SUPPORTED` rather than `INSUFFICIENT_EVIDENCE`. This
   is a genuine false-positive mode: one spurious entailment can carry a verdict.
 
-**Decision recorded.** The aggregation policy was **not** tuned on this 8-claim set — doing so
-would be fitting to the test. The false-positive mode is documented as a limitation, and
-`limited_corroboration` is the current mitigation. A future improvement (not implemented here)
-would require a higher NLI threshold, or ≥2 independent sources, before an unqualified `SUPPORTED`.
+**Decision recorded (original run).** The aggregation policy was **not** tuned on this 8-claim set —
+doing so would be fitting to the test. The false-positive mode was documented as a limitation with
+`limited_corroboration` as the then-current mitigation. The table above reflects the **old** policy.
+
+**Single-source safeguard (added afterwards, not tuned on this set).** A verdict resting on a
+single independent source must clear a higher NLI bar, `tau_single` (default 0.75,
+`VERITY_TAU_NLI_SINGLE_SOURCE`), or it returns `INSUFFICIENT_EVIDENCE`. The 8-claim set was **not**
+re-run as a whole. Only the documented false positive was re-checked once, live.
+
+**Zorbax-9 re-check (2026-10-10, live, single observation).** Re-running just this claim returned
+`INSUFFICIENT_EVIDENCE`. Its single supporting passage — the Wikidata record *"Sun Microsystems:
+instance of — software company."*, retrieved on the token "Sun" — scored entailment **0.519**
+(neutral 0.444, contradiction 0.036): above `tau` 0.5 but below `tau_single` 0.75, so no verdict is
+given. This is one non-reproducible observation on the same claim, **not** an accuracy measurement;
+it does not change the recorded 8-claim results.
 
 Raw: `experiments/results/eval_e2e.json`.
 <!-- E2E_RESULTS_END -->

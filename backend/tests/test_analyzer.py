@@ -63,6 +63,23 @@ async def test_no_evidence_is_insufficient(monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_single_weak_entailment_is_not_supported(monkeypatch):
+    passages = [
+        make_passage("A page that mentions the Sun and a spacecraft.", url="https://a.test/1")
+    ]
+    analyzer = _analyzer([FakeAdapter(passages)], [score("entailment", 0.55)])
+    monkeypatch.setattr(analyzer_module, "retrieve", fake_retrieve_factory())
+
+    report = await analyzer.analyze(
+        AnalyzeRequest(claim="Zorbax-9 was the first spacecraft to land on the Sun.")
+    )
+
+    claim = report.claims[0]
+    assert claim.status == Verdict.INSUFFICIENT_EVIDENCE
+    assert claim.limited_corroboration is False
+
+
+@pytest.mark.asyncio
 async def test_all_sources_failing_is_unable_to_assess(monkeypatch):
     analyzer = _analyzer([FakeAdapter([], status="error", error="boom")], [])
     monkeypatch.setattr(analyzer_module, "retrieve", fake_retrieve_factory())

@@ -2,6 +2,26 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-10 — Single-source aggregation safeguard (false-positive fix)
+
+- **Problem**: `docs/experiments/004-end-to-end.md` recorded the nonsense claim "Zorbax-9 … land on
+  the Sun." reported `SUPPORTED` from one passage. The cause is aggregation, not retrieval or NLI:
+  a single entailment ≥ `tau` (0.5) carried a verdict with no minimum evidence mass.
+- **Fix**: a verdict resting on a **single independent source** must clear a higher bar, `tau_single`
+  (`VERITY_TAU_NLI_SINGLE_SOURCE`, default 0.75); below it the status is `INSUFFICIENT_EVIDENCE`.
+  Corroborated verdicts keep `tau`. Not tuned on the 8-claim set.
+- **Measured re-check (live, one observation)**: the claim now returns `INSUFFICIENT_EVIDENCE`; its
+  lone supporting passage (Wikidata "Sun Microsystems: instance of — software company.") scored
+  entailment **0.519** — above `tau`, below `tau_single`.
+- **Mechanism**: DeBERTa NLI is not a fact-checker; it matched salient tokens ("Sun") to an
+  unrelated entity, the classic single-spurious-entailment mode.
+- **Trade-off**: a genuine claim supported by only one weak source is now downgraded to
+  `INSUFFICIENT_EVIDENCE` (recall↓ / precision↑ for `SUPPORTED`). A confident spurious entailment
+  (≥ `tau_single`) from a lone source still passes — documented, not eliminated.
+- **Tests**: `test_aggregation_regression.py` reproduces the failure shape; `test_aggregation.py`
+  covers weak single-source support/contradiction, a preserved conflict, and a confident
+  single-source verdict; `test_analyzer.py` verifies the setting is threaded end-to-end.
+
 ## 2026-10-10 — M2/M3 evaluation: real errors and fixes
 
 - **Windows Application Control blocked newest wheels.** `scikit-learn 1.9.1`,

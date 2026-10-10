@@ -34,8 +34,18 @@ NLI → aggregation).
 **Limitations.** 8 claims is far too small to estimate accuracy; results are indicative only and not
 reproducible (live sources change).
 
-**Decision.** Do **not** tune the aggregation thresholds on this set — that would be fitting to the
-test. Document failure mode 2 as a known limitation and keep `limited_corroboration` as the current
-mitigation. No code change made on the basis of these 8 examples.
+**Decision (original run).** Do **not** tune the aggregation thresholds on this set — that would be
+fitting to the test. Failure mode 2 was documented as a known limitation, with
+`limited_corroboration` as the then-current mitigation.
 
-**Artefacts.** `experiments/results/eval_e2e.json`.
+**Follow-up (single-source safeguard).** A principled safeguard was added and is **not** fitted to
+these examples: a verdict resting on a single independent source must clear a higher NLI bar,
+`tau_single` (default 0.75), else it returns `INSUFFICIENT_EVIDENCE`. The 8-claim set was **not**
+re-run (live sources change and the set is too small); only the documented false positive was
+re-checked once, live. That re-check returned `INSUFFICIENT_EVIDENCE`: its one supporting passage
+(Wikidata *"Sun Microsystems: instance of — software company."*, matched on the token "Sun") scored
+entailment **0.519** — above `tau` 0.5 but below `tau_single` 0.75. This is a single,
+non-reproducible observation, **not** an accuracy number, and the table above remains the original
+run under the old policy.
+
+**Artefacts.** `experiments/results/eval_e2e.json` (original run, unchanged).

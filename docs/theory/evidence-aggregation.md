@@ -16,12 +16,20 @@ contradictor when its NLI argmax label is entailment / contradiction **and** the
 |---|---|
 | no strong evidence either way | `INSUFFICIENT_EVIDENCE` |
 | strong support **and** strong contradiction | `CONFLICTING_EVIDENCE` |
-| strong support only | `SUPPORTED` |
-| strong contradiction only | `REFUTED` |
+| strong support only, corroborated (≥2 independent sources) | `SUPPORTED` |
+| strong support only, single source with best score ≥ `tau_single` | `SUPPORTED` |
+| strong support only, single source with best score < `tau_single` | `INSUFFICIENT_EVIDENCE` |
+| strong contradiction only | `REFUTED` (same single-source rule) |
 | all sources unreachable | `UNABLE_TO_ASSESS` |
 
-A `SUPPORTED`/`REFUTED` result resting on fewer than two independent sources is flagged
-`limited_corroboration = true` and says so in the explanation.
+**Single-source safeguard.** A verdict resting on one independent source must clear a *higher* bar,
+`tau_single` (default 0.75, `VERITY_TAU_NLI_SINGLE_SOURCE`) than a corroborated one. A lone passage
+scoring between `tau` and `tau_single` is too weak to carry a verdict and returns
+`INSUFFICIENT_EVIDENCE` instead of `SUPPORTED`/`REFUTED`. This trades recall for precision — a
+genuine claim supported by a single weak source is reported as insufficient rather than
+`SUPPORTED`. When a lone source does clear `tau_single`, the result is flagged
+`limited_corroboration = true` and says so in the explanation. Corroborated verdicts and
+`CONFLICTING_EVIDENCE` are unaffected by `tau_single`.
 
 **Example.** Two identical sentences mirrored on two domains → one group → not enough for
 unqualified corroboration. Two different pages that each independently entail the claim → two

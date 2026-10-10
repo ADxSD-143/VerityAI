@@ -287,7 +287,11 @@ class Analyzer:
                 support_sources=0, contradict_sources=0, independent_groups=0,
             )
         else:
-            aggregate_result = aggregate(agg_inputs, tau=self.settings.verity_tau_nli)
+            aggregate_result = aggregate(
+                agg_inputs,
+                tau=self.settings.verity_tau_nli,
+                tau_single=self.settings.verity_tau_nli_single_source,
+            )
 
         if not scores and analyzed:
             aggregate_result = AggregateResult(

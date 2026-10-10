@@ -26,6 +26,9 @@ guess**.
 
 - It **never** forces a verdict: weak or absent evidence yields `INSUFFICIENT_EVIDENCE`, and
   unreachable sources yield `UNABLE_TO_ASSESS`.
+- A verdict resting on a **single independent source** must clear a higher NLI bar (`tau_single`,
+  default 0.75) than a corroborated one; otherwise it returns `INSUFFICIENT_EVIDENCE` rather than a
+  confident verdict.
 - It flags `limited_corroboration` when a verdict rests on a single independent source.
 - It lists `sources_queried` and `source_failures` so the user can see what was actually checked.
 - It returns the passages themselves, with links, so the user can read the evidence directly.

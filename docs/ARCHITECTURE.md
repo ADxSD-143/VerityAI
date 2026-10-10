@@ -86,8 +86,9 @@ Aggregation is explicit rule-based (see `docs/theory/evidence-aggregation.md`):
 |---|---|
 | no strong evidence either way | `INSUFFICIENT_EVIDENCE` |
 | strong support **and** strong contradiction | `CONFLICTING_EVIDENCE` |
-| strong support only | `SUPPORTED` (flagged `limited_corroboration` if < 2 independent sources) |
-| strong contradiction only | `REFUTED` (same flag rule) |
+| strong support only, corroborated or single source with score ≥ `tau_single` | `SUPPORTED` (flagged `limited_corroboration` if < 2 independent sources) |
+| strong support only, single source with score < `tau_single` | `INSUFFICIENT_EVIDENCE` |
+| strong contradiction only | `REFUTED` (same single-source rule) |
 | all sources unreachable | `UNABLE_TO_ASSESS` |
 
 ## Failure paths

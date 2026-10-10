@@ -9,6 +9,12 @@ Policy (documented, and deliberately not tuned on the evaluation sample):
   * strong support and strong contradiction -> CONFLICTING_EVIDENCE;
   * otherwise the side with strong evidence decides, and ``limited_corroboration``
     is set when that side rests on fewer than two independent sources.
+
+A verdict that rests on a **single independent source** must clear a higher bar
+(``tau_single``) than a corroborated one. A lone passage whose best score sits between
+``tau`` and ``tau_single`` is too weak to carry a verdict on its own and yields
+INSUFFICIENT_EVIDENCE instead of SUPPORTED/REFUTED. This closes the failure mode where one
+spurious entailment carried a nonsense claim.
 """
 
 from __future__ import annotations
@@ -37,7 +43,9 @@ class AggregateResult:
     independent_groups: int
 
 
-def aggregate(items: list[AggregateInput], *, tau: float) -> AggregateResult:
+def aggregate(
+    items: list[AggregateInput], *, tau: float, tau_single: float = 0.75
+) -> AggregateResult:
     strong = [item for item in items if item.score >= tau]
     support = [item for item in strong if item.label == "entailment"]
     contradict = [item for item in strong if item.label == "contradiction"]
@@ -82,6 +90,18 @@ def aggregate(items: list[AggregateInput], *, tau: float) -> AggregateResult:
         )
 
     if s_pass > 0:
+        if s_src < 2 and max(item.score for item in support) < tau_single:
+            return AggregateResult(
+                status=Verdict.INSUFFICIENT_EVIDENCE,
+                explanation=(
+                    f"{s_pass} passage(s) from a single independent source entail the "
+                    f"claim, but the best NLI score is below the {tau_single:.2f} required "
+                    f"to stand on a single source; no verdict is given."
+                ),
+                limited_corroboration=False,
+                support_passages=s_pass, contradict_passages=0,
+                support_sources=s_src, contradict_sources=0, independent_groups=groups,
+            )
         limited = s_src < 2
         return AggregateResult(
             status=Verdict.SUPPORTED,
@@ -96,6 +116,18 @@ def aggregate(items: list[AggregateInput], *, tau: float) -> AggregateResult:
             support_sources=s_src, contradict_sources=0, independent_groups=groups,
         )
 
+    if c_src < 2 and max(item.score for item in contradict) < tau_single:
+        return AggregateResult(
+            status=Verdict.INSUFFICIENT_EVIDENCE,
+            explanation=(
+                f"{c_pass} passage(s) from a single independent source contradict the "
+                f"claim, but the best NLI score is below the {tau_single:.2f} required "
+                f"to stand on a single source; no verdict is given."
+            ),
+            limited_corroboration=False,
+            support_passages=0, contradict_passages=c_pass,
+            support_sources=0, contradict_sources=c_src, independent_groups=groups,
+        )
     limited = c_src < 2
     return AggregateResult(
         status=Verdict.REFUTED,

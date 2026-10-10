@@ -125,11 +125,11 @@ saved results; docs distinguish implemented/experimental/planned.
 **Recorded.** Docs written: `README.md`, `docs/ARCHITECTURE.md`, `API.md`, `SECURITY.md`,
 `DATASETS.md`, `EVALUATION.md` (with recorded results), `DEVELOPMENT_LOG.md`, 11 `docs/theory/*`
 pages, 4 `docs/experiments/*` records. `.github/workflows/ci.yml` runs `ruff` + `pytest`.
-**Caveat:** CI has **not run on GitHub** yet (repo not published), so the CI gate is written but
-unsigned-off there; the same commands pass locally.
+**CI verified on GitHub:** run #2 on `f97a075` concluded **success** (run id `38047977416`); run #1
+on `47a7602` also succeeded. Repo is public at `https://github.com/ADxSD-143/VerityAI`.
 **Risks/fallback.** none blocking.
 
-## M7 — GitHub publication and free deployment — `BLOCKED`
+## M7 — GitHub publication and free deployment — `IN PROGRESS`
 
 **Objective.** Publish source and deploy publicly.
 **Deliverables.** Public `VerityAI` repo; pushed commits; verified CI; HF Space Docker
@@ -141,8 +141,12 @@ public frontend + `/health` respond; ≥1 real end-to-end analysis succeeds (or 
 blocker reported); no secrets exposed.
 **Risks/fallback.** `gh` CLI missing / HF token missing → prepare all artifacts, document the
 exact blocker and the one manual step required; never claim deployment without verification.
-**Blocker (actual).** `gh` is not installed, there is no GitHub credential (no `GH_TOKEN`, no
-stored credential helper) and no Hugging Face token. Docker is also not installed, so the image
-cannot be built locally. All deploy artifacts are ready (`Dockerfile`, README Spaces frontmatter,
-port 7860). Required user action: install/authenticate `gh` and `huggingface-cli`, then the
-commands in `docs/PROJECT_STATUS.md` finish M7.
+**Recorded (GitHub half — done).** Repository is **public** at
+`https://github.com/ADxSD-143/VerityAI`; `main` = `f97a075`; GitHub Actions CI **green**
+(run `38047977416`, success).
+**Pending (deployment half).** The Hugging Face Space is **not deployed**. No Hugging Face token is
+present (no `HF_TOKEN`, no cached login) and Docker is not installed, so the image cannot be built
+locally (HF Spaces builds it server-side). Deploy artifacts are ready (`Dockerfile`, README Spaces
+frontmatter, port 7860). Required user action: `huggingface-cli login` (write token), create the
+Docker Space, push, then verify the public frontend + `/health` + one real analysis and record the
+URL in `README.md` (`DEPLOY_URL`). M7 is **not** `PASS` until that is verified.

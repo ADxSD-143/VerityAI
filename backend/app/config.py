@@ -35,6 +35,7 @@ class Settings(BaseSettings):
     verity_reranker_revision: str | None = None
 
     verity_tau_nli: float = Field(default=0.5, ge=0.0, le=1.0)
+    verity_tau_nli_single_source: float = Field(default=0.75, ge=0.0, le=1.0)
     verity_top_k_retrieval: int = Field(default=10, ge=1, le=100)
     verity_top_k_nli: int = Field(default=6, ge=1, le=50)
     verity_max_claims: int = Field(default=5, ge=1, le=20)

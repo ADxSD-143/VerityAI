@@ -47,3 +47,31 @@ def test_weak_evidence_is_insufficient():
 
 def test_empty_evidence_is_insufficient():
     assert aggregate([], tau=0.5).status == Verdict.INSUFFICIENT_EVIDENCE
+
+
+def test_single_source_weak_support_is_insufficient():
+    result = aggregate([AggregateInput("entailment", 0.55, 0)], tau=0.5)
+    assert result.status == Verdict.INSUFFICIENT_EVIDENCE
+    assert result.support_passages == 1
+    assert result.support_sources == 1
+
+
+def test_single_source_weak_contradiction_is_insufficient():
+    result = aggregate([AggregateInput("contradiction", 0.55, 0)], tau=0.5)
+    assert result.status == Verdict.INSUFFICIENT_EVIDENCE
+    assert result.contradict_passages == 1
+
+
+def test_single_source_confident_contradiction_is_refuted():
+    result = aggregate([AggregateInput("contradiction", 0.9, 0)], tau=0.5)
+    assert result.status == Verdict.REFUTED
+    assert result.limited_corroboration is True
+
+
+def test_conflicting_evidence_with_weak_single_sources_stays_conflicting():
+    result = aggregate(
+        [AggregateInput("entailment", 0.55, 0), AggregateInput("contradiction", 0.55, 1)],
+        tau=0.5,
+    )
+    assert result.status == Verdict.CONFLICTING_EVIDENCE
+
