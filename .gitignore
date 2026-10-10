@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+build/
+dist/
+.venv/
+venv/
+env/
+
+# Tooling caches
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# Secrets / local config
+.env
+.env.local
+
+# Data and model caches (never commit weights or corpora)
+.hf-cache/
+hf-cache/
+data/fever_corpus/
+data/cache/
+*.bin
+*.safetensors
+*.pt
+*.onnx
+
+# Experiment scratch
+experiments/results/*.tmp
+experiments/results/*.partial.json
+
+# OS / editor
+.DS_Store
+Thumbs.db
+*.log
+
+# Command Code session tooling
+.commandcode/

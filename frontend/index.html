@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>VerityAI — evidence-grounded fact checking</title>
+  <meta name="description" content="VerityAI checks a claim, paragraph, or article URL against retrieved evidence from permitted public sources and shows its sources, its uncertainty, and its limits." />
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔎</text></svg>" />
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">V</span>
+        <div>
+          <h1>VerityAI</h1>
+          <p class="tagline">Evidence-grounded, multi-source claim checking</p>
+        </div>
+      </div>
+      <p class="header-note">
+        VerityAI does not know the truth of every statement. It retrieves evidence
+        and reports what that evidence says — and what it does not.
+      </p>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="panel input-panel" aria-labelledby="input-heading">
+      <h2 id="input-heading" class="visually-hidden">Submit a claim</h2>
+
+      <div class="tabs" role="tablist" aria-label="Input type">
+        <button role="tab" id="tab-claim" aria-selected="true" aria-controls="input-panel-body" data-mode="claim" class="tab active">Claim</button>
+        <button role="tab" id="tab-text" aria-selected="false" aria-controls="input-panel-body" data-mode="text" class="tab">Paragraph / article text</button>
+        <button role="tab" id="tab-url" aria-selected="false" aria-controls="input-panel-body" data-mode="url" class="tab">Article URL</button>
+      </div>
+
+      <form id="analyze-form" novalidate>
+        <div id="input-panel-body">
+          <label id="text-label" for="text-input">Claim</label>
+          <textarea id="text-input" rows="3" maxlength="20000"
+            placeholder="e.g. The Eiffel Tower is located in Paris."></textarea>
+
+          <label id="url-label" for="url-input" hidden>Article URL</label>
+          <input id="url-input" type="url" hidden
+            placeholder="https://example.com/article" autocomplete="off" />
+        </div>
+
+        <p class="hint" id="input-hint">Submit one clear statement. Names, dates and numbers are kept as written.</p>
+
+        <div class="row">
+          <button type="submit" id="analyze-btn" class="primary">Analyze</button>
+          <button type="button" id="clear-btn" class="ghost">Clear</button>
+        </div>
+      </form>
+
+      <div class="examples">
+        <span>Examples:</span>
+        <button type="button" class="chip" data-example="The Eiffel Tower is located in Paris.">Eiffel Tower</button>
+        <button type="button" class="chip" data-example="The Great Wall of China is located in Japan.">Contradicted claim</button>
+        <button type="button" class="chip" data-example="Python was created by Guido van Rossum and first released in 1991.">Programming language</button>
+        <button type="button" class="chip" data-example="Aspirin was first synthesised by Felix Hoffmann at Bayer in 1897.">Science history</button>
+      </div>
+    </section>
+
+    <div id="status-region" class="status-region" role="status" aria-live="polite"></div>
+
+    <section id="results" class="results" aria-label="Analysis results"></section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>
+        <strong>Disclaimer.</strong> VerityAI is a research prototype. Model outputs can be
+        wrong. Similarity, entailment and confidence scores describe an evidence–claim
+        pair; they are <em>not</em> the probability that a claim is true. Always read the
+        cited sources.
+      </p>
+      <p class="muted">
+        Sources queried: Wikipedia / MediaWiki, Wikidata, OpenAlex, and (when configured)
+        ClaimReview fact-checks. Only permitted sources are queried.
+      </p>
+    </div>
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>
