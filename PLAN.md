@@ -96,7 +96,7 @@ documented as **experimental / unverified** (no labelled multilingual set obtain
 **Risks/fallback.** FEVER wiki dump too large → fixed recorded corpus reconstructed from
 live Wikipedia for gold + distractor titles; limitation documented.
 
-## M5 — Security and reliability — `NOT STARTED`
+## M5 — Security and reliability — `PASS`
 
 **Objective.** SSRF-safe URL extraction and robust failure handling.
 **Deliverables.** URL validation (scheme, IP ranges, redirects); size/time caps; content-type
@@ -104,8 +104,16 @@ allowlist; timeout/error handling; security tests; dependency + secret review; r
 **Verification.** `pytest -q -m "not live"` incl. `backend/tests/test_url_safety.py`.
 **Gate.** Security-critical tests pass; failure paths never fabricate; no secrets committed;
 app stays functional when external sources fail.
+**Recorded.** `backend/tests/test_url_safety.py` (13 tests) covers private/loopback/link-local/
+metadata IPv4, IPv6 and IPv4-mapped forms, unsupported schemes, embedded credentials, unusual
+ports, missing host, **redirect re-validation to a private address**, oversized response,
+unsupported content type, timeout and upstream error status. Full suite: **69 tests pass**, ruff
+clean. Secret scan clean (no `.env`, no secret-named files, no tracked file > 1 MB). Failure paths
+(source error, all-sources-failed → `UNABLE_TO_ASSESS`, unknown URL → 400) are covered by tests.
+**Limitation recorded:** passing these tests does not prove comprehensive security, and DNS
+rebinding TOCTOU is mitigated, not eliminated (`docs/SECURITY.md`).
 
-## M6 — Documentation and CI — `NOT STARTED`
+## M6 — Documentation and CI — `PASS`
 
 **Objective.** Complete, accurate documentation and continuous integration.
 **Deliverables.** `README.md`, `docs/ARCHITECTURE.md`, `DATASETS.md`, `EVALUATION.md`,
@@ -114,8 +122,14 @@ app stays functional when external sources fail.
 **Verification.** CI runs `ruff check` + `pytest -q`; local clean-env setup works.
 **Gate.** Setup works from clean env; CI runs documented checks; metrics traceable to code +
 saved results; docs distinguish implemented/experimental/planned.
+**Recorded.** Docs written: `README.md`, `docs/ARCHITECTURE.md`, `API.md`, `SECURITY.md`,
+`DATASETS.md`, `EVALUATION.md` (with recorded results), `DEVELOPMENT_LOG.md`, 11 `docs/theory/*`
+pages, 4 `docs/experiments/*` records. `.github/workflows/ci.yml` runs `ruff` + `pytest`.
+**Caveat:** CI has **not run on GitHub** yet (repo not published), so the CI gate is written but
+unsigned-off there; the same commands pass locally.
+**Risks/fallback.** none blocking.
 
-## M7 — GitHub publication and free deployment — `NOT STARTED`
+## M7 — GitHub publication and free deployment — `BLOCKED`
 
 **Objective.** Publish source and deploy publicly.
 **Deliverables.** Public `VerityAI` repo; pushed commits; verified CI; HF Space Docker
@@ -127,3 +141,8 @@ public frontend + `/health` respond; ≥1 real end-to-end analysis succeeds (or 
 blocker reported); no secrets exposed.
 **Risks/fallback.** `gh` CLI missing / HF token missing → prepare all artifacts, document the
 exact blocker and the one manual step required; never claim deployment without verification.
+**Blocker (actual).** `gh` is not installed, there is no GitHub credential (no `GH_TOKEN`, no
+stored credential helper) and no Hugging Face token. Docker is also not installed, so the image
+cannot be built locally. All deploy artifacts are ready (`Dockerfile`, README Spaces frontmatter,
+port 7860). Required user action: install/authenticate `gh` and `huggingface-cli`, then the
+commands in `docs/PROJECT_STATUS.md` finish M7.

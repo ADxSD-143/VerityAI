@@ -39,22 +39,39 @@ GitHub CLI install + Hugging Face auth.
 - M7 publication/deployment.
 
 ## Next Actions
-1. Install and authenticate the GitHub CLI (`winget install --id GitHub.cli`), then create the
-   public repo and push.
-2. Authenticate Hugging Face (`huggingface-cli login` or `HF_TOKEN`), then create the Docker Space.
-3. After deploy: verify the public frontend + `/health` + one real analysis, and replace the
+1. Install and authenticate the GitHub CLI, then create the public repo and push:
+
+   ```powershell
+   winget install --id GitHub.cli -e --accept-source-agreements --accept-package-agreements
+   gh auth login                       # interactive; needs your credential
+   git remote add origin https://github.com/<your-account>/VerityAI.git
+   git push -u origin main
+   gh repo edit --visibility public
+   ```
+
+2. Authenticate Hugging Face and create the Docker Space:
+
+   ```powershell
+   pip install "huggingface_hub[cli]"
+   huggingface-cli login               # needs your write token
+   huggingface-cli repo create VerityAI --type space --space_sdk docker
+   git remote add space https://huggingface.co/spaces/<your-account>/VerityAI
+   git push space main
+   ```
+
+3. After deploy: verify the public frontend + `/health` + one real analysis, then replace the
    `DEPLOY_URL` placeholder in `README.md`.
 4. Run CI on GitHub and confirm it is green.
 
 ## Milestone Gates
-- M0 **PASS** · M1 **PASS** · M2 **PASS** · M3 **PASS** · M4 **PASS** · M5/M6 code+docs complete
-  (gate sign-off pending a published CI run) · M7 **BLOCKED** on credentials.
+- M0 **PASS** · M1 **PASS** · M2 **PASS** · M3 **PASS** · M4 **PASS** · M5 **PASS** ·
+  M6 **PASS** (CI workflow written; not yet run on GitHub) · M7 **BLOCKED** on credentials.
 
 ## Tests and Verification
 | Command | Outcome |
 |---|---|
 | `ruff check backend experiments scripts` | All checks passed |
-| `pytest -q` (63 tests) | exit code 0, all passed |
+| `pytest -q` (69 tests) | exit code 0, all passed |
 | `pytest -q -m live` | not yet run (opt-in; sources already exercised via `/api/analyze` and `eval_e2e`) |
 | `POST /api/analyze` (live) | 200, real multi-source evidence, 11.6 s |
 | `POST /api/analyze-url` (metadata IP) | 400 `unsafe_url` |
