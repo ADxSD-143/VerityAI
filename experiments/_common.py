@@ -185,3 +185,26 @@ def mean(values: list[float]) -> float | None:
     if not values:
         return None
     return sum(values) / len(values)
+
+
+def bootstrap_mean_ci(
+    values: list[float],
+    *,
+    seed: int = 42,
+    n_resamples: int = 2000,
+    confidence: float = 0.95,
+) -> dict[str, float] | None:
+    """Percentile bootstrap CI for a sample mean, with deterministic resampling."""
+    if not values:
+        return None
+    rng = random.Random(seed)
+    size = len(values)
+    estimates = [
+        sum(values[rng.randrange(size)] for _ in range(size)) / size
+        for _ in range(n_resamples)
+    ]
+    estimates.sort()
+    tail = (1.0 - confidence) / 2.0
+    low = min(n_resamples - 1, max(0, int(tail * n_resamples)))
+    high = min(n_resamples - 1, max(0, int((1.0 - tail) * n_resamples)))
+    return {"lower": estimates[low], "upper": estimates[high]}

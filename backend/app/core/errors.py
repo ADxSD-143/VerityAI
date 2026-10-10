@@ -1,9 +1,4 @@
-"""Shared error types.
-
-Every error carries a stable machine code so the API layer can translate it into a
-status code and a safe public message without leaking tracebacks or paths.
-"""
-
+"""Shared error types."""
 from __future__ import annotations
 
 from typing import Any
@@ -42,3 +37,8 @@ class ModelLoadError(VerityError):
 class SourceError(VerityError):
     code = "source_error"
     http_status = 502
+
+
+class AnalysisTimeoutError(VerityError):
+    code = "analysis_timeout"
+    http_status = 504

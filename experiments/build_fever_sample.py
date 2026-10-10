@@ -61,7 +61,7 @@ def main() -> None:
     parser.add_argument(
         "--distractors",
         type=int,
-        default=800,
+        default=4000,
         help="non-gold Wikipedia pages added to the retrieval corpus",
     )
     args = parser.parse_args()

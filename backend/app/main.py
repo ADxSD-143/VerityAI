@@ -1,10 +1,8 @@
 """FastAPI application factory.
 
-Serves the JSON API under ``/api`` (plus ``/health``) and mounts the static,
-build-free frontend at ``/``. Errors are translated to a stable JSON shape without
-leaking tracebacks, local paths or secrets.
+Serves the JSON API under /api (plus /health) and mounts the static frontend at /.
+Errors are translated to a stable JSON shape without leaking tracebacks or local paths.
 """
-
 from __future__ import annotations
 
 import logging
@@ -22,13 +20,13 @@ from fastapi.staticfiles import StaticFiles
 
 from . import __version__
 from .api.routes import router
-from .config import get_settings
+from .config import Settings, get_settings
 from .core.errors import VerityError
+from .core.limits import RequestLimitsMiddleware
 from .schemas.models import ErrorResponse
 from .services.analyzer import Analyzer
 
 logger = logging.getLogger("verityai")
-
 FRONTEND_DIR = Path(__file__).resolve().parents[2] / "frontend"
 
 
@@ -44,8 +42,8 @@ def _clean_validation_errors(errors: list[dict[str, Any]]) -> list[dict[str, Any
     return cleaned
 
 
-def create_app() -> FastAPI:
-    settings = get_settings()
+def create_app(settings_override: Settings | None = None) -> FastAPI:
+    settings = settings_override or get_settings()
     analyzer = Analyzer(settings)
 
     @asynccontextmanager
@@ -65,8 +63,16 @@ def create_app() -> FastAPI:
         lifespan=lifespan,
     )
     app.state.analyzer = analyzer
+    app.state.settings = settings
     app.state.started_at = time.time()
 
+    app.add_middleware(
+        RequestLimitsMiddleware,
+        max_requests=settings.verity_rate_limit_requests,
+        window_s=settings.verity_rate_limit_window_s,
+        max_body_bytes=settings.verity_max_request_bytes,
+        body_timeout_s=settings.verity_request_body_timeout_s,
+    )
     app.add_middleware(
         CORSMiddleware,
         allow_origins=settings.cors_origin_list,
@@ -74,7 +80,6 @@ def create_app() -> FastAPI:
         allow_methods=["GET", "POST", "OPTIONS"],
         allow_headers=["*"],
     )
-
     app.include_router(router)
 
     @app.exception_handler(VerityError)
@@ -97,7 +102,6 @@ def create_app() -> FastAPI:
 
     if FRONTEND_DIR.is_dir():
         app.mount("/", StaticFiles(directory=str(FRONTEND_DIR), html=True), name="frontend")
-
     return app
 
 

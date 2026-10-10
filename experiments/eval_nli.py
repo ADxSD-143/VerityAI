@@ -24,7 +24,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "backend"))
 
-from _common import LABEL_TO_NLI, fetch_many, load_json, save_json  # noqa: E402
+from _common import LABEL_TO_NLI, bootstrap_mean_ci, fetch_many, load_json, save_json  # noqa: E402
 from app.analysis.nli import CANONICAL_LABELS, NLIModel  # noqa: E402
 from app.core.text import split_sentences, tokenize  # noqa: E402
 from app.retrieval.lexical import BM25Index  # noqa: E402
@@ -101,6 +101,7 @@ def main() -> None:
                 "expected": LABEL_TO_NLI[example["label"]],
                 "predicted": scored.label,
                 "score": scored.score,
+                "latency_ms": latencies[-1],
                 "premise": premise[:400],
             }
         )
@@ -118,6 +119,28 @@ def main() -> None:
     report = classification_report(y_true, y_pred, labels=labels, output_dict=True, zero_division=0) if y_true else {}
     matrix = confusion_matrix(y_true, y_pred, labels=labels).tolist() if y_true else []
 
+    def classification_bootstrap_ci(
+        truth: list[str], predicted: list[str], *, metric: str, seed: int
+    ) -> dict[str, float] | None:
+        if not truth:
+            return None
+        rng = random.Random(seed)
+        n = len(truth)
+        estimates: list[float] = []
+        for _ in range(2000):
+            indices = [rng.randrange(n) for _ in range(n)]
+            sampled_true = [truth[i] for i in indices]
+            sampled_pred = [predicted[i] for i in indices]
+            if metric == "accuracy":
+                value = sum(a == b for a, b in zip(sampled_true, sampled_pred, strict=True)) / n
+            else:
+                value = f1_score(
+                    sampled_true, sampled_pred, average="macro", labels=labels, zero_division=0
+                )
+            estimates.append(float(value))
+        estimates.sort()
+        return {"lower": estimates[49], "upper": estimates[1949]}
+
     payload = {
         "benchmark": "fever-dev-nli",
         "model": args.model,
@@ -125,14 +148,24 @@ def main() -> None:
         "n": len(y_true),
         "label_distribution": dict(Counter(y_true)),
         "accuracy": accuracy,
+        "accuracy_ci95": classification_bootstrap_ci(y_true, y_pred, metric="accuracy", seed=42),
         "macro_f1": macro_f1,
+        "macro_f1_ci95": classification_bootstrap_ci(y_true, y_pred, metric="macro_f1", seed=43),
+        "mean_latency_ms_ci95": bootstrap_mean_ci(latencies, seed=44),
+        "bootstrap": {
+            "method": "non-parametric percentile bootstrap over examples",
+            "resamples": 2000,
+            "seeds": {"accuracy": 42, "macro_f1": 43, "latency_ms": 44},
+            "confidence_level": 0.95,
+        },
         "per_class": report,
         "confusion_matrix": {"labels": labels, "matrix": matrix},
         "mean_latency_ms": sum(latencies) / len(latencies) if latencies else None,
         "records": records,
         "limitations": [
             "Premise is a BM25-selected sentence from a reconstructed page, not the frozen FEVER gold sentence.",
-            "NOT ENOUGH INFO premises are random non-gold sentences.",
+            "NOT ENOUGH INFO premises are sampled from a pooled sentence set that may include pages relevant to other claims.",
+            "The default model was trained/fine-tuned using FEVER, creating contamination risk for FEVER-dev metrics.",
         ],
     }
     path = save_json(args.out, payload)

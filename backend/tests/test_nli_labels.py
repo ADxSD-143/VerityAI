@@ -14,11 +14,24 @@ def test_canonicalize_label_variants():
     assert canonicalize_label("label_0") is None
 
 
-def test_label_map_read_from_config():
-    mapping = NLIModel._resolve_label_map(
-        _Config({0: "entailment", 1: "neutral", 2: "contradiction"})
-    )
-    assert mapping == {0: "entailment", 1: "neutral", 2: "contradiction"}
+@pytest.mark.parametrize(
+    ("model_id", "id2label", "expected"),
+    [
+        (
+            "MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli",
+            {0: "entailment", 1: "neutral", 2: "contradiction"},
+            {0: "entailment", 1: "neutral", 2: "contradiction"},
+        ),
+        (
+            "cross-encoder/nli-deberta-v3-small",
+            {0: "contradiction", 1: "entailment", 2: "neutral"},
+            {0: "contradiction", 1: "entailment", 2: "neutral"},
+        ),
+    ],
+)
+def test_candidate_model_label_maps_are_resolved_from_config(model_id, id2label, expected):
+    assert model_id
+    assert NLIModel._resolve_label_map(_Config(id2label)) == expected
 
 
 def test_label_map_rejects_unresolvable_labels():

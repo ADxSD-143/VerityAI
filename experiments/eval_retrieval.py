@@ -92,8 +92,12 @@ def main() -> None:
     except Exception as exc:  # noqa: BLE001
         print(f"Reranker unavailable, skipping: {exc}")
 
-    metrics = {name: {"recall": [], "precision": [], "mrr": [], "latency_ms": []} for name in
-               ("tfidf", "bm25", "bge", "hybrid", "hybrid_rerank")}
+    method_names = ("tfidf", "bm25", "bge", "hybrid", "hybrid_rerank")
+    metrics = {
+        name: {"recall": [], "precision": [], "mrr": [], "latency_ms": []}
+        for name in method_names
+    }
+    paired_mrr_delta_bge_minus_hybrid: list[float] = []
     evaluated = 0
     skipped_no_gold = 0
 
@@ -139,10 +143,19 @@ def main() -> None:
                       "hybrid": hybrid_order}
         if hybrid_rerank_order is not None:
             per_method["hybrid_rerank"] = hybrid_rerank_order
+        per_claim = {}
         for name, order in per_method.items():
-            metrics[name]["recall"].append(recall_at_k(gold, order, TOP_K))
-            metrics[name]["precision"].append(precision_at_k(gold, order, TOP_K))
-            metrics[name]["mrr"].append(reciprocal_rank(gold, order))
+            per_claim[name] = {
+                "recall": recall_at_k(gold, order, TOP_K),
+                "precision": precision_at_k(gold, order, TOP_K),
+                "mrr": reciprocal_rank(gold, order),
+            }
+            for metric_name, value in per_claim[name].items():
+                if value is not None:
+                    metrics[name][metric_name].append(value)
+        paired_mrr_delta_bge_minus_hybrid.append(
+            per_claim["bge"]["mrr"] - per_claim["hybrid"]["mrr"]
+        )
 
     summary = {}
     for name, values in metrics.items():
@@ -150,9 +163,13 @@ def main() -> None:
             continue
         summary[name] = {
             "recall@5": mean(values["recall"]),
+            "recall@5_ci95": bootstrap_mean_ci(values["recall"], seed=42),
             "precision@5": mean(values["precision"]),
+            "precision@5_ci95": bootstrap_mean_ci(values["precision"], seed=43),
             "mrr": mean(values["mrr"]),
+            "mrr_ci95": bootstrap_mean_ci(values["mrr"], seed=44),
             "mean_latency_ms": mean(values["latency_ms"]),
+            "mean_latency_ms_ci95": bootstrap_mean_ci(values["latency_ms"], seed=45),
             "n": len(values["recall"]),
         }
 
@@ -167,6 +184,19 @@ def main() -> None:
         "dense_model": args.dense_model,
         "reranker_model": args.reranker_model,
         "results": summary,
+        "paired_comparison": {
+            "metric": "MRR",
+            "difference": "BGE dense minus hybrid RRF",
+            "mean_difference": mean(paired_mrr_delta_bge_minus_hybrid),
+            "difference_ci95": bootstrap_mean_ci(paired_mrr_delta_bge_minus_hybrid, seed=46),
+            "n": len(paired_mrr_delta_bge_minus_hybrid),
+        },
+        "bootstrap": {
+            "method": "non-parametric percentile bootstrap over claims",
+            "resamples": 2000,
+            "seed": 42,
+            "confidence_level": 0.95,
+        },
         "limitations": [
             "Corpus reconstructed from live Wikipedia, not the frozen FEVER dump.",
             "Relevance is page-level (gold evidence page in top-k), not sentence-level.",
