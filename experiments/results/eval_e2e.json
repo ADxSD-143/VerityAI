@@ -1,0 +1,100 @@
+{
+  "benchmark": "hand-labelled-live-claims",
+  "n": 8,
+  "matches": 4,
+  "accuracy": 0.5,
+  "records": [
+    {
+      "claim": "The Eiffel Tower is located in Paris.",
+      "expected": "SUPPORTED",
+      "actual": "CONFLICTING_EVIDENCE",
+      "match": false,
+      "explanation": "5 passage(s) from 5 independent source(s) support the claim while 1 passage(s) from 1 independent source(s) contradict it. The evidence is in conflict; no verdict is forced.",
+      "support_passages": 5,
+      "contradict_passages": 1,
+      "latency_ms": 19810.856699943542,
+      "degraded": false
+    },
+    {
+      "claim": "The Great Wall of China is located in Japan.",
+      "expected": "REFUTED",
+      "actual": "REFUTED",
+      "match": true,
+      "explanation": "5 passage(s) from 3 independent source(s) contradict the claim (NLI score >= 0.50); no strong supporting evidence was retrieved.",
+      "support_passages": 0,
+      "contradict_passages": 5,
+      "latency_ms": 8773.56609981507,
+      "degraded": false
+    },
+    {
+      "claim": "The capital of Australia is Canberra.",
+      "expected": "SUPPORTED",
+      "actual": "SUPPORTED",
+      "match": true,
+      "explanation": "3 passage(s) from 3 independent source(s) entail the claim (NLI score >= 0.50); no strong contradicting evidence was retrieved.",
+      "support_passages": 3,
+      "contradict_passages": 0,
+      "latency_ms": 10747.123399982229,
+      "degraded": false
+    },
+    {
+      "claim": "The capital of Australia is Sydney.",
+      "expected": "REFUTED",
+      "actual": "CONFLICTING_EVIDENCE",
+      "match": false,
+      "explanation": "2 passage(s) from 2 independent source(s) support the claim while 2 passage(s) from 2 independent source(s) contradict it. The evidence is in conflict; no verdict is forced.",
+      "support_passages": 2,
+      "contradict_passages": 2,
+      "latency_ms": 8115.664700046182,
+      "degraded": false
+    },
+    {
+      "claim": "Python was created by Guido van Rossum.",
+      "expected": "SUPPORTED",
+      "actual": "SUPPORTED",
+      "match": true,
+      "explanation": "4 passage(s) from 3 independent source(s) entail the claim (NLI score >= 0.50); no strong contradicting evidence was retrieved.",
+      "support_passages": 4,
+      "contradict_passages": 0,
+      "latency_ms": 9837.106499820948,
+      "degraded": false
+    },
+    {
+      "claim": "Mount Everest is the highest mountain above sea level on Earth.",
+      "expected": "SUPPORTED",
+      "actual": "SUPPORTED",
+      "match": true,
+      "explanation": "4 passage(s) from 3 independent source(s) entail the claim (NLI score >= 0.50); no strong contradicting evidence was retrieved.",
+      "support_passages": 4,
+      "contradict_passages": 0,
+      "latency_ms": 2023.3901999890804,
+      "degraded": false
+    },
+    {
+      "claim": "The Amazon River is the longest river in the world by every measure.",
+      "expected": "CONFLICTING_EVIDENCE",
+      "actual": "REFUTED",
+      "match": false,
+      "explanation": "2 passage(s) from 2 independent source(s) contradict the claim (NLI score >= 0.50); no strong supporting evidence was retrieved.",
+      "support_passages": 0,
+      "contradict_passages": 2,
+      "latency_ms": 10833.513600053266,
+      "degraded": false
+    },
+    {
+      "claim": "Zorbax-9 was the first spacecraft to land on the Sun.",
+      "expected": "INSUFFICIENT_EVIDENCE",
+      "actual": "SUPPORTED",
+      "match": false,
+      "explanation": "1 passage(s) from 1 independent source(s) entail the claim (NLI score >= 0.50); no strong contradicting evidence was retrieved. Corroboration is limited to a single source.",
+      "support_passages": 1,
+      "contradict_passages": 0,
+      "latency_ms": 6522.8081999812275,
+      "degraded": false
+    }
+  ],
+  "limitations": [
+    "Small, hand-labelled set; indicative only, not a general accuracy estimate.",
+    "Live sources change over time; results are not fully reproducible."
+  ]
+}

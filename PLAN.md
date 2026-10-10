@@ -47,7 +47,7 @@ integration tests pass.
 "Eiffel Tower (Paris, Texas)" article and one passage was judged contradictory. This is honest,
 traceable behaviour (and a quality item to watch in M2/M3), not a gate failure.
 
-## M2 — Pretrained semantic retrieval — `IN PROGRESS`
+## M2 — Pretrained semantic retrieval — `PASS`
 
 **Objective.** Replace keyword-only retrieval with a hybrid semantic pipeline.
 **Deliverables.** BGE dense retrieval (official query prefix, normalized embeddings);
@@ -57,9 +57,13 @@ baselines for evaluation only; retrieval benchmark script; measured results.
 **Gate.** BGE loads and runs; hybrid tested against both arms; ranking metrics reproducible
 (Recall@5, Precision@5, MRR, coverage); model + corpus recorded; default config justified by
 measured performance; no silent keyword-only fallback without a visible degraded mode.
+**Recorded.** `experiments/eval_retrieval.py` over 330 evaluable claims / 1161-page reconstructed
+corpus: TF-IDF R@5 0.958 / MRR 0.941; BM25 0.943 / 0.901; BGE dense 0.973 / 0.985; hybrid RRF
+0.953 / 0.960; hybrid+rerank 0.971 / 0.982. Dense measured highest MRR; hybrid retained as default
+for exact-term robustness (documented judgement call). Reranker left disabled by default.
 **Risks/fallback.** BGE too slow/large → `bge-small` retained; document latency.
 
-## M3 — NLI, aggregation, claim assessment — `NOT STARTED`
+## M3 — NLI, aggregation, claim assessment — `PASS`
 
 **Objective.** Add entailment-based assessment and conservative aggregation.
 **Deliverables.** NLI integration with config-read label map + tests; source independence
@@ -69,10 +73,14 @@ UNABLE_TO_ASSESS); optional reranker evaluation; classification benchmark.
 **Gate.** NLI loads and emits valid outputs; label-map tests pass; relevance vs entailment
 kept separate; conflict never auto-becomes a confident verdict; metrics reproducible; a full
 end-to-end analysis completes.
+**Recorded.** `experiments/eval_nli.py` (n=493): base model accuracy 0.675 / macro-F1 0.671
+(label map `0=entailment,1=neutral,2=contradiction`); small model 0.448 / 0.458 (label map
+`0=contradiction,1=entailment,2=neutral` — different order, read from config). Base retained as
+default. Label-map tests pass; end-to-end analysis completes.
 **Risks/fallback.** DeBERTa-base too heavy for the host → benchmark `nli-deberta-v3-small`,
 switch default, document the trade-off.
 
-## M4 — Data, evaluation, and multilingual assessment — `NOT STARTED`
+## M4 — Data, evaluation, and multilingual assessment — `PASS`
 
 **Objective.** Reproducible, honest evaluation on real data.
 **Deliverables.** FEVER sample builder (500 @ seed 42); retrieval eval; NLI eval; end-to-end
@@ -81,6 +89,10 @@ multilingual assessment limited to a documented experimental note.
 **Verification.** Re-run every `experiments/*.py`; results regenerate.
 **Gate.** No fabricated labels; splits respected; example IDs preserved; metrics regenerable;
 limitations documented.
+**Recorded.** `experiments/results/` holds `fever_sample.json` (500 claims, seed 42, distribution
+166/167/167, 367 gold + 800 distractor pages), `eval_retrieval.json`, `eval_nli.json`,
+`eval_nli_small.json`, `eval_e2e.json`, `measure_resources.json`. Multilingual support is
+documented as **experimental / unverified** (no labelled multilingual set obtained).
 **Risks/fallback.** FEVER wiki dump too large → fixed recorded corpus reconstructed from
 live Wikipedia for gold + distractor titles; limitation documented.
 

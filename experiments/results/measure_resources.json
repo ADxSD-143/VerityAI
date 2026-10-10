@@ -1,0 +1,22 @@
+{
+  "device": "cpu",
+  "bge_load_s": 13.264,
+  "bge_encode_8_batch_ms": 468.05,
+  "bge_dir_bytes": 134505980,
+  "nli_load_s": 3.3,
+  "nli_predict_4_batch_ms": 413.85,
+  "nli_dir_bytes": 380001631,
+  "nli_label_map": {
+    "0": "entailment",
+    "1": "neutral",
+    "2": "contradiction"
+  },
+  "reranker_load_s": 3.296,
+  "reranker_predict_8_batch_ms": 130.12,
+  "reranker_dir_bytes": 91815798,
+  "loaded_models": [
+    "cross-encoder:cross-encoder/ms-marco-MiniLM-L-6-v2@default",
+    "nli:MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli@default",
+    "sentence-transformer:BAAI/bge-small-en-v1.5@default"
+  ]
+}

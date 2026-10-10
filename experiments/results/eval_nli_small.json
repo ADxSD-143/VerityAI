@@ -1,0 +1,4025 @@
+{
+  "benchmark": "fever-dev-nli",
+  "model": "cross-encoder/nli-deberta-v3-small",
+  "label_map": {
+    "0": "contradiction",
+    "1": "entailment",
+    "2": "neutral"
+  },
+  "n": 493,
+  "label_distribution": {
+    "contradiction": 162,
+    "entailment": 164,
+    "neutral": 167
+  },
+  "accuracy": 0.4482758620689655,
+  "macro_f1": 0.45826065034501545,
+  "per_class": {
+    "entailment": {
+      "precision": 0.92,
+      "recall": 0.42073170731707316,
+      "f1-score": 0.5774058577405857,
+      "support": 164.0
+    },
+    "neutral": {
+      "precision": 0.2897727272727273,
+      "recall": 0.30538922155688625,
+      "f1-score": 0.29737609329446063,
+      "support": 167.0
+    },
+    "contradiction": {
+      "precision": 0.41735537190082644,
+      "recall": 0.6234567901234568,
+      "f1-score": 0.5,
+      "support": 162.0
+    },
+    "accuracy": 0.4482758620689655,
+    "macro avg": {
+      "precision": 0.5423760330578513,
+      "recall": 0.44985923966580543,
+      "f1-score": 0.45826065034501545,
+      "support": 493.0
+    },
+    "weighted avg": {
+      "precision": 0.5413460764756174,
+      "recall": 0.4482758620689655,
+      "f1-score": 0.45711230882278087,
+      "support": 493.0
+    }
+  },
+  "confusion_matrix": {
+    "labels": [
+      "entailment",
+      "neutral",
+      "contradiction"
+    ],
+    "matrix": [
+      [
+        69,
+        69,
+        26
+      ],
+      [
+        1,
+        51,
+        115
+      ],
+      [
+        5,
+        56,
+        101
+      ]
+    ]
+  },
+  "mean_latency_ms": 98.04536226209306,
+  "records": [
+    {
+      "claim": "Murda Beatz's real name is Marshall Mathers.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9800974726676941,
+      "premise": "He chose his stage name \"Murda Beatz\" to promote his music on YouTube."
+    },
+    {
+      "claim": "Hedda Gabler's world premiere took place at the Battle of Hastings.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9998028874397278,
+      "premise": "The world premiere was staged on 31 January 1891 at the Residenztheater in Munich."
+    },
+    {
+      "claim": "Ernest Medina participated in the My Lai Massacre.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.6784331202507019,
+      "premise": "== Decorations ==\nThe ribbon rack of Captain Medina:\n\n\n== See also ==\n\nMedina standard\n\n\n== References ==\n\n\n== External links ==\n\nHugh Thompson Foundation web site: (501(c)(3) nonprofit founded by Lawrence Colburn in honor of Hugh Thompson\nBiography of Ernest Medina\nCourt Martial Documents\nTrial Transcript\nINTO THE DARK: THE My Lai Massacre\nErnest Medina[link removed] Trial Watch\nFamous American T"
+    },
+    {
+      "claim": "Stripes had Conrad Dunn featured in it.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9899213314056396,
+      "premise": "Conrad Dunn (born March 9, 1950) is an American actor."
+    },
+    {
+      "claim": "A monk only avoids practicing religious asceticism.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9766518473625183,
+      "premise": "During such an encounter, the monk remains standing and eats only a measured amount."
+    },
+    {
+      "claim": "Paris (Paris Hilton album) incorporates elements of German.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9998475313186646,
+      "premise": "He served his mandatory military service with the Army's Infantry Training Centre at Evjemoen in Aust-Agder."
+    },
+    {
+      "claim": "Excuse My French is the debut album of an artist.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9914926886558533,
+      "premise": "Excuse My French is the debut studio album by Moroccan-American rapper French Montana."
+    },
+    {
+      "claim": "Rio's sequel was released on April 11, 2012.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9959684610366821,
+      "premise": "=== Accolades ===\n\n\n== Future ==\n\n\n=== Sequels ===\nA sequel, titled Rio 2, was released on April 11, 2014."
+    },
+    {
+      "claim": "Kentucky is known for bluegrass music.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9727411866188049,
+      "premise": "The Bluegrass Music Hall of Fame & Museum is located in Owensboro, while the annual Festival of the Bluegrass is held in Lexington."
+    },
+    {
+      "claim": "Excuse My French is the debut album of a hip hop recording artist.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9900569319725037,
+      "premise": "Excuse My French is the debut studio album by Moroccan-American rapper French Montana."
+    },
+    {
+      "claim": "Speech recognition is ignored in all fields.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.999718964099884,
+      "premise": "By combining decisions probabilistically at all lower levels, and making ultimate decisions only at the highest level, speech recognition is broken into several phases."
+    },
+    {
+      "claim": "Renato Balestra was born outside of Trieste.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9991742968559265,
+      "premise": "== Life and career ==\n\n\n=== Early life ===\nBorn in Trieste, Renato Balestra grew up immersed in the Mid-European cultural environment."
+    },
+    {
+      "claim": "Trevor Griffiths was born in an inner city area of Boston.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.7810022234916687,
+      "premise": "Trevor Griffiths (4 April 1935 – 29 March 2024) was an English dramatist."
+    },
+    {
+      "claim": "Polar bears are dependent on international aid.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.964037299156189,
+      "premise": "He was fined $10,000 by the NFL and agreed to donate another $10,000 to charity."
+    },
+    {
+      "claim": "Baz Luhrmann's film Waluigi is an epic historical romantic drama.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.8184875249862671,
+      "premise": "By 1884, they were meeting regularly, and in 1885, after an initial rejection, she agreed to marry him."
+    },
+    {
+      "claim": "Veeram is an award-winning film.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9970353841781616,
+      "premise": "From the 1820s, trappers and settlers from the U.S. and Canada began to arrive in Northern California."
+    },
+    {
+      "claim": "Tim Roth is not an English director.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.8132064938545227,
+      "premise": "Timothy Simon Roth (; born 14 May 1961) is an English actor."
+    },
+    {
+      "claim": "Ian Brennan is a film director.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9966961145401001,
+      "premise": "Bajpayee's followup was the thriller Lanka (2011)."
+    },
+    {
+      "claim": "Liam Neeson bought a British Academy of Film and Television Arts award.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9994462132453918,
+      "premise": "However Colonel Edward Lansdale, the man credited with the campaign, rejected the notion that his campaign had much effect on popular sentiment."
+    },
+    {
+      "claim": "Lemmy was recognized for his looks.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.49282482266426086,
+      "premise": "If you get one that looks good, you can always mess with the pickups if it sounds bad.\"\nWith Hawkwind, Lemmy used a Selmer amplifier."
+    },
+    {
+      "claim": "Rabies is a disease.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9933526515960693,
+      "premise": "It is classified as a neglected tropical disease."
+    },
+    {
+      "claim": "Michael Vick is a former football quarterback in the NFL.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9619945883750916,
+      "premise": "Michael Dwayne Vick (born June 26, 1980) is an American football coach and former professional quarterback who is the head coach for the Norfolk State Spartans."
+    },
+    {
+      "claim": "Murda Beatz is a record producer.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9936814308166504,
+      "premise": "Shane Lee Lindstrom (born February 11, 1994), known professionally as Murda Beatz, is a Canadian record producer."
+    },
+    {
+      "claim": "I Kissed a Girl was recorded by an American singer in 2008.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9967989921569824,
+      "premise": "The rapper performed live at the 2009 MTV Movie Awards on May 31, while he appeared on the covers of hip-hop magazines Vibe and XXL in their respective issues in June 2009; the latter was created by a deal struck with Eminem and Marvel Comics, where the rapper would pose as Marvel's main vigilante, the Punisher."
+    },
+    {
+      "claim": "Brazzers is a pornographic production company based in Montreal.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9971734285354614,
+      "premise": "Brazzers (, company name: MG Premium Ltd.) is a Canadian pornographic video production and distributing company headquartered in Montreal, Quebec, and legal domicile in Nicosia, Cyprus."
+    },
+    {
+      "claim": "Rupert Murdoch formed clay figures.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9997851252555847,
+      "premise": "By 1875, the town had a telegraph office, 16 saloons, and four dance halls, but the townsite-commissioner form of government needed an overhaul."
+    },
+    {
+      "claim": "Craig David was nominated for a judiciary position.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9998586177825928,
+      "premise": "Bullseye is saved, but Jessie is loaded onto a baggage tractor and taken to the plane."
+    },
+    {
+      "claim": "Valencia is a city.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9982592463493347,
+      "premise": "The city is ranked as a Gamma-level global city by the Globalization and World Cities Research Network."
+    },
+    {
+      "claim": "Harris Jayaraj is from Hyderabad.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9995560050010681,
+      "premise": "Harris Jayaraj (born 8 January 1975) is an Indian composer from Tamil Nadu."
+    },
+    {
+      "claim": "Damon Albarn released a debut album.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.6337178349494934,
+      "premise": "They released their debut album, Leisure, in 1991."
+    },
+    {
+      "claim": "Bessie Smith died on April 26, 1937.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9788249135017395,
+      "premise": "Bessie Smith (April 15, 1892 – September 26, 1937) was an American blues singer widely renowned during the Jazz Age."
+    },
+    {
+      "claim": "Lou Gehrig was voted a great first baseman.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9929922819137573,
+      "premise": "In 1969, the Baseball Writers' Association of America voted Gehrig the greatest first baseman of all time, and he was the leading vote-getter on the MLB All-Century Team, chosen by fans in 1999."
+    },
+    {
+      "claim": "The second album of Danny Brown was named XXX.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.5391743183135986,
+      "premise": "XXX was also named the 6th-best album of 2011 by Passion of the Weiss, which called it \"an uncomfortably honest self-portrait made even more remarkable by the fact that Danny Brown is alive to tell the story.\"\nOn November 1, 2011, Brown released his collaborative effort with American record producer Black Milk, an extended play (EP) titled Black and Brown!"
+    },
+    {
+      "claim": "David Packouz was born in the 1980's.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.8370864987373352,
+      "premise": "David Mordechai Packouz ( born February 16, 1982) is an American former arms dealer, musician and inventor."
+    },
+    {
+      "claim": "The CONCACAF Champions League is organized by CONCACAF.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9920200705528259,
+      "premise": "The CONCACAF Champions Cup, formerly known as the CONCACAF Champions League (2008–2023), is an international association football competition organized by CONCACAF as its top continental tournament for clubs from North America, Central America, and the Caribbean."
+    },
+    {
+      "claim": "Kendall Jenner is Instagram.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9774382710456848,
+      "premise": "Kendall Nicole Jenner (born November 3, 1995) is an American model, socialite, and media personality."
+    },
+    {
+      "claim": "Duff McKagan was born in Vietnam.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.999785840511322,
+      "premise": "Albarn provided a track for the film The White Helmets called \"Crashing Down\", an abandoned track initially planned for the Gorillaz album Plastic Beach."
+    },
+    {
+      "claim": "Invasion literature was completely uninfluential in the years leading up to the First World War.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9997543692588806,
+      "premise": "The genre was influential in Britain in shaping politics, national policies, and popular perceptions in the years leading up to the First World War, and remains a part of popular culture to this day."
+    },
+    {
+      "claim": "L.A. Reid has served as the CEO of an American record label owned by Sony Music Entertainment.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9975152015686035,
+      "premise": "Epic Records is an American record label owned by Sony Music Entertainment, a subsidiary of Sony Music Group, a subsidiary of Japanese conglomerate Sony Group Corporation."
+    },
+    {
+      "claim": "Lizzy Caplan is incapable of appearing in multiple television shows.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9968593120574951,
+      "premise": "== Filmography ==\n\n\n=== Film ===\n\n\n=== Television ===\n\n\n=== Audio ===\n\n\n== Awards and nominations ==\n\n\n== References ==\n\n\n== External links ==\n Media related to Lizzy Caplan at Wikimedia Commons\nLizzy Caplan at IMDb"
+    },
+    {
+      "claim": "Giada at Home was only available via satellite.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.834662675857544,
+      "premise": "== References ==\n\n\n== External links ==\nGiada at Home at IMDb"
+    },
+    {
+      "claim": "Kenneth Lonergan is the writer of Pacific Rim.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9997057318687439,
+      "premise": "Harris once again paired up with director Jeeva on Ullam Ketkumae after 12B. The music was appreciated for its excellency and synergy with the atmosphere in and out of the movie."
+    },
+    {
+      "claim": "Pink covered the song Rhythm Nation.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9973069429397583,
+      "premise": "So, Britney (\"Till The World Ends\"), Rihanna (\"Hard\"), Lady Gaga (\"Alejandro\"), and even the Spice Girls (\"Spice Up Your Life\") – you all have Ms. Jackson to thank.\"\n\n\n== Covers ==\nJacob Artist, Melissa Benoist, and Erinn Westbrook covered \"Rhythm Nation\" in a mashup with \"Nasty\" during the fifth season of Glee, in the episode \"Puppet Master.\" Pink covered \"Rhythm Nation\" for both the opening medl"
+    },
+    {
+      "claim": "The New York Knicks are one of the professional teams in the National Basketball Association's Eastern Conference.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9993234872817993,
+      "premise": "The New York Knickerbockers, commonly called the New York Knicks, are an American professional basketball team based in the New York City borough of Manhattan."
+    },
+    {
+      "claim": "Colin Kaepernick is quarterback for the 49ers.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9988933205604553,
+      "premise": "Colin Rand Kaepernick ( KAP-ər-nik; born November 3, 1987) is an American civil rights activist and former professional football quarterback."
+    },
+    {
+      "claim": "Alexandra Daddario is from Indiana.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.917511522769928,
+      "premise": "Conditions in the Grand Canyon region are generally dry, but substantial precipitation occurs twice annually, during seasonal pattern shifts in winter (when Pacific storms usually deliver widespread, moderate rain and high-elevation snow to the region from the west) and in late summer (due to the North American Monsoon, which delivers waves of moisture from the southeast, causing dramatic, localiz"
+    },
+    {
+      "claim": "Stripes only had Mark Hamil featured in it.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9539958834648132,
+      "premise": "It wasn't Reds or anything, but it captured what it was like on an Army base: It was cold, you had to wear the same green clothes, you had to do a lot of physical stuff, you got treated pretty badly, and had bad coffee.\"\nThe EM-50 Urban Assault Vehicle \"was built from a 1973-1978-era GMC Motorhome\"."
+    },
+    {
+      "claim": "Kesha was born on March 1st, 1987.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9941785335540771,
+      "premise": "== Early life ==\nKesha Rose Sebert was born on March 1, 1987, in Los Angeles."
+    },
+    {
+      "claim": "Chris Eubank Jr. was an only child.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9989204406738281,
+      "premise": "Though Rogen wishes she would have apologized to him personally as opposed to publicly, he affirmed that he still really liked her, and that he never would have wanted the incident to hurt her career."
+    },
+    {
+      "claim": "There was a song performed on Glee called Rhythm Nation.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9620935320854187,
+      "premise": "It has been covered by Pink, Crystal Kay, and Girls' Generation and has also been performed on Glee, The X Factor USA, and Britain's Got Talent."
+    },
+    {
+      "claim": "Lalla Ward is an artist.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "entailment",
+      "score": 0.9718368649482727,
+      "premise": "Sarah Jill \"Lalla\" Ward (born 28 June 1951) is an English actress, voice artist and author who is best known for playing the role of Romana II in the BBC television series Doctor Who from 1979 to 1981."
+    },
+    {
+      "claim": "Angelsberg had a population of 283 in 2008.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9879618287086487,
+      "premise": "Smigel brought his animated sketch, The Ambiguously Gay Duo, to SNL from The Dana Carvey Show; Colbert provided the voice of Ace on both series, opposite Steve Carell as Gary."
+    },
+    {
+      "claim": "Franchising is regulated in the United States.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.995253324508667,
+      "premise": "Consequently, franchising was not a growth industry in the United States."
+    },
+    {
+      "claim": "Microbiologists typically avoid investigating infectious microorganisms.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9997276663780212,
+      "premise": "Clinical microbiologists tend to work in government or hospital laboratories where their duties include analyzing clinical specimens to detect microorganisms responsible for the disease."
+    },
+    {
+      "claim": "The Closer's seventh season began in July 2012.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9802609086036682,
+      "premise": "The Closer's final six episodes began airing on July 9, 2012, with its finale airing on August 13, 2012."
+    },
+    {
+      "claim": "Shadowhunters did not begin its second season in January 2017.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.9894004464149475,
+      "premise": "In March 2016, the series was renewed for a second season of 20 episodes, which premiered on January 2, 2017."
+    },
+    {
+      "claim": "The Endless River is Pink Floyd's reunion tour.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.8765550255775452,
+      "premise": "== Recording ==\n\nThe Endless River is based on music recorded during the sessions for Pink Floyd's previous studio album, The Division Bell (1994)."
+    },
+    {
+      "claim": "No Country for Old Men is about a diverse cast set in the desert of 1980 West Texas.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.99962317943573,
+      "premise": "During the 1848 presidential election, Davis chose not to campaign against Zachary Taylor, who was the Whig candidate."
+    },
+    {
+      "claim": "Captain America's shield is used by the superhero name Captain America.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9688745737075806,
+      "premise": "The government then gives the shield to John Walker, who they name the new Captain America."
+    },
+    {
+      "claim": "Fidel Castro was 15th President of Cuba.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9761435985565186,
+      "premise": "Valencia was founded as a Roman colony in 138 BC as\n\"Valentia Edetanorum\"."
+    },
+    {
+      "claim": "Frozen ranks as the fourth-highest-grossing original film of all time.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9975995421409607,
+      "premise": "It finished its theatrical run as the highest-grossing film of 2013 and the fifth-highest-grossing film of all time."
+    },
+    {
+      "claim": "Craig David is a retired music performer.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.6997373104095459,
+      "premise": "Although they worked largely independently, their combined efforts and similar conclusions have been recognized in the name \"Frank–Starling mechanism\"."
+    },
+    {
+      "claim": "The Saw franchise is a collection of TV shows.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.5530058145523071,
+      "premise": "It is the most successful film in the franchise since Saw IV."
+    },
+    {
+      "claim": "The Indian Army is a militia.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9982045888900757,
+      "premise": "An additional explanation for the term cited by members is \"when dogs are not let into the house, they stay outside in the cold and turn blue\", a reference to the Blue Dogs' belief they had been left out of a party that they believed had shifted to the political left."
+    },
+    {
+      "claim": "Michael Vick is a former football quarterback.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9820132851600647,
+      "premise": "Michael Dwayne Vick (born June 26, 1980) is an American football coach and former professional quarterback who is the head coach for the Norfolk State Spartans."
+    },
+    {
+      "claim": "Raees (film) stars Nawazuddin Siddiqui as IPS Jaideep Ambalal Majmudar.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9390315413475037,
+      "premise": "We commit this inaugural ceremony to you and ask that the memory of this event may always remind us to pray for our leaders."
+    },
+    {
+      "claim": "Pearl Jam sold many of their own rock songs in the early 1990s.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9978188276290894,
+      "premise": "The SpongeBob SquarePants Movie premiered at the Grauman's Chinese Theatre on November 14, 2004, and was released in the United States on November 19 by Paramount."
+    },
+    {
+      "claim": "The Wallace is factually inaccurate.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9381502866744995,
+      "premise": "The poem is historically inaccurate, and mentions several events that never happened."
+    },
+    {
+      "claim": "Kerplunk was released through online sale only.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9372467994689941,
+      "premise": "Vocalist and guitarist Billie Joe Armstrong was surprised by this as he only found out through a friend."
+    },
+    {
+      "claim": "Penguin Books revolutionized flying in the 1930s.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9997114539146423,
+      "premise": "Harding made no response, and Taft in a thank-you note reiterated the condition and stated that Chief Justice White had often told him he was keeping the position for Taft until a Republican held the White House."
+    },
+    {
+      "claim": "Edgar Wright is only a songwriter.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9998220801353455,
+      "premise": "Edgar Howard Wright (born 18 April 1974) is an English filmmaker."
+    },
+    {
+      "claim": "PacSun barely sells products designed for teens.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.7860506176948547,
+      "premise": "The company sells lifestyle apparel, along with swim, footwear and accessories designed for teens and young adults."
+    },
+    {
+      "claim": "Penguin Books demonstrated that there are no audiences for serious books.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9993140697479248,
+      "premise": "Its success showed that large audiences existed for serious books."
+    },
+    {
+      "claim": "Gal Gadot was ranked ahead of Shlomit Malka for Israel's highest earning actress/models.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.7877546548843384,
+      "premise": "By 2012, Gadot ranked second on Forbes Israel's list of top-earning models, with earnings of NIS 1.3 million (approximately US$350,000), and in 2013, her earnings rose to NIS2.4 million (approximately US$650,000), driven largely by brand endorsements and her role in Fast & Furious."
+    },
+    {
+      "claim": "The current Chief Executive Officer of Lockheed Martin was born in Japan.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.8281481862068176,
+      "premise": "The promotion ended on May 30, 2011."
+    },
+    {
+      "claim": "Anne Rice was born in the southern United States.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.9972026348114014,
+      "premise": "The southern coast of Louisiana in the United States is among the fastest-disappearing areas in the world."
+    },
+    {
+      "claim": "Lizzy Caplan bought the DVD collectible for the show Party Down.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9991695880889893,
+      "premise": "For her portrayal of Betty Shabazz in the latter, she earned an NAACP Image Award."
+    },
+    {
+      "claim": "West Ham United F.C. was founded by two men.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9994267225265503,
+      "premise": "The film was saved when technical director Galyn Susman, who had been working remotely to care for her newborn child, revealed that she had a backup copy of the film on her home computer."
+    },
+    {
+      "claim": "Martin Van Buren was elected governor.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.9927471280097961,
+      "premise": "Martin Van Buren never remarried."
+    },
+    {
+      "claim": "Arizona is not a part of the United States.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9994681477546692,
+      "premise": "Alpine is a census-designated place in Apache County, Arizona, United States, in Bush Valley in the east central part of the state."
+    },
+    {
+      "claim": "Johanna Braddy has no experience as an actress.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9994947910308838,
+      "premise": "Johanna Braddy is an American actress."
+    },
+    {
+      "claim": "Wish Upon was released in France.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.995949387550354,
+      "premise": "Note: “The fruit of the vine” (Luke 22:18) in the Bible means wine, not grape juice."
+    },
+    {
+      "claim": "Guillermo del Toro was born.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9854699373245239,
+      "premise": "Guillermo del Toro Gómez (Spanish: [ɡiˈʝeɾmo ðel ˈtoɾo]; born 9 October 1964) is a Mexican filmmaker and actor."
+    },
+    {
+      "claim": "Artpop had first-week sales of about 500,000 copies.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9987886548042297,
+      "premise": "As of 2019, Artpop had sold 781,000 copies in the United States (including 477,000 from physical CD and vinyl sales) and has since been certified Platinum by the Recording Industry Association of America (RIAA) for surpassing one million album-equivalent units."
+    },
+    {
+      "claim": "Recovery is Eminem's first album.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9977664947509766,
+      "premise": "=== Artwork ===\nThe album cover for Relapse was first published through Eminem's Twitter account on April 21, 2009."
+    },
+    {
+      "claim": "AMGTV has pay per view programming.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9766498804092407,
+      "premise": "As it was too late in the semester for him to give an academic course, he instead prepared eight lectures on \"Questions of Modern Government\", which he delivered in May."
+    },
+    {
+      "claim": "Stan Beeman is the main character.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9921785593032837,
+      "premise": "== Reception ==\nThe character of Stan Beeman and Noah Emmerich's performance have received critical acclaim."
+    },
+    {
+      "claim": "Neil Diamond has a middle name called Leslie.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9909819960594177,
+      "premise": "Neil Leslie Diamond (born January 24, 1941) is an American singer-songwriter."
+    },
+    {
+      "claim": "James Jones missed the playoffs once in 2007-2008.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9142440557479858,
+      "premise": "Ambassador to Mexico\nJames R. Jones (Virginia politician) American politician in the Virginia House of Delegates and Virginia Senate\nJames S. Jones, American politician in the Virginia House of Delegates\nJames T. Jones (1832–1895), U.S. representative from Alabama\nJ. Weldon Jones (1896–1981), American administrator and acting High Commissioner to the Philippines\nJames Wormley Jones (1884–1958), Af"
+    },
+    {
+      "claim": "Stephen Hillenburg has always hated the ocean.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9981701374053955,
+      "premise": "Hillenburg noted that the show's premise \"is that innocence prevails—which I don't think it always does in real life.\" It has received positive reviews from critics, and has been noted for its appeal to different age groups."
+    },
+    {
+      "claim": "Gordan Ramsay has not had apprentices.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9810938835144043,
+      "premise": "Ramsay has also had confrontations with his kitchen staff, including one incident that resulted in the pastry chef calling the police."
+    },
+    {
+      "claim": "From 2005 to 2013 Jens Stoltenberg was Prime Minister of Norway.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9910690784454346,
+      "premise": "=== Second term as Prime Minister (2005–2013) ===\n\nStoltenberg's second cabinet governed Norway from 17 October 2005 to 16 October 2013."
+    },
+    {
+      "claim": "Kerplunk is by a Russian pop band.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9995993971824646,
+      "premise": "The larger U.S. dams are owned and operated by the federal government (some by the Army Corps of Engineers and some by the Bureau of Reclamation), while the smaller dams are operated by public utility districts and private power companies."
+    },
+    {
+      "claim": "Mel B died before releasing a song on Virgin Records.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.5191943645477295,
+      "premise": "Mel B left Virgin records in July 2001."
+    },
+    {
+      "claim": "Wish Upon is a supernatural horror thriller film.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9943287968635559,
+      "premise": "Wish Upon is a 2017 American supernatural horror film, directed by John R. Leonetti, written by Barbara Marshall, and starring Joey King, Ki Hong Lee, Sydney Park, Shannon Purser, Sherilyn Fenn, Elisabeth Rohm, and Ryan Phillippe."
+    },
+    {
+      "claim": "Jenna Jameson has been photographed.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9810135960578918,
+      "premise": "She has been named the world's most famous adult entertainment performer and \"The Queen of Porn\"."
+    },
+    {
+      "claim": "Mary of Teck's son married a Wallis Simpson.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.9926531314849854,
+      "premise": "Within the year, Edward's intention to marry his twice-divorced American mistress, Wallis Simpson, led to his abdication."
+    },
+    {
+      "claim": "CHiPs is an American romance film.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9994418025016785,
+      "premise": "CHiPs is a 2017 American buddy cop action comedy film written and directed by Dax Shepard, based on the 1977–1983 television series of the same name created by Rick Rosner."
+    },
+    {
+      "claim": "Bermuda Triangle is also referred to as the Devil's Triangle.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9967374205589294,
+      "premise": "The Bermuda Triangle, also known as the Devil's Triangle, is a loosely defined region in the North Atlantic Ocean, roughly bounded by Florida, Bermuda, and Puerto Rico."
+    },
+    {
+      "claim": "A Milli is by Justin Bieber.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.999683141708374,
+      "premise": "\"A Milli\", occasionally abbreviated as \"Milli\", is a song by American rapper Lil Wayne."
+    },
+    {
+      "claim": "One of the founders of San Diego Comic-Con was Chevron.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9971696734428406,
+      "premise": "The two eventually reconciled once again, and Juvenile re-signed with Cash Money Records in 2014."
+    },
+    {
+      "claim": "Invasion literature is a genre of fiction.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9946920275688171,
+      "premise": "In 2010, biotechnology giant Genentech opened a $400 million facility in Hillsboro to expand its production capabilities."
+    },
+    {
+      "claim": "Dan O'Bannon was a pacifist.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9997418522834778,
+      "premise": "The upbeat rhythm of \"Same Song & Dance\" reminded Eminem of a dance track, which inspired him to write something in order to \"get women to dance to it and not really know what the fuck they're dancing to\" without listening to the lyrics."
+    },
+    {
+      "claim": "Ashton Kutcher is a romantic comedy actor.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9960764050483704,
+      "premise": "Christopher Ashton Kutcher ( KUUTCH-ər; born February 7, 1978) is an American actor, film producer and investor."
+    },
+    {
+      "claim": "The retreat of permafrost is an expected outcome of global warming.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9978151321411133,
+      "premise": "Amplified warming in the Arctic has contributed to thawing permafrost, retreat of glaciers and sea ice decline."
+    },
+    {
+      "claim": "Life is only applicable to inanimate objects.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.561589777469635,
+      "premise": "Life is only known to exist on Earth, but extraterrestrial life is thought to be probable."
+    },
+    {
+      "claim": "Tenacious D began in California.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9882160425186157,
+      "premise": "In 2018, the band began independently releasing an animated hand-drawn web series, Tenacious D in Post-Apocalypto, and released the soundtrack as their fourth album Post-Apocalypto."
+    },
+    {
+      "claim": "James Jones missed the finals once.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9940716624259949,
+      "premise": "Jim Jones (James Warren Jones, 1931–1978), cult leader of the Peoples Temple responsible for the collective suicide at Jonestown, Guyana\nJames Jones (bishop) (born 1948), former Anglican bishop of Liverpool\nJames Jones (priest, born 1881) (1881–1980), Church of England priest\nJames Jones (priest, born 1730) (1730–1823), archdeacon of Hereford\nKilsby Jones (James Rhys Jones, 1813–1889), Welsh minis"
+    },
+    {
+      "claim": "Marnie is a film.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9967032074928284,
+      "premise": "Marnie is a 1964 American psychological thriller film directed by Alfred Hitchcock from a screenplay by Jay Presson Allen, based on the 1961 novel of the same name by Winston Graham."
+    },
+    {
+      "claim": "Ashley Cole is President of Russia.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9999188184738159,
+      "premise": "The base level and course of the Colorado River (or its ancestral equivalent) changed 5.3 million years ago when the Gulf of California opened and lowered the river's base level (its lowest point)."
+    },
+    {
+      "claim": "Sean Penn has acted in 13 films.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9901048541069031,
+      "premise": "In 1989, Penn began dating actress Robin Wright, and their first child, a daughter named Dylan Frances, was born April 13, 1991."
+    },
+    {
+      "claim": "EA Black Box was based outside of Canada.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9549895524978638,
+      "premise": "EA Black Box (formerly Black Box Games) was a video game developer based in Burnaby, British Columbia, Canada, founded in 1998 by former employees of Radical Entertainment and later acquired by Electronic Arts (EA)."
+    },
+    {
+      "claim": "Southampton F.C. came in third in the First Division.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.6566024422645569,
+      "premise": "Although future St. Louis/Los Angeles Rams owner Stan Kroenke offered to buy the team for $200 million and move it to St. Louis, Orthwein would have been saddled with all moving expenses."
+    },
+    {
+      "claim": "Anushka Sharma won an award.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9971156120300293,
+      "premise": "For her role, she won the Filmfare Award for Best Supporting Actress."
+    },
+    {
+      "claim": "Alexandra Daddario is Japanese.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9991390705108643,
+      "premise": "Alexandra Anna Daddario (born March 16, 1986) is an American actress."
+    },
+    {
+      "claim": "Michaela Watkins full name is Michaela Suzanne Watkins, the same as her mother.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9698456525802612,
+      "premise": "Several of the states that derive their names from names used for Native peoples retain the final letter \"s\" in the indigenous name."
+    },
+    {
+      "claim": "NRG Recording Studios was sold by Jay Baumgardner.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9647132158279419,
+      "premise": "In this position, numerals take a nasal linker: -ng if they end in a vowel, or -ang if they end in a non-nasal consonant."
+    },
+    {
+      "claim": "Match Point explores exclusively the role of misfortune in life.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9996209144592285,
+      "premise": "The film deals with themes of morality and greed, and explores the roles of lust, money, and luck in life, leading many to compare it to Allen's earlier film Crimes and Misdemeanors (1989)."
+    },
+    {
+      "claim": "Avenged Sevenfold was released in 2002.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9976280331611633,
+      "premise": "On October 30, 2007, Avenged Sevenfold was released in stores worldwide."
+    },
+    {
+      "claim": "Jim Broadbent is involved with Game of Thrones (season 7).",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9832032918930054,
+      "premise": "== References ==\n\n\n== External links ==\n\nGame of Thrones – official website\nGame of Thrones at IMDb\nGame of Thrones season 7 at Rotten Tomatoes"
+    },
+    {
+      "claim": "Andrew Kevin Walker is a director.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.999076247215271,
+      "premise": "Kael wrote: \"De Palma has sprung to the place that Robert Altman achieved with films such as McCabe & Mrs. Miller and Nashville and that Francis Ford Coppola reached with The Godfather films—that is, to the place where genre is transcended and what we're moved by is an artist's vision."
+    },
+    {
+      "claim": "Paris (Paris Hilton album) incorporates rhythm and lyrics of soul.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.982271671295166,
+      "premise": "\"Walk Me Home\" was re-released in the United States as the second single from I Wanna Be with You and was slightly more successful than its original release, peaking at number 38 on the Billboard Pop Songs chart."
+    },
+    {
+      "claim": "Francis I of France reigned from August 30, 1515 until his death.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9986636638641357,
+      "premise": "It also peaked within the top 40 of several singles charts worldwide."
+    },
+    {
+      "claim": "North Vietnam was officially called the Democratic Republic of Congo.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9987714886665344,
+      "premise": "The northern zone was controlled by the Democratic Republic of Vietnam and became commonly called North Vietnam, while the southern zone, under control of the non-communist State of Vietnam, was commonly called South Vietnam."
+    },
+    {
+      "claim": "Artpop was Gaga's second consecutive number-one record in the United States in 2009.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9985361099243164,
+      "premise": "Really, who needs guitars?\"\n\n\n== Commercial performance ==\nArtpop debuted at number one on the US Billboard 200 with 258,000 copies sold in its first week, earning Gaga her second consecutive number-one album."
+    },
+    {
+      "claim": "Ed Wood is about the eponymous filmmaker.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9838067293167114,
+      "premise": "Ed Wood is a 1994 American biographical film directed and produced by Tim Burton and starring Johnny Depp as the eponymous cult filmmaker."
+    },
+    {
+      "claim": "Efraim Diveroli only had a three-year sentence.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9963296055793762,
+      "premise": "He was further sentenced for possessing a weapon while out on bond and had his overall sentence reduced for assisting in the investigation of the prosecution."
+    },
+    {
+      "claim": "Cadet Kelly is only a painting.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9993467926979065,
+      "premise": "The only chance they have of winning is a special routine that Kelly and Stone had been practicing."
+    },
+    {
+      "claim": "A monster is a creature.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9953262805938721,
+      "premise": "A monster is a type of imaginary or fictional creature found in literature, folklore, mythology, horror, fantasy, fiction and religion."
+    },
+    {
+      "claim": "Asylum Records was first founded in 1787.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9965469241142273,
+      "premise": "Asylum Records is an American record label, founded in 1971 by David Geffen and partner Elliot Roberts."
+    },
+    {
+      "claim": "Stephen Hillenburg developed an interest in poetry.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9319031238555908,
+      "premise": "Van der Pol's family moved to the United States when she was three years old, and she retains dual American and Dutch citizenship."
+    },
+    {
+      "claim": "Wish Upon was eaten by John R. Leonetti.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9983345866203308,
+      "premise": "On July 27, 2016, it was announced that Wish Upon would be directed by John R. Leonetti."
+    },
+    {
+      "claim": "Albert S. Ruddy is born in China.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.7401501536369324,
+      "premise": "In 2021, his daughter Alexandra Ruddy became co-principal at Albert S. Ruddy Productions."
+    },
+    {
+      "claim": "Eddie Guerrero had problems with substance abuse.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9858934879302979,
+      "premise": "He experienced various substance abuse problems, including alcoholism and an addiction to painkillers; these real-life issues were sometimes incorporated into his storylines."
+    },
+    {
+      "claim": "Samwell Tarly appears in novels by George R. R. Martin.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.6438987255096436,
+      "premise": "According to George R. R. Martin, the character Samwell Tarly is the most relatable to him."
+    },
+    {
+      "claim": "Ludwig van Beethoven was abandoned by his father Johann van Beethoven and Christian Gottlob Neefe.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9088103771209717,
+      "premise": "Going forward, battery storage can be expanded, energy demand and supply can be matched, and long-distance transmission can smooth variability of renewable outputs."
+    },
+    {
+      "claim": "Jack Falahee has a middle name.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.7733123898506165,
+      "premise": "Falahee is Diplomacy's lead singer and has stated he writes most of their songs based on his personal journal entries."
+    },
+    {
+      "claim": "Veeru Devgan choreographs stunts.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.715461790561676,
+      "premise": "Directors like Sanjay Gupta have considered him Hindi cinema's \"greatest stunt director\", and actors such as Dharmendra and Jeetendra would often do a movie on the sole basis of the film's stunts being supervised by Devgan."
+    },
+    {
+      "claim": "James Earl Jones is not known for his voice roles.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9934250116348267,
+      "premise": "\"James Earl Jones: A Voice for the Ages, Aging Gracefully\"."
+    },
+    {
+      "claim": "The Indian Institute of Management Bangalore refuses to offer an executive training program.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9984651803970337,
+      "premise": "IIMB was established by the Government of India as an institute of excellence for education, training, research, and consulting in the field of management, and allied areas of knowledge."
+    },
+    {
+      "claim": "Victoria Palace Theatre is in a place named after Queen Victoria and it is a place of culture.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9968801736831665,
+      "premise": "The Patriots continued to perform at a high level through the mid-2010s, recording 12–4 seasons and AFC championship appearances in 2012 and 2013."
+    },
+    {
+      "claim": "Andrew Kevin Walker was born on a boat.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9995726943016052,
+      "premise": "Standing at 5 feet 6 inches (1.68 m) tall, Van Buren was small in stature, and affectionately nicknamed \"Little Van\"."
+    },
+    {
+      "claim": "The Columbia River contains locks for shipping channels.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.992973804473877,
+      "premise": "To aid ship and barge navigation, locks have been built along the lower Columbia and its tributaries, and dredging has opened, maintained, and enlarged shipping channels."
+    },
+    {
+      "claim": "The Battle of France was an art installation.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9775887727737427,
+      "premise": "==== Aluminum apex ====\n\nThe aluminum apex, composed of a metal that at the time was as rare and valuable as silver, was cast by William Frishmuth of Philadelphia."
+    },
+    {
+      "claim": "Meteora is Linkin Park's third studio album.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9991165995597839,
+      "premise": "Meteora is the second studio album by American rock band Linkin Park, released on March 25, 2003, through Warner Bros."
+    },
+    {
+      "claim": "Brick (film) had 2005 viewers.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9874546527862549,
+      "premise": "The series was removed from the schedule, and the track was used for local motorsports before it was dismantled for the Lippo Village expansion; the paddock area was reclaimed by Pelita Harapan University."
+    },
+    {
+      "claim": "A monster is frequently ugly.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9976490139961243,
+      "premise": "In return, Washington received Hubert Davis, Courtney Alexander, Christian Laettner, Loy Vaught and Etan Thomas along with $3 million."
+    },
+    {
+      "claim": "Connie Nielsen co-created a Fox American television psychological thriller series.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9993036985397339,
+      "premise": "It was intended to include 50 titles, many of which duplicate those on the Penguin Celebrations list but this was reduced to 49 titles as one of the 50, Hegemony or Survival by Noam Chomsky, had to be withdrawn after its initial release as Penguin discovered they no longer held the rights to it."
+    },
+    {
+      "claim": "Diwali is a award ceremony.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9977559447288513,
+      "premise": "While Nelson had been a successful coach before joining the Knicks, his offensive-oriented Nellie Ball philosophy failed to mesh with the team, and during the 1995–96 season, Nelson was fired after 59 games, and, instead of going after another well-known coach, the Knicks hired longtime assistant Jeff Van Gundy, who had no prior experience as a head coach."
+    },
+    {
+      "claim": "The King and I is based on a semi-fictionalized biographical novel by a preacher.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.5856546759605408,
+      "premise": "Highway routes from Kuching include:\n\n FT 1-15 Kuching–Serian Highway\n FT 801 Kuching Bypass\nKuching–Kota Samarahan Expressway\n Tun Salahuddin Bridge\nMatang Highway\n\n\n==== Public transport ====\n\n\n===== Urban rail =====\n\nThe Kuching Urban Transportation System (KUTS) is an under-construction autonomous rail rapid transit (ART) system that will serve as the main mode of urban metro public transport "
+    },
+    {
+      "claim": "Advertising is used to promote a product and it is important to modern civilization.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9897940158843994,
+      "premise": "=== International Court of Justice ===\n\nThe International Court of Justice (or ICJ), sometimes known as the World Court, is the primary judicial organ of the UN."
+    },
+    {
+      "claim": "Men in Black II is a serious realistic drama.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9205356240272522,
+      "premise": "== Notes ==\n\n\n== References ==\n\n\n== External links ==\n\nOfficial website\nMen in Black II at IMDb\nMen in Black II title listing at the Internet Speculative Fiction Database"
+    },
+    {
+      "claim": "Angela Bassett received zero degrees from Yale University.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9996191263198853,
+      "premise": "== Filmography ==\n\n\n== Awards and nominations ==\n\nIn 2018, she received a Doctorate of Fine Arts (honorary doctorate) from Yale University and a Doctorate of Humane Letters (honorary doctorate) from Old Dominion University in 2022."
+    },
+    {
+      "claim": "Kendall Jenner is a model.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9966159462928772,
+      "premise": "Kendall Nicole Jenner (born November 3, 1995) is an American model, socialite, and media personality."
+    },
+    {
+      "claim": "Osamu Tezuka is competitive.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9983470439910889,
+      "premise": "During the Nullification Crisis, Van Buren counseled Jackson to pursue a policy of conciliation with South Carolina leaders."
+    },
+    {
+      "claim": "Anne Sullivan was an American Scientologist.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9992976188659668,
+      "premise": "=== The Daily Show (1997–2005) ===\n\nColbert joined the cast of Comedy Central's parody-news series The Daily Show in 1997, when the show was in its second season."
+    },
+    {
+      "claim": "The Beach is a film with multiple genres.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9955612421035767,
+      "premise": "Often, the protagonists deal with multiple, overlapping issues in the course of the film – just as we do in life."
+    },
+    {
+      "claim": "Blue Jasmine takes place in Boston only.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.6233698129653931,
+      "premise": "Jasmine and Chili needle each other, and Jasmine is furious when Ginger takes his side."
+    },
+    {
+      "claim": "Sean Penn was in Vietnam.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9985249638557434,
+      "premise": "There was a Call of Duty: Black Ops ad underscored by \"Won't Back Down\"; the song also appeared in the game as an easter egg."
+    },
+    {
+      "claim": "Hot Right Now is a pop single.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9987995624542236,
+      "premise": "While Belichick led the team to nine of their eleven Super Bowl appearances, winning six of them, before him the Patriots saw some championship game appearances."
+    },
+    {
+      "claim": "Yale University's alumni includes 20 dead billionaires.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.8121392130851746,
+      "premise": "Department of State Bureau of Educational and Cultural Affairs ranked Yale fifth among research institutions producing the most 2020–2021 Fulbright Scholars. 31 living billionaires are alumni."
+    },
+    {
+      "claim": "Raabta (song) is only in Spanish.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9908502101898193,
+      "premise": "== Siyaah Raatein ==\nThe third version of the song titled \"Raabta (Siyaah Raatein)\" is sung by Hamsika Iyer."
+    },
+    {
+      "claim": "Manmohan Singh was the first Sikh in office in 2009.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9989180564880371,
+      "premise": "A member of the Indian National Congress, Singh was the first and remains the only Sikh prime minister of India."
+    },
+    {
+      "claim": "Al Jardine was unable to sing.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9941681623458862,
+      "premise": "== External links ==\n Media related to Al Jardine at Wikimedia Commons\nAl Jardine Interview at NAMM Oral History Collection (1987)"
+    },
+    {
+      "claim": "Bongwater was based on a book.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.7917807102203369,
+      "premise": "== Cast ==\n\n\n== Production ==\nThe screenplay for the film was adapted from Michael Hornburg's 1995 novel of the same name, which was based on his experience living in Portland in the mid-1980s; the Serena character in the film (originally named Courtney in the novel) is based on Courtney Love, whom Hornburg knew in Portland."
+    },
+    {
+      "claim": "In 1982 the single Victoria (Dance Exponents Song) was released.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9966533780097961,
+      "premise": "Released in June 1982 as the band's first single, it reached Number 6 on the New Zealand singles chart."
+    },
+    {
+      "claim": "Britt Robertson portrayed the role of an avacodo.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.7915050387382507,
+      "premise": "Taft was appalled when, after Justice Lamar's death in January 1916, Wilson nominated Brandeis, whom Taft had never forgiven for his role in the Ballinger–Pinchot affair."
+    },
+    {
+      "claim": "Luis Fonsi's given name, which he does not use when performing, is Luis Alfonso Rodríguez López-Cepero.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9986379742622375,
+      "premise": "The evaluation found that the training increased the job seekers employment by approximately 10 percent by reducing information frictions between job seekers and prospective employers, that the training had this effect for approximately 12 months, and that while the training may also have facilitated referrals, it did not reduce job search costs and the jobs for the treatment and control groups in"
+    },
+    {
+      "claim": "Southpaw was the fighting style Mike Tyson used.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9957842230796814,
+      "premise": "It was originally to be set in Detroit, yet Pittsburgh was chosen for the filming and was used as a double for New York."
+    },
+    {
+      "claim": "Part of Dilwale Dulhania Le Jayenge was shot in Shanghai.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.8114443421363831,
+      "premise": "== See also ==\n\nIndian cinema and Switzerland\n\n\n== Notes ==\n\n\n== References ==\n\n\n== Bibliography ==\n\n\n== Further reading ==\n\n\n== External links ==\nDilwale Dulhania Le Jayenge Official Site\nDilwale Dulhania Le Jayenge on Netflix \nDilwale Dulhania Le Jayenge at IMDb\nDilwale Dulhania Le Jayenge at the British Film Institute\nDilwale Dulhania Le Jayenge at the TCM Movie Database (archived)\nDilwale Dulh"
+    },
+    {
+      "claim": "Finding Dory was penned by an American.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9991900324821472,
+      "premise": "Mayweather explained why he chose Maidana, \"Marcos Maidana's last performance immediately brought him to my attention."
+    },
+    {
+      "claim": "The current President of Lockheed Martin was born in 1955.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9778022170066833,
+      "premise": "Marillyn Adams Hewson (born December 27, 1953) is an American businesswoman who served as the chairman, president and chief executive officer (CEO) of Lockheed Martin from January 2013 to June 2020."
+    },
+    {
+      "claim": "Eric Church is a sound mixer.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9513722658157349,
+      "premise": "These terms tend to indicate a particular setting or subject matter, or they combine a drama's otherwise serious tone with elements that encourage a broader range of moods."
+    },
+    {
+      "claim": "Bhagat Singh died.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.9990369081497192,
+      "premise": "Rai died of a heart attack on 17 November 1928."
+    },
+    {
+      "claim": "Tenacious D started in the 1990's.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.997434675693512,
+      "premise": "In 2001, Tenacious D started their second nationwide concert tour, performing at larger venues, many of which sold out."
+    },
+    {
+      "claim": "Uranium-235 was discovered by a person who was born in August.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.7539291977882385,
+      "premise": "It is the only fissile isotope that exists in nature as a primordial nuclide and was discovered in 1935 by Arthur Jeffrey Dempster."
+    },
+    {
+      "claim": "The Columbia River undergoes drainage.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9957538843154907,
+      "premise": "The Columbia is the twelfth-longest river and has the sixth-largest drainage basin in the United States."
+    },
+    {
+      "claim": "Marcus Bentley is incapable of being a voice-over artist.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9996867179870605,
+      "premise": "Marcus Bentley (born 4 October 1967) is a British actor, broadcaster and voice-over artist."
+    },
+    {
+      "claim": "Acting is John Krasinski's career.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.936458945274353,
+      "premise": "John Burke Krasinski (; born October 20, 1979) is an American actor and filmmaker."
+    },
+    {
+      "claim": "Penguin Books revolutionized publishing in the 1930s.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9920523166656494,
+      "premise": "Penguin revolutionised publishing in the 1930s with its inexpensive paperbacks, sold through Woolworths and other shops for sixpence, bringing high-quality fiction and non-fiction to the mass market."
+    },
+    {
+      "claim": "The Pelican Brief is a 1991 Armenian legal political thriller.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9999154806137085,
+      "premise": "Bosh scored 24 points in the deciding Game 5 and averaged 14.6 points and 9.4 rebounds in the Finals."
+    },
+    {
+      "claim": "How to Train Your Dragon 2 used old animation software.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9608118534088135,
+      "premise": "How to Train Your Dragon 2 was the first DreamWorks Animation film that used \"scalable multicore processing\", developed together with Hewlett-Packard."
+    },
+    {
+      "claim": "St. Anger is the eighth painting by Metallica.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9890004396438599,
+      "premise": "By the early 16th century, Kalapa was one of the Sunda Kingdom's leading ports."
+    },
+    {
+      "claim": "Kellyanne Conway studied the \"Bowling Green massacre\" which never occurred.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9990021586418152,
+      "premise": "Archived from the original (PDF) on 22 January 2016."
+    },
+    {
+      "claim": "Excuse My French is an EP by French Montana.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9961363673210144,
+      "premise": "==== Prisoner 8612 ====\nThe first prisoner to leave the experiment was Douglas Korpi, prisoner 8612."
+    },
+    {
+      "claim": "The Bloods are a primarily, though not exclusively, African American street gang, with about 90% of members being Black.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9989473223686218,
+      "premise": "The company CEO, Amit Avner, noted that Gadot had already been the most talked-about personality during Super Bowl commercials, one of which she appeared in earlier that year."
+    },
+    {
+      "claim": "Kenneth Lonergan is a man.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9961881041526794,
+      "premise": "(The online version is titled \"The Cinematic Traumas of Kenneth Lonergan\")."
+    },
+    {
+      "claim": "Numb was part of a controversial DLC for Rock Band 3.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9405226707458496,
+      "premise": "When Billy, accompanied by Angela, visits Leila, she rebuffs him for causing their problems."
+    },
+    {
+      "claim": "Angela Bassett started her film career in the mid-1980s.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9987683892250061,
+      "premise": "== External links ==\n\nAngela Bassett at IMDb \nAngela Bassett at the Internet Broadway Database \nAngela Bassett at the Internet Off-Broadway Database (archived) \nAngela Bassett at Playbill Vault \nAngela Bassett discography at Discogs\nAngela Bassett German voice at Stimmgerecht"
+    },
+    {
+      "claim": "Charles Manson is a current cult leader.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9933992624282837,
+      "premise": "Charles Milles Manson (né Maddox; November 12, 1934 – November 19, 2017) was an American cult leader, murderer, and musician who was the founder of the Manson Family."
+    },
+    {
+      "claim": "Bea Arthur was born on May 13th, 1922 in a log cabin.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.596399188041687,
+      "premise": "During the War of Mexican Independence, Alta California was largely unaffected and uninvolved in the revolution, though many Californios supported independence from Spain, which many believed had neglected California and limited its development."
+    },
+    {
+      "claim": "Reign Over Me was put out in 2007.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.9990395903587341,
+      "premise": "In an interview with Vogue Magazine in 2017, when a reporter asked British actress Daisy Ridley which film makes her cry the most, her response was Reign Over Me."
+    },
+    {
+      "claim": "Girl is by an French singer.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9938743710517883,
+      "premise": "Ginger and her husband, Augie, were among Hal's victims; he swindled them out of $200,000 in lottery winnings that Augie had wanted to start a business with, and their marriage fell apart."
+    },
+    {
+      "claim": "23 percent of the University of Mississippi's teachers are minorities.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9976806640625,
+      "premise": "In the mid-2000s, he changed his name to Rick Ross."
+    },
+    {
+      "claim": "Shadowhunters began its second season in Zambia.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9981757402420044,
+      "premise": "Since February 2024, the planes are operated by Omni Air International."
+    },
+    {
+      "claim": "Derek Hough starred in Make Your Move.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9821693301200867,
+      "premise": "In film and television, he has starred in the film Make Your Move and had a recurring role in the ABC musical-drama Nashville."
+    },
+    {
+      "claim": "In the End was the only song written by Linkin Park.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9993669390678406,
+      "premise": "\"In the End\" is a song by American rock band Linkin Park."
+    },
+    {
+      "claim": "Billboard Dad was released in Spain.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.999650239944458,
+      "premise": "She gave birth to a daughter, Nysa, on 20 April 2003."
+    },
+    {
+      "claim": "Roswell was directed by Jason Katims.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9980002045631409,
+      "premise": "As with the first film, which did not have a theatrical release in China, the film's distributor Universal Pictures had troubles releasing the sequel."
+    },
+    {
+      "claim": "\"I Want You Back\" was released by Mel B.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9980515241622925,
+      "premise": "Mel B debuted as a solo artist in September 1998 with the release of \"I Want You Back\"."
+    },
+    {
+      "claim": "Tijuana is located 30 miles outside of the Tijuana metropolitan area.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.999630331993103,
+      "premise": "The Tijuana metropolitan area occupies all of borough seats."
+    },
+    {
+      "claim": "The Washington Wizards won a title in 1975.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.9828218817710876,
+      "premise": "It remains the only NBA title won by the team as of 2026."
+    },
+    {
+      "claim": "Shinji Mikami is a director.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9879480004310608,
+      "premise": "Shinji Mikami (三上 真司, Mikami Shinji; born August 11, 1965) is a Japanese video game designer, director, and producer."
+    },
+    {
+      "claim": "Exercise lowers resting heart rate.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9990091323852539,
+      "premise": "The adult resting heart rate ranges from 60 to 100 bpm."
+    },
+    {
+      "claim": "The Adventures of Pluto Nash was produced by Ron Underwood.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9992690682411194,
+      "premise": "== Reception ==\n\n\n=== Critical response ===\nThe Adventures of Pluto Nash was critically panned."
+    },
+    {
+      "claim": "The highest point of the Hindu Kush is Tirich Mir in Khyber Pakhtunkhwa.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.942829430103302,
+      "premise": "The range has numerous high snow-capped peaks, with the highest point being Tirich Mir or Terichmir at 7,708 metres (25,289 ft) in the Chitral District of Khyber Pakhtunkhwa, Pakistan."
+    },
+    {
+      "claim": "Tijuana is the center of the Mexico City metropolitan area.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9816832542419434,
+      "premise": "It is the municipal seat of the Tijuana Municipality, the hub of the Tijuana metropolitan area and the most populous city in northern Mexico."
+    },
+    {
+      "claim": "Frequently, French Indochina is abbreviated.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9979050159454346,
+      "premise": "As he was so involved the United States policy in French Indochina his influence is hard to underestimate."
+    },
+    {
+      "claim": "The undergraduate college of Harvard University became coeducational after its merger with Radcliffe College.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9952062964439392,
+      "premise": "Harvard College soon became the name of the university's undergraduate division."
+    },
+    {
+      "claim": "Sleipnir has eight legs.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9784414172172546,
+      "premise": "This horse has eight legs."
+    },
+    {
+      "claim": "2016 Tour de France was won by a rider.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9991089701652527,
+      "premise": "The 2016 Tour de France was the 103rd edition of the Tour de France, one of cycling's Grand Tours."
+    },
+    {
+      "claim": "Sayyeshaa starred on Broadway.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9997702240943909,
+      "premise": "DSL originally stood for \"digital subscriber loop\"."
+    },
+    {
+      "claim": "Samwell Tarly is a mercenary.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9920316934585571,
+      "premise": "== See also ==\nBacteriologist\nList of microbiologists\n\n\n== References ==\n\n\n== External links ==\n Media related to Microbiologists at Wikimedia Commons"
+    },
+    {
+      "claim": "Live Through This is an album by Garth Brooks.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9997434020042419,
+      "premise": "Live Through This is the second studio album by the American alternative rock band Hole, released on April 12, 1994, by DGC Records."
+    },
+    {
+      "claim": "Selena Gomez & the Scene's debut album earned a Platinum certification.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9997455477714539,
+      "premise": "The Norse referred to it as isbjørn 'ice bear' and hvitebjørn 'white bear'."
+    },
+    {
+      "claim": "Gin is a name.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "entailment",
+      "score": 0.9885872602462769,
+      "premise": "The epithet mother's ruin is a common British name for gin, the origin of which is debated."
+    },
+    {
+      "claim": "Shawn Carlson is only a business writer.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9998383522033691,
+      "premise": "Shawn Carlson (born 1960) is an American physicist, science writer, and a STEM educator."
+    },
+    {
+      "claim": "A Milli is a song by someone born in 1992.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9986574649810791,
+      "premise": "\"A Milli\", occasionally abbreviated as \"Milli\", is a song by American rapper Lil Wayne."
+    },
+    {
+      "claim": "Veeram is an Japanese Tamil film.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9967694282531738,
+      "premise": "Veeram is about the hero."
+    },
+    {
+      "claim": "Tool has produced albums.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9977219700813293,
+      "premise": "Tool has won four Grammy Awards, performed worldwide tours, and produced albums topping charts in several countries."
+    },
+    {
+      "claim": "The screenplay for Natural Born Killers was heavily revised by screenwriter David Veloz.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.8008875846862793,
+      "premise": "Albarn stated that the Good, the Bad & the Queen album Merrie Land (2018) was inspired by Brexit and his reaction to it."
+    },
+    {
+      "claim": "Joe Rogan was diabetic.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9998492002487183,
+      "premise": "By January 2016, they asked the Olsen twins' younger sister, Elizabeth, if she had any ambitions to take the part of Michelle, but she ultimately declined as well."
+    },
+    {
+      "claim": "Knocked Up is a film.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9617987871170044,
+      "premise": "== Notes ==\n\n\n== References ==\n\n\n== External links ==\n\nOfficial website\nKnocked Up at IMDb \nKnocked Up at Box Office Mojo\nKnocked Up at Rotten Tomatoes \nKnocked Up at Metacritic \nKnocked Up at the TCM Movie Database (archived)"
+    },
+    {
+      "claim": "Lithuanians are a trait group.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9872981309890747,
+      "premise": "Towards the end of her reign, a series of economic and military problems weakened her popularity."
+    },
+    {
+      "claim": "Hourglass was released just 5 weeks after Taylor's previous album.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9899179339408875,
+      "premise": "Hourglass is the fourteenth studio album by singer-songwriter James Taylor released in 1997."
+    },
+    {
+      "claim": "Despicable Me 2 was directed by someone.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9847744107246399,
+      "premise": "Despicable Me 2 is a 2013 American animated comedy film directed by Chris Renaud and Pierre Coffin, and written by Cinco Paul and Ken Daurio."
+    },
+    {
+      "claim": "Tinker Tailor Soldier Spy stars John Hurt and Tom Cruise.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.6669580936431885,
+      "premise": "Before they are implemented, human studies must now be reviewed by an institutional review board (US) or ethics committee (UK) and found to be in accordance with ethical guidelines set by the American Psychological Association or British Psychological Society."
+    },
+    {
+      "claim": "The first inauguration of Bill Clinton was on Neptune.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9977446794509888,
+      "premise": "This was the 52nd inauguration and marked the commencement of the first term of Bill Clinton as president and Al Gore as vice president."
+    },
+    {
+      "claim": "Bea Arthur was born in 1922.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9972115159034729,
+      "premise": "Beatrice Arthur (born Bernice Frankel; May 13, 1922 – April 25, 2009) was an American actress, comedian, and singer."
+    },
+    {
+      "claim": "To Pimp a Butterfly sold two million copies worldwide.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.7926390171051025,
+      "premise": "Livermore chose to take the Do It Yourself route to create such an album, self-releasing the one-off LP under \"Lookout Records.\" At the same time, the new bands emerging around the vibrant 924 Gilman Street venue, including Operation Ivy, Crimpshrine, Sewer Trout, Isocracy, and others were documented for the first time by local scenester David Hayes on a 17-song double 7-inch compilation entitled "
+    },
+    {
+      "claim": "TakePart is the digital division of a video game production company.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.6466414928436279,
+      "premise": "This created a larger market for poor-quality barley that was unfit for brewing beer, and in 1695–1735 thousands of gin shops sprang up throughout England, a period known as the Gin Craze."
+    },
+    {
+      "claim": "The fourth child of Charlie Chaplin starred in Home for the Holidays.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9235532879829407,
+      "premise": "This song also placed at number 92 on MTV Asia's list of Top 100 Hits of 2007."
+    },
+    {
+      "claim": "Tiber Oil Field is a landlocked oil field.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.9998564720153809,
+      "premise": "The Tiber Oil Field is a deepwater offshore oil field located in the Keathley Canyon block 102 of the United States sector of the Gulf of Mexico."
+    },
+    {
+      "claim": "Veeru Devgan is a stage director.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9875538349151611,
+      "premise": "Of his many mixtapes, Dedication 2 and Da Drought 3 received the most media exposure and critical review."
+    },
+    {
+      "claim": "French Indochina was a grouping of British colonial territories.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9884052276611328,
+      "premise": "These events all had significant influence on nationalist sentiments in the territories of French Indochina."
+    },
+    {
+      "claim": "Vedam stars Indian film actors and actresses.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9816542863845825,
+      "premise": "She portrayed a prostitute in Krish's anthology film Vedam which stars Allu Arjun."
+    },
+    {
+      "claim": "Kuching is in the east of Sarawak.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.8973227143287659,
+      "premise": "This is intended to boost the city's commercial and industrial activity, making it a major point of growth in East Malaysia, as well for the BIMP-EAGA (Brunei-Indonesia-Malaysia-Philippines East ASEAN Growth Area)."
+    },
+    {
+      "claim": "Polar bears depend on sea ice.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9911187291145325,
+      "premise": "They eventually head out on the sea ice."
+    },
+    {
+      "claim": "Gordon Ramsay has killed apprentices.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.999882698059082,
+      "premise": "Walden has Alan invest in Kate's fashion line with Walden's money, and Kate goes to New York to host her fashion show."
+    },
+    {
+      "claim": "Reign Over Me was released in France.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9937667846679688,
+      "premise": "Poor international box office takings led to the cancelation of the film's theatrical release in Brazil and the United Kingdom."
+    },
+    {
+      "claim": "Stephen Colbert is a talk show host currently hosting The Late Show.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9759105443954468,
+      "premise": "He is best known for hosting the Comedy Central news satire show The Colbert Report from 2005 to 2014, and the CBS late-night talk show The Late Show with Stephen Colbert from 2015 to 2026."
+    },
+    {
+      "claim": "Miranda Otto is the first daughter of Lindsay Otto.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9638024568557739,
+      "premise": "It is more uptempo and pop-indebted than her previous releases, and is based around laidback, airy electronic production and a swooning orchestral arrangement."
+    },
+    {
+      "claim": "Anne Sullivan died in October of 1936 from natural causes.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9998226761817932,
+      "premise": "Dylan recorded two albums, Planet Waves and the live Before the Flood, for Asylum before returning to Columbia."
+    },
+    {
+      "claim": "The first inauguration of Bill Clinton was on NBC.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9998158812522888,
+      "premise": "In 2003, Moore co-starred with Allison Janney, Peter Gallagher, and Trent Ford in the romantic comedy-drama How to Deal which was based on Sarah Dessen's novels That Summer and Someone like You."
+    },
+    {
+      "claim": "The Beach was edited in 2001.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.70079505443573,
+      "premise": "Administrative units in the autonomous region are statutory.\"\n\n\n==== Autonomous regions ====\n\nNorth Vietnam established a system of autonomous regions (Vietnamese: Khu tự trị) similar to (and based on) the autonomous regions of China."
+    },
+    {
+      "claim": "Keith Urban was released solely by Motown Records.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9997132420539856,
+      "premise": "=== Regions ===\n\nCalifornia is traditionally separated into Northern California and Southern California, divided by a straight border which runs across the state, separating the northern 48 counties from the southern 10 counties."
+    },
+    {
+      "claim": "In the End has piano in it.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9977025389671326,
+      "premise": "\"In the End\" has since been certified Diamond (10× Platinum) in their home country by the RIAA."
+    },
+    {
+      "claim": "Roland Emmerich is an active Catholic.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9665837287902832,
+      "premise": "=== Australian Songwriters Hall of Fame ===\nThe Australian Songwriters Hall of Fame was established in 2004 to honour the lifetime achievements of some of Australia's greatest songwriters."
+    },
+    {
+      "claim": "T2 Trainspotting is a British film.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.9853594303131104,
+      "premise": "T2 Trainspotting is a 2017 black comedy drama film directed and produced by Danny Boyle and written by John Hodge."
+    },
+    {
+      "claim": "Dave Gibbons's middle name is Chester-Jason.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.764460027217865,
+      "premise": "Gibbons's artwork in Watchmen is notable both for its stark utilisation of the formulaic comicbook nine-panel grid layout, as well as for its intense narrative and symbolic density, with some symbolic background elements suggested by Moore, others by Gibbons."
+    },
+    {
+      "claim": "The Faroe Islands were part of the tour.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9980140924453735,
+      "premise": "Recorded species include 64 mammals, 11 amphibians, and 5 reptiles."
+    },
+    {
+      "claim": "Phillip Glass has written eleven popular concertos.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9998459815979004,
+      "premise": "There are cases when seashells are not available and hermit crabs will use alternatives such as tin cans, custom-made shells, or any other types of debris, which often proves fatal to the hermit crabs (as they can climb into, but not out of, slippery plastic debris)."
+    },
+    {
+      "claim": "Mud stars multiple American actors.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9988259673118591,
+      "premise": "Mud is a 2012 American independent Southern Gothic coming-of-age drama film written and directed by Jeff Nichols."
+    },
+    {
+      "claim": "During the Battle of France, English forces occupied Paris.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.9997138381004333,
+      "premise": "The Battle of France (French: Bataille de France; 10 May – 25 June 1940), also known as the Fall of France, was the German invasion of the Low Countries (Belgium, Luxembourg and the Netherlands) and France during the Second World War."
+    },
+    {
+      "claim": "Arizona is a part of France.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9958505630493164,
+      "premise": "== See also ==\n\nExtreme points of the United States\nMainland\nMetropolitan France, nicknamed \"l'Hexagone\", is an analogous concept in France\n\n\n== Notes ==\n\n\n== References ==\n\n\n== External links ==\n\nDefinition of continental\nDefinition of contiguous\nDefinition of coterminous and conterminous"
+    },
+    {
+      "claim": "Aruba is the only ABC Island.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9838066101074219,
+      "premise": "Aruba is a flat island, much coastal land being exposed to tidal storm surges."
+    },
+    {
+      "claim": "MSG is only used in the film industry.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9998382329940796,
+      "premise": "However, the term \"natural flavor/s\" is used by the food industry for glutamic acid (chemically similar to MSG, lacking only the sodium ion)."
+    },
+    {
+      "claim": "Alan White was an Ambassador from California to Boston.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9998090863227844,
+      "premise": "He attended Ottawa Hills High School before dropping out."
+    },
+    {
+      "claim": "Michael Hutchence died in a hotel room in Sydney.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9874568581581116,
+      "premise": "Hutchence died by suicide in a Sydney hotel room on 22 November 1997 at the age of 37."
+    },
+    {
+      "claim": "Joseph Goebbels' Propaganda Ministry controlled the news media, arts, and information in Russi.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9910373687744141,
+      "premise": "In June 2011, Universal announced that the sequel would be released on July 3, 2013."
+    },
+    {
+      "claim": "I (film) was released in German.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.5490063428878784,
+      "premise": "The series received 22 nominations for the 70th Primetime Emmy Awards and won for Outstanding Drama Series and Dinklage won for Outstanding Supporting Actor in a Drama Series."
+    },
+    {
+      "claim": "Arjit Singh is an Indian male musician.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.8577098250389099,
+      "premise": "The lions were held initially in a fenced-off area of the park, and then collared and released into the wild a month later."
+    },
+    {
+      "claim": "The Little Prince (2015 film) is a 3D animated television show.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9973533153533936,
+      "premise": "It is the first adaptation as a full-length animated feature of The Little Prince."
+    },
+    {
+      "claim": "Mandy Moore is a writer.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9883117079734802,
+      "premise": "== References ==\n\n\n== External links ==\n\nOfficial website \nMandy Moore at IMDb\nMandy Moore at the TCM Movie Database (archived)\nMandy Moore at Rotten Tomatoes"
+    },
+    {
+      "claim": "The Stanford prison experiment was funded by an organization that coordinates, executes, and promotes the science and technology programs of the U.S. Army and Marine Corps.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9983556866645813,
+      "premise": "The Office of Naval Research (ONR) is an organization within the United States Department of the Navy responsible for the science and technology programs of the U.S."
+    },
+    {
+      "claim": "Kojol did not receive an award in 2011.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.999826967716217,
+      "premise": "In 2011, Kajol received Padma Shri, the fourth-highest civilian award by the government of India."
+    },
+    {
+      "claim": "Samsung was separated into four business groups in Italy.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9968066215515137,
+      "premise": "The company grouped them together under Samsung Electronics in the 1980s.\nAfter Lee, the founder's death in 1987, Samsung Group was separated into five business groups – Samsung Group, Shinsegae Group, CJ Group, Hansol Group and the JoongAng Group."
+    },
+    {
+      "claim": "Alexandria serves more than half of Egypt's imports and exports.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9222576022148132,
+      "premise": "During the later seasons, the cast expanded to include Amber Tamblyn as Jenny, Charlie's long-lost daughter, in the 11th season; Jennifer Taylor as Chelsea, Charlie’s longtime girlfriend, in the sixth and seventh seasons; and April Bowlby as Kandi, Alan’s second wife, in the third season, with recurring appearances in later seasons."
+    },
+    {
+      "claim": "Ed Gagliardi died on April 11, 2014.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.992932915687561,
+      "premise": "Gagliardi died of cancer on May 11, 2014, after battling the disease for eight years."
+    },
+    {
+      "claim": "Doxycycline may induce diarrhea.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.8660796880722046,
+      "premise": "Doxycycline may reduce ROS levels and induce antioxidant activity because it directly scavenges hydroxyl radicals and singlet oxygen, helping minimize tissue damage caused by highly oxidative and inflammatory conditions."
+    },
+    {
+      "claim": "William Howard Taft declined offers of appointment to a United States court in 1555.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.996737539768219,
+      "premise": "Despite his personal ambition to become chief justice, Taft declined repeated offers of appointment to the Supreme Court of the United States, believing his political work to be more important."
+    },
+    {
+      "claim": "The House of the Spirits is about the life of a young lady named Clara during the military dictatorship in Algeria.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9994795918464661,
+      "premise": "Based on the 1982 novel by Isabel Allende, the film follows three generations of women from a Chilean family during the country’s military dictatorship."
+    },
+    {
+      "claim": "The Pakistan Movement resulted from a series of transformations in Pakistan.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9738739132881165,
+      "premise": "In 1971, however, the Bangladesh Liberation War resulted in the dissolution of East Pakistan, which seceded from West Pakistan to become present-day Bangladesh."
+    },
+    {
+      "claim": "Norman Bates is a fictional character.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9974849224090576,
+      "premise": "Norman Bates is a fictional character created by American author Robert Bloch as the main antagonist in his 1959 horror novel Psycho, and later the main protagonist of the Psycho franchise."
+    },
+    {
+      "claim": "Ukrainian Soviet Socialist Republic was in an international organization.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9941949248313904,
+      "premise": "In 1924 on the territory of Ukrainian SSR was formed the Moldavian Autonomous Soviet Socialist Republic."
+    },
+    {
+      "claim": "The Washington Monument is 554.5 ft tall.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9963037967681885,
+      "premise": "=== Height ===\n\nThe monument stands 554 feet 7+11⁄32 inches (169.046 m) tall according to the National Geodetic Survey (measured 2013–14) or 555 feet 5+1⁄8 inches (169.294 m) tall according to the National Park Service (measured 1884)."
+    },
+    {
+      "claim": "Stephen Moyer acted in a film adaptation of a book.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9718608260154724,
+      "premise": "By the time of European contact, the region was home to complex societies such as the Ancestral Puebloans, known for their cliff dwellings, kivas, and extensive trade networks."
+    },
+    {
+      "claim": "Sierra Morena is only an idiom.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9998440742492676,
+      "premise": "A National Geographic Channel documentary film featuring an overview of some of the region's wildlife was produced in 2015."
+    },
+    {
+      "claim": "Jarhead was based upon the 1957 autobiographical fiction novel On the Road.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9997274279594421,
+      "premise": "Jarhead is a 2005 biographical war drama film based on the 2003 memoir of the same name by Anthony Swofford, chronicling his military service in the United States Marine Corps during the Persian Gulf War."
+    },
+    {
+      "claim": "Castlevania came out in 3D in 1986.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9999505281448364,
+      "premise": "The Knicks finished the season with a disappointing 37–45 record and finished ninth in the Eastern Conference, but was the season Carmelo Anthony established his career high, the Knicks' franchise record, and the Madison Square Garden record for single-game scoring."
+    },
+    {
+      "claim": "See.SZA.Run only incorporates archaic urban genres.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9998711347579956,
+      "premise": "== Music and lyrics ==\n\nSee.SZA.Run has a diverse musical style that incorporates contemporary urban genres such as soul, hip hop, and minimalist R&B. The EP also takes influences from cloud rap and ethereal R&B as well as using witch house and chillwave elements."
+    },
+    {
+      "claim": "Doxycycline may cause increased risk of sunburn in children.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9993613362312317,
+      "premise": "Common side effects include diarrhea, nausea, vomiting, abdominal pain, and an increased risk of sunburn."
+    },
+    {
+      "claim": "I Want to Know What Love Is is a song.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.8775330781936646,
+      "premise": "=== Formats and track listings ===\nDigital download\n\"I Want to Know What Love Is\" (album version) – 3:27\nUK bundle\n\"I Want to Know What Love Is\" (album version) – 3:27\n\"I Want to Know What Love Is\" (Moto Blanco Club Edit) – 3:25\n\"I Want to Know What Love Is\" (Chew Fu Radio Fix) – 3:51\nEuropean CD single\n\"I Want to Know What Love Is\" – 3:37\n\"Obsessed\" (Cahill Club Mix) – 6:23\nDigital maxi-single\n\"I"
+    },
+    {
+      "claim": "Vera Wang is based in a McDonalds.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.999942421913147,
+      "premise": "The Gordon Ramsay Bar & Grill Philippines opened in Newport World Resorts in August 2024."
+    },
+    {
+      "claim": "A thunderstorm has an effect on the Earth's atmosphere.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9983548521995544,
+      "premise": "In 2021, IIMBx also facilitated the IIMB partnership with NCW and India SME Forum to provide the six-week MOOC-based Do Your Venture program to five thousand aspiring women entrepreneurs."
+    },
+    {
+      "claim": "Anne Boleyn returned to England.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.6522018909454346,
+      "premise": "Anne returned to England in early 1522, to marry her cousin James Butler, 9th Earl of Ormond; the marriage plans were broken off, and instead, she secured a post at court as maid of honour to Henry VIII's wife, Catherine of Aragon."
+    },
+    {
+      "claim": "Color of Night won an Emmy for worst film.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9245855212211609,
+      "premise": "That year she also appeared in the film Masked and Anonymous, playing a mistress."
+    },
+    {
+      "claim": "The Independent Spirit Awards are held the day before the Golden Globe Awards.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.996316134929657,
+      "premise": "The Film Independent Spirit Awards (Fi Spirit Awards), also known as the Independent Spirit Awards or Spirit Awards, are awards presented annually to independent filmmakers by Film Independent since 1986."
+    },
+    {
+      "claim": "Nawaz Sharif is the oldest Prime Minister of Pakistan.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9980800151824951,
+      "premise": "Lasseter realized that his character no longer belonged to him only, but rather it belonged to others, as well."
+    },
+    {
+      "claim": "Dulquer Salmaan refused to ever become an actor.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9997811913490295,
+      "premise": "When asked in an interview about his \"unconventional entry with a bunch of newcomers\", Salmaan stated that it was his conscious decision as he felt that \" ... when an actor debuts, he has to earn the right to be a hero and not get it through a shortcut route.\" The film was a commercial success."
+    },
+    {
+      "claim": "The Cyclades are in the Red Sea.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9997060894966125,
+      "premise": "The Cyclades are bounded to the south by the Sea of Crete."
+    },
+    {
+      "claim": "Atlanta metropolitan area had a population of 5.5 million people.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9990917444229126,
+      "premise": "The core 5 counties of metropolitan Atlanta are Fulton, Gwinnett, Cobb, DeKalb, and Clayton, with over 60% of the metro area’s population residing in these counties."
+    },
+    {
+      "claim": "Andrew Moray led an uprising against occupation in 1297.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9981604218482971,
+      "premise": "He was soon a participant in the uprising against English rule."
+    },
+    {
+      "claim": "Chinatown is a 1974 Chevy.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9975780844688416,
+      "premise": "Chinatown is a 1974 American neo-noir mystery film directed by Roman Polanski and written by Robert Towne."
+    },
+    {
+      "claim": "Anne Boleyn is an influential person that was mentioned in many artistic and cultural work.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9989715814590454,
+      "premise": "Over the centuries, Anne has inspired or been mentioned in numerous artistic and cultural works."
+    },
+    {
+      "claim": "Story of My Life was recorded by an English Irish band.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9931621551513672,
+      "premise": "\"Story of My Life\" is a song recorded by English-Irish boy band One Direction."
+    },
+    {
+      "claim": "Faye Resnick is known for her appearances on television.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.8299024105072021,
+      "premise": "She is best known for her involvement in the O. J. Simpson murder trial and for her appearance on the reality television series The Real Housewives of Beverly Hills."
+    },
+    {
+      "claim": "A near-Earth object is not a dead body.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "entailment",
+      "score": 0.9109275341033936,
+      "premise": "A near-Earth object (NEO) is by definition any small Solar System body orbiting the Sun whose closest approach to the Sun (perihelion) is less than 1.3 times the Earth–Sun distance (astronomical unit, AU)."
+    },
+    {
+      "claim": "See You on the Other Side is a book.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.999885082244873,
+      "premise": "See You on the Other Side is the seventh studio album by American nu metal band Korn."
+    },
+    {
+      "claim": "Brazilian jiu-jitsu shunned Kodokan judo.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9513522982597351,
+      "premise": "Brazilian jiu-jitsu since its inception did not strictly follow Kodokan judo rules; this divergence helped BJJ develop a distinct identity, becoming a groundwork and submission focus fighting style."
+    },
+    {
+      "claim": "Corsica is a mountain.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9980670809745789,
+      "premise": "It is the most mountainous island in the Mediterranean, a \"mountain in the sea\"."
+    },
+    {
+      "claim": "Python features a dynamic operating system.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9802928566932678,
+      "premise": "Lawrence leaves Hoffman shackled in the bathroom to die."
+    },
+    {
+      "claim": "The Danish language is spoken in films.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9574041962623596,
+      "premise": "Ian Whyte also made his last appearance in \"Battle of the Bastards\" as the giant, Wun Wun; he had played Gregor Clegane during the show's second season."
+    },
+    {
+      "claim": "Rehab is Amy Winehouse's signature song.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9748713374137878,
+      "premise": "\"Rehab\" became an international critical and commercial success, and has been referred to as Winehouse's signature song."
+    },
+    {
+      "claim": "Fuller House (TV series) is a television series' sequel.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.983720064163208,
+      "premise": "Television Group that aired as a Netflix original series as the sequel to the ABC television series Full House, which ran from 1987 to 1995."
+    },
+    {
+      "claim": "Chest sensation is one symptom of pulmonary embolism.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.9788432121276855,
+      "premise": "=== Psychological ===\nOne common symptom of panic disorder is shortness of breath."
+    },
+    {
+      "claim": "Alexandria is the largest seaport in Egypt.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9972111582756042,
+      "premise": "It is Egypt's principal seaport, the second largest city after Cairo, and the largest city on the Mediterranean coast."
+    },
+    {
+      "claim": "Chris Mullin played with a professional basketball team in the 1990s.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.8448861837387085,
+      "premise": "Although Kevin and Paul are best friends in the series' early seasons, their relationship becomes somewhat strained later."
+    },
+    {
+      "claim": "Gory Guerrero was a professional businessman.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.8930380344390869,
+      "premise": "Salvador Guerrero Quesada (January 11, 1921 – April 18, 1990), better known as Gory Guerrero, was an American and Mexican professional wrestler, promoter, and booker."
+    },
+    {
+      "claim": "A United Kingdom was directed by Amma Asante in 2015.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9985349178314209,
+      "premise": "He presided over the Imperial Cabinet when it endorsed this policy, and he secured the backing of Britain's allies, especially the United States and France."
+    },
+    {
+      "claim": "Cary Elwes was born in Russia, lives in Russia, and has exclusively Russian heritage.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9992103576660156,
+      "premise": "== Early life and education ==\n\nElwes was born on 26 October 1962 in Westminster, London."
+    },
+    {
+      "claim": "The Originals (TV series) began airing on The CW on October 30, 2013.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9842206239700317,
+      "premise": "It began airing on the CW on October 3, 2013."
+    },
+    {
+      "claim": "Bill Graham Civic Auditorium was built in 1915.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.8905104994773865,
+      "premise": "== About the venue ==\n\nThe auditorium was designed by renowned Bay Area architects John Galen Howard, Frederick Herman Meyer and John W. Reid Jr. and built in 1915 as part of the Panama–Pacific International Exposition."
+    },
+    {
+      "claim": "Internet access is incapable of accessing email and the World Wide Web.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.999695897102356,
+      "premise": "Internet access is a facility or service that provides connectivity for a computer, a computer network, or other network device to the Internet, and for individuals or organizations to access or use applications such as email and the World Wide Web."
+    },
+    {
+      "claim": "Brown University's main campus is located in the most populous city in Rhode Island.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9461353421211243,
+      "premise": "Providence ( ) is the capital and most populous city of the U.S. state of Rhode Island."
+    },
+    {
+      "claim": "Jack Lowden is incapable of being in films.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.99935382604599,
+      "premise": "Jack Andrew Lowden (born 2 June 1990) is a Scottish actor."
+    },
+    {
+      "claim": "Story of My Life was recorded by a band that consisted of only boys.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9967017769813538,
+      "premise": "\"Story of My Life\" is a song recorded by English-Irish boy band One Direction."
+    },
+    {
+      "claim": "Yvonne Strahovski worked on an ABC marketing campaign.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9995582699775696,
+      "premise": "On the November 8, 1932, ballot, Colorado approved the repeal of alcohol prohibition more than a year before the Twenty-first Amendment to the United States Constitution was ratified."
+    },
+    {
+      "claim": "John S. McCain Jr. grew up in New York.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9991785883903503,
+      "premise": "The son and namesake of a naval officer, McCain grew up in Washington, D.C., and graduated from the U.S."
+    },
+    {
+      "claim": "Mount Hood is in the Southwest.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "entailment",
+      "score": 0.6216033697128296,
+      "premise": "The last three eruptions at Mount Hood occurred within the past 1,800 years from vents high on the southwest flank and produced deposits that were distributed primarily to the south and west along the Sandy and Zigzag rivers."
+    },
+    {
+      "claim": "Castlevania was developed by Konami.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9970598816871643,
+      "premise": "Castlevania, known in Japan as Akumajō Dracula, is a 1986 platform game developed and published by Konami."
+    },
+    {
+      "claim": "A Good Day to Die Hard was written by Skip Woods in 3 months.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.99954754114151,
+      "premise": "ISBN 0-8131-1772-0\nKlotter, James C. Our Kentucky: A Study of the Bluegrass State (2000), high school text\nLucas, Marion Brunson and Wright, George C. A History of Blacks in Kentucky 2 vols."
+    },
+    {
+      "claim": "The Washington Monument is less than 553 ft tall.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9966615438461304,
+      "premise": "The Washington Monument is a 555-foot (169 m) tall obelisk on the National Mall in Washington, D.C., built to commemorate George Washington, a Founding Father of the United States and the nation's first president."
+    },
+    {
+      "claim": "Konidela Production Company is from a place.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.7720850110054016,
+      "premise": "Mel B was also appointed as a tourism ambassador from the United Kingdom to Nevis in 2022."
+    },
+    {
+      "claim": "In 2015, among Americans, 44% of adults had consumed alcoholic drink in the last month.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9991495609283447,
+      "premise": "Beer is the most consumed alcoholic beverage in the world."
+    },
+    {
+      "claim": "Aubrey Anderson-Emmons did not star on Modern Family.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.5884879231452942,
+      "premise": "She is known for her role as Lily Tucker-Pritchett on ABC's Modern Family (2011–2020)."
+    },
+    {
+      "claim": "A manga series illustrated by Takeshi Obata is the basis for the Japanese television drama series Death Note.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9541807174682617,
+      "premise": "Death Note (Japanese: デスノート) is a Japanese television drama series based on the manga series of the same name by Tsugumi Ohba and Takeshi Obata."
+    },
+    {
+      "claim": "The Ukrainian Soviet Socialist Republic was gone before the UN was founded.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9756907820701599,
+      "premise": "Accordingly, representatives from the \"Ukrainian Soviet Socialist Republic\" and 50 other states founded the UN on 24 October 1945."
+    },
+    {
+      "claim": "South Island is divided from North Island by Cook Strait.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.556031346321106,
+      "premise": "The South Island is bordered to the north by Cook Strait, to the west by the Tasman Sea, to the south by Foveaux Strait and the Southern Ocean, and to the east by the Pacific Ocean."
+    },
+    {
+      "claim": "Milk is a 2008 American film starring Bob Ross.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.5021497011184692,
+      "premise": "Meanwhile, three guards prepared for the arrival of the inmates."
+    },
+    {
+      "claim": "King Edward the First's occupation of north Scotland was opposed by Andrew Moray.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.6082759499549866,
+      "premise": "While Andrew Moray seized control of north Scotland and William Wallace was active in west-central Scotland, a rising led by Scotland's traditional feudal leaders was underway in the south of the kingdom."
+    },
+    {
+      "claim": "See.SZA.Run is influenced by Jay-Z and Lil Kim.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9761921167373657,
+      "premise": "Before having anyone drink, he took up octli with a cup and then poured it before the hearth; he poured the octli in the four directions."
+    },
+    {
+      "claim": "Keith Stanfield is in Twilight.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9999247789382935,
+      "premise": "Stoltenberg's first tenure as prime minister was controversial within his own party, being responsible for reforms and modernisation of the welfare state that included partly privatising several key state-owned services and corporations."
+    },
+    {
+      "claim": "Brian De Palma is exclusively British.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9996278285980225,
+      "premise": "Brian Russell De Palma ([de ˈpalma]; born September 11, 1940) is an American filmmaker."
+    },
+    {
+      "claim": "Salman Rushdie was the writer of a novel published in 1981.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9969515800476074,
+      "premise": "Rushdie's second novel, Midnight's Children (1981), won the Booker Prize in 1981 and was deemed to be \"the best novel of all winners\" on two occasions that marked the 25th and the 40th anniversary of the prize."
+    },
+    {
+      "claim": "Elizabeth Olsen refuses to act.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9995889067649841,
+      "premise": "Elizabeth Chase Olsen (born February 16, 1989) is an American actress."
+    },
+    {
+      "claim": "Prince Charles and Lady Diana's wedding anniversary was a traditional wedding service.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9994186162948608,
+      "premise": "The ceremony was a traditional Church of England wedding service."
+    },
+    {
+      "claim": "There is an island called Java.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9980858564376831,
+      "premise": "== Natural environment ==\n\nJava is an island with a large amount of biodiversity."
+    },
+    {
+      "claim": "Floyd Mayweather Jr. is a professional beat boxer.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.594183087348938,
+      "premise": "Floyd Joy Mayweather Jr. (né Sinclair; born February 24, 1977) is an American professional boxer and boxing promoter."
+    },
+    {
+      "claim": "Oscar Isaac did not appear in Star Wars: The Force Awakens.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9975097179412842,
+      "premise": "Isaac co-starred as Poe Dameron, an X-wing pilot, in the epic space opera film Star Wars: The Force Awakens (2015)."
+    },
+    {
+      "claim": "Commodore is ranked superior to a navy captain.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.5093173980712891,
+      "premise": "It is superior to a navy captain, but below a rear admiral."
+    },
+    {
+      "claim": "Catherine Hardwicke is Texan.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9997190833091736,
+      "premise": "The elevator occupies the center of the shaft well from the entry lobby to the observation floor, with an elevator machine room (installed 1925–26) whose floor is 18 feet 10 inches (5.74 m) above the observation floor and an elevator pit (excavated 1879) whose floor is 9 feet (2.74 m)  below the entry lobby floor."
+    },
+    {
+      "claim": "Chris Bosh played with the basketball team in Miami.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9378156065940857,
+      "premise": "She wants Trinity to have a good relationship with her dad, Chris Bosh, and adverse publicity makes that more difficult.\"\n\n\n== See also ==\n\nToronto Raptors accomplishments and records\n\n\n== References ==\n\n\n== External links ==\n\nCareer statistics from NBA.com · Basketball Reference\nGeorgia Tech Yellow Jackets bio at the Wayback Machine (archived July 11, 2018)\nChris Bosh at Team USA (archive July 11"
+    },
+    {
+      "claim": "A polynomial is a sentence.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9841503500938416,
+      "premise": "Hillenburg halted production of the show in 2002 to work on the feature film The SpongeBob SquarePants Movie, which he intended to be the series finale."
+    },
+    {
+      "claim": "Veep has won the Television Critics Association Award for Outstanding Achievement in Comedy.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9983463287353516,
+      "premise": "Its second, fourth, and sixth seasons won the Writers Guild of America Award for Television: Comedy Series, and its third season won the Television Critics Association Award for Outstanding Achievement in Comedy."
+    },
+    {
+      "claim": "Talulah Riley appeared in Worcester.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.975222647190094,
+      "premise": "An alternate Indian version contains an alternate DVD and alternative cover that is packaged in a slimline case with the disc in original packaging."
+    },
+    {
+      "claim": "Alberto Contador retained his wins.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9173871278762817,
+      "premise": "Its economy accounts for over a quarter of nominal global GDP and has been the world's largest since about 1890."
+    },
+    {
+      "claim": "Sejong the Great was born on May 15, 1397.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9835118651390076,
+      "premise": "Sejong (Korean: 세종; Hanja: 世宗; May 15, 1397 – April 8, 1450), commonly known as Sejong the Great (세종대왕; 世宗大王), was the fourth monarch of the Koreanic state Joseon."
+    },
+    {
+      "claim": "You Only Live Twice is the first Bond film directed by James Cameron.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9826605916023254,
+      "premise": "The film is recognised by the American Film Institute in these lists:\n\n2003: AFI's 100 Years...100 Heroes & Villains:\nErnst Stavro Blofeld – Nominated Villain\n\n\n== See also ==\nOutline of James Bond\n\n\n== References ==\n\n\n== External links ==\n\nOfficial website\nYou Only Live Twice at IMDb\nYou Only Live Twice at the BFI's Screenonline\nYou Only Live Twice at the TCM Movie Database (archived)\nYou Only Li"
+    },
+    {
+      "claim": "Ricardo Montalbán was a carpenter.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9998809099197388,
+      "premise": "In 2001 he joined the principal cast of the A&E TV series Nero Wolfe (2001–2002), portraying the superlatively competent freelance detective Saul Panzer for two seasons."
+    },
+    {
+      "claim": "Gaius Julius Caesar was Roman.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9931816458702087,
+      "premise": "Gaius Julius Caesar (; Latin: [ˈɡaːiʊs ˈjuːliʊs ˈkae̯sar]; c. 140 BC – 85 BC) was a Roman senator, a supporter of his brother-in-law, Gaius Marius, and the father of Roman statesman Julius Caesar."
+    },
+    {
+      "claim": "The New England Patriots failed to reach seven Super Bowls.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9981086254119873,
+      "premise": "== Championships ==\n\n\n=== Super Bowl championships ===\nThe New England Patriots have won six Super Bowls, the league championship of the NFL."
+    },
+    {
+      "claim": "The Premier League Asia Trophy was formerly called the World Cup.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9991557598114014,
+      "premise": "The Premier League Asia Trophy (formerly the FA Premier League Asia Cup) was a biennial pre-season association football friendly tournament in Asia."
+    },
+    {
+      "claim": "The Wonder Years received a Peabody Award.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9995611310005188,
+      "premise": "The show was also awarded a Peabody Award in 1989 for \"pushing the boundaries of the sitcom format and using new modes of storytelling\"."
+    },
+    {
+      "claim": "Zoe Saldana's birth year was 1978.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9967736601829529,
+      "premise": "Zoë Yadira Saldaña-Perego (née Saldaña Nazario; born June 19, 1978), known professionally as Zoe Saldaña, is an American actress."
+    },
+    {
+      "claim": "The Group of 15 does not include any country that was under UN sanctions.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.998552143573761,
+      "premise": "== Production ==\n\n\n=== Development ===\nOn 14 October 2010, Kung Fu Panda co-director and More creator Mark Osborne was hired and set to direct The Little Prince based on the 1943 novel of the same name."
+    },
+    {
+      "claim": "Catherine Keener appeared in Synecdoche, New York.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9966856837272644,
+      "premise": "In 2008, Keener portrayed Philip Seymour Hoffman's wife Adele in Charlie Kaufman's directorial debut, Synecdoche, New York."
+    },
+    {
+      "claim": "Battle of the Bastards is a Game of Thrones episode.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9935238361358643,
+      "premise": "\"Battle of the Bastards\" is the ninth and penultimate episode of the sixth season of HBO's fantasy television series Game of Thrones and its 59th episode overall."
+    },
+    {
+      "claim": "Donald Duck typically wears a cap.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.7430037260055542,
+      "premise": "He typically wears a sailor shirt and cap with a bow tie."
+    },
+    {
+      "claim": "China is larger than the United States of America.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "entailment",
+      "score": 0.7705168128013611,
+      "premise": "Jean first appears when Alan and Lyndsey take their mothers out to dinner."
+    },
+    {
+      "claim": "Volkswagen Group designs the world's cheapest passenger and commercial vehicles.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9979372024536133,
+      "premise": "He directed, co-wrote and co-starred in the 2018 horror film A Quiet Place, for which Time named him one of the 100 most influential people in the world."
+    },
+    {
+      "claim": "Skopje was a dead body.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9242472052574158,
+      "premise": "In 1689, the Habsburgs seized Skopje which was already weakened by a cholera epidemic."
+    },
+    {
+      "claim": "A near-Earth object is lengthened as NEO.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.7197515368461609,
+      "premise": "A near-Earth object (NEO) is by definition any small Solar System body orbiting the Sun whose closest approach to the Sun (perihelion) is less than 1.3 times the Earth–Sun distance (astronomical unit, AU)."
+    },
+    {
+      "claim": "Cthulhu is an intellectual property.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.994074285030365,
+      "premise": "Some historians argue that Davis's personality contributed to the defeat of the Confederacy."
+    },
+    {
+      "claim": "There were 3,090,953 Mormon members in Germany.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9995488524436951,
+      "premise": "On March 19, 2008, it was announced on the television show American Idol that Diamond would be a guest mentor to the remaining Idol contestants, who would sing Diamond songs for the broadcasts of April 29 and 30, 2008."
+    },
+    {
+      "claim": "Coeliac disease may result in increased risk of cancer.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9918332099914551,
+      "premise": "Risk factors for developing cancer among those with coeliac disease include older age and refractory coeliac disease."
+    },
+    {
+      "claim": "Vampire Academy, worldwide, grossed $15.4 million.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9991132616996765,
+      "premise": "The film received generally negative reviews from critics and grossed $15.4 million worldwide against a $30 million budget, making it a box-office bomb."
+    },
+    {
+      "claim": "A staging area is a location where equipment are assembled the Fourth of July.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.5972533822059631,
+      "premise": "== Downfall and execution: 1536 ==\n\nOn 8 January 1536, news of Catherine of Aragon's death reached Anne and the King, who was overjoyed."
+    },
+    {
+      "claim": "Kevin Bacon was in a 2004 drama film.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9416537880897522,
+      "premise": "He had graduated from the United States Military Academy, served in the regular army, and commanded troops in combat."
+    },
+    {
+      "claim": "John Frusciante was incapable of working with electronica in his music.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9904083013534546,
+      "premise": "I'm happy that he's back with them.\" Flea said that \"artistically, in terms of being able to speak the same [musical] language, it was easier working with John\"."
+    },
+    {
+      "claim": "Baloch people are part of a diverse Indo-European ethno-linguistic group and they are cultured.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.981620192527771,
+      "premise": "The American surgeon Norman Shumway has been credited for his efforts to improve transplantation techniques, along with pioneers Richard Lower, Vladimir Demikhov and Adrian Kantrowitz."
+    },
+    {
+      "claim": "Canada is sometimes considered a part of Scandinavia.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9701725840568542,
+      "premise": "Courseware was ramped up in 2015 for mass outreach."
+    },
+    {
+      "claim": "Hermit crabs are animals.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.991228461265564,
+      "premise": "Hermit crabs should not be regularly handled, they are prey animals and typically panic while being handled, which can cause injury to the crab or the owner."
+    },
+    {
+      "claim": "Elizabeth I was the daughter of a salesman.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.856096088886261,
+      "premise": "== Family tree ==\n\n\n== See also ==\n\nAnti-Catholicism in the United Kingdom\nEarly modern Britain – Period of history of the island of Great Britain\nEnglish Renaissance – Cultural and artistic movement in England\nInventory of Elizabeth I – Elizabeth I's belongings Recorded inventories, (1574)\nPortraiture of Elizabeth I – Portraits of Elizabeth I of England and Ireland\nProtestant Reformation – 16th-c"
+    },
+    {
+      "claim": "The Tenth Doctor travels alone in The End of Time.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9918586611747742,
+      "premise": "He eventually parts ways with them all by the end of the 2008 series finale, \"Journey's End\", after which he attempts to travel alone for the duration of the 2008–2010 specials before being accompanied by Donna's grandfather Wilfred Mott (Bernard Cribbins) on his final adventure in \"The End of Time\"."
+    },
+    {
+      "claim": "Vampires were forest people.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9976345300674438,
+      "premise": "Sejong observed the aak genre music of the Korean court and felt that it had degenerated from ancient Chinese ideals."
+    },
+    {
+      "claim": "Aphrodite is married to the Greek god of blacksmiths.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9703249931335449,
+      "premise": "In the Odyssey, Aphrodite was married to Hephaestus, the god of fire, blacksmiths and metalworking; she fornicates with Ares, the god of war, and is caught by her husband."
+    },
+    {
+      "claim": "2 Hearts is a song by a human.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9853963255882263,
+      "premise": "=== Recording and composition ===\n\n\"2 Hearts\" is a glam rock and electro-rock record."
+    },
+    {
+      "claim": "Yin and yang is a Christian concept.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9854788780212402,
+      "premise": "DiCaprio chose the project because he felt the novel's themes about disaffection and discovery spoke to his generation, saying, \"We've never had anything to fight for, so we're constantly looking for things to believe in."
+    },
+    {
+      "claim": "Henry Cavill is an actor.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9973706007003784,
+      "premise": "Henry William Dalgliesh Cavill ( KAV-əl; born 5 May 1983) is a British actor."
+    },
+    {
+      "claim": "Practical Magic is based on an essay of the same name.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9987648725509644,
+      "premise": "The sequel is based on Alice Hoffman's 2021 novel The Book of Magic, the fourth installment in her Practical Magic series."
+    },
+    {
+      "claim": "Ang Lee is the screenwriter for Star Wars Episode IV.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9990683197975159,
+      "premise": "\"Hunnits, Fifties\" (featuring Yung Bans) (produced with Cubeatz)\nVarious Artists – The Fate of the Furious: The Album\n02."
+    },
+    {
+      "claim": "Robert Singer (producer) has spent his entire career producing only live theater.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.997643768787384,
+      "premise": "He is known for his work on Supernatural where he served as an executive producer, senior director and occasional writer."
+    },
+    {
+      "claim": "The New England Patriots owns the record for most Super Bowls lost.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9745655655860901,
+      "premise": "Higher data rates are delivered in OC-3c multiples of four providing OC-12c (622.080 Mbit/s), OC-48c (2.488 Gbit/s), OC-192c (9.953 Gbit/s), and OC-768c (39.813 Gbit/s)."
+    },
+    {
+      "claim": "Doxycycline may cause diarrhea.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9332253932952881,
+      "premise": "Doxycycline can cause gastrointestinal upset."
+    },
+    {
+      "claim": "Ted Cruz is from the United States.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.6534541249275208,
+      "premise": "Supreme Court from the Oyez Project\nTed Cruz at Ballotpedia\nAppearances on C-SPAN\nTed Cruz collected news and commentary at The Texas Tribune\nTed Cruz collected news and commentary at The New York Times\nR. (Ted) Edward Cruz – profile at Morgan, Lewis & Bockius LLP (archived)\n\nBiography at the Biographical Directory of the United States Congress\nFinancial information (federal office) at the Federal"
+    },
+    {
+      "claim": "Vatican City was established as a city-state by the Lateran Treaty.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9956498742103577,
+      "premise": "== Name ==\nThe name Vatican City was first used in the Lateran Treaty, signed on 11 February 1929, which established the modern city-state named after Vatican Hill, the geographic location of the state within the city of Rome."
+    },
+    {
+      "claim": "Prince Charles and Lady Diana were excommunicated in London, UK.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9998354911804199,
+      "premise": "It included the single \"Noise\", released in March 2016, and \"Setting the World on Fire\", featuring singer P!NK, released in July 2016."
+    },
+    {
+      "claim": "Natasha Lyonne was born in 1995.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9992247819900513,
+      "premise": "Natasha Bianca Lyonne Braunstein ( lee-OHN; born April 4, 1979) is an American actress, executive producer, director and writer."
+    },
+    {
+      "claim": "The cinematography of Far from the Madding Crowd was by an English athlete.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9994414448738098,
+      "premise": "He was also known for his bass playing style, using his Rickenbacker bass to create an \"overpowered, distorted rhythmic rumble\"."
+    },
+    {
+      "claim": "Shannon Lee is not American.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.418343722820282,
+      "premise": "Shannon Emery Lee Keasler (born Shannon Emery Lee; April 19, 1969) is an American actress."
+    },
+    {
+      "claim": "United States Congressmen make up The Blue Dog Coalition.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9983218312263489,
+      "premise": "When he became prime minister in 2000, he was portrayed as the \"Norwegian Tony Blair\", and his policies were inspired by Blair's New Labour agenda."
+    },
+    {
+      "claim": "Vampire Academy grossed $15.4 million for charity.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.997052788734436,
+      "premise": "This was Mayweather's eighth defense of the WBC super-featherweight title, which he had held for more than three years."
+    },
+    {
+      "claim": "Hinduism contains a range of study.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9830223917961121,
+      "premise": "Objects with both an Earth minimum orbit intersection distance (MOID) of 0.05 AU or less and an absolute magnitude of 22.0 or brighter (a rough indicator of large size) are considered PHAs."
+    },
+    {
+      "claim": "The Blue Dog Coalition was formed.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9773432016372681,
+      "premise": "== History ==\n\n\n=== 1990s ===\nThe Blue Dog Coalition was formed in 1995 during the 104th Congress to give members from the Democratic Party representing conservative-leaning districts a unified voice after the Democrats' loss of Congress in the 1994 Republican Revolution."
+    },
+    {
+      "claim": "David Guggenheim is incapable of creating anything.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9998077750205994,
+      "premise": "Designated Survivor is an American political thriller drama television series created by David Guggenheim."
+    },
+    {
+      "claim": "Kareena Kapoor was a commercial failure.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9996187686920166,
+      "premise": "The French had 3,254 tanks on the north-eastern front on 10 May, against 2,439 German tanks."
+    },
+    {
+      "claim": "Toy Story 2 was released by North Korea.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9858128428459167,
+      "premise": "Another game, Toy Story 2, was released for the Game Boy Color in November 1999."
+    },
+    {
+      "claim": "After its revival in 2009 Hair (musical) won a Tony.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9641433358192444,
+      "premise": "During the 1991 miniseries The Infinity Gauntlet, Thanos shatters the shield with a blow of his fist while in combat with Captain America."
+    },
+    {
+      "claim": "A thunderstorm has no effect on the Earth's atmosphere.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9944498538970947,
+      "premise": "Beyond the Earth's atmosphere, thunderstorms have also been observed on the planets of Jupiter, Saturn, Neptune, and, probably, Venus."
+    },
+    {
+      "claim": "Estonia is a place.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9767295122146606,
+      "premise": "The last festival took place in July 2025."
+    },
+    {
+      "claim": "53 879 animals counted as Romani people in the Republic of Macedonia.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9850864410400391,
+      "premise": "According to the last census from 2021, there were 46,433 people counted as Romani, or 2.53% of the population."
+    },
+    {
+      "claim": "Dan Trachtenberg is an American filmmaker.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9964259266853333,
+      "premise": "Dan Trachtenberg (born May 11, 1981) is an American director, writer, producer, and podcast host."
+    },
+    {
+      "claim": "Military deception is a German form of strategically spreading false or misleading information.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.949387788772583,
+      "premise": "Churchill asked Gamelin where and when the general proposed to launch a counter-attack against the flanks of the German bulge."
+    },
+    {
+      "claim": "Qin dynasty is incapable of working with measurements.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9677575826644897,
+      "premise": "It is named for its progenitor state of Qin, a fief of the confederal Zhou dynasty (c. 1046–256 BC)."
+    },
+    {
+      "claim": "On Nickelodeon SpongeBob SquarePants is the highest rated series to ever air.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9683384895324707,
+      "premise": "=== Ratings and run-length achievements ===\nWithin its first month on the air, SpongeBob overtook Pokémon as the highest rated Saturday-morning children's series on television."
+    },
+    {
+      "claim": "Uranium is unable to use the symbol U.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9988565444946289,
+      "premise": "Uranium is a chemical element; it has symbol U and atomic number 92."
+    },
+    {
+      "claim": "Terrence Howard was in the film Iron Man.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.98667973279953,
+      "premise": "Howard was contracted to play Colonel James Rhodes in the 2008 film Iron Man."
+    },
+    {
+      "claim": "There are no major features of messianism.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9986080527305603,
+      "premise": "Representative James I. Van Alen."
+    },
+    {
+      "claim": "Catherine Keener appeared in a film.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.7076013088226318,
+      "premise": "In 2024, Keener appeared in Joker: Folie à Deux, the sequel to the 2019 film Joker."
+    },
+    {
+      "claim": "Sacre-Coeur, Paris is apolitical.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.8883212804794312,
+      "premise": "ISBN 978-2-2289-1911-1\n\n\n== Further reading ==\nJacques Benoist, Le Sacre-Coeur de Montmartre de 1870 a nos Jours (Paris) 1992."
+    },
+    {
+      "claim": "Menace II Society is set in South Central Los Angeles, California.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9917700290679932,
+      "premise": "Set in the Watts and Crenshaw neighborhoods of Los Angeles, the film follows the life of Caine Lawson (Tyrin Turner) as he struggles with the realities of his gang affiliation and inner-city life with his close friends."
+    },
+    {
+      "claim": "Mission Impossible 3 stars Maggie Q.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.5658252239227295,
+      "premise": "=== 2006–2013: Hollywood career and Nikita ===\n\nIn 2006, Q made her Hollywood breakthrough as co-star in Mission: Impossible III alongside Tom Cruise."
+    },
+    {
+      "claim": "Solanum excludes horse nettles.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9949203133583069,
+      "premise": "It also contains the so-called horse nettles (unrelated to the genus of true nettles, Urtica), as well as numerous plants cultivated for their ornamental flowers and fruit."
+    },
+    {
+      "claim": "Zoe Saldana has a pet cat.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9995986819267273,
+      "premise": "The Inland Northwest has a continental climate of warm to hot summers and cold to bitterly cold winters."
+    },
+    {
+      "claim": "Probot had Dave Grohl as a drummer.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9756070375442505,
+      "premise": "Probot was a heavy metal recording project led by American musician Dave Grohl, as a side project from his primary group Foo Fighters."
+    },
+    {
+      "claim": "Aldous Huxley barely published scripts.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9177506566047668,
+      "premise": "=== Online editions ===\nWorks by Aldous Huxley in eBook form at Standard Ebooks\nWorks by Aldous Huxley at Project Gutenberg\nWorks by Aldous Huxley at Open Library \nWorks by or about Aldous Huxley at the Internet Archive\nWorks by Aldous Leonard Huxley at Faded Page (Canada)\nWorks by Aldous Huxley at LibriVox (public domain audiobooks)"
+    },
+    {
+      "claim": "Ekta Kapoor worked on a sitcom in 2007.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.8468091487884521,
+      "premise": "Having reconciled, John and Jack fly back home to the United States and are reunited with an excited Lucy."
+    },
+    {
+      "claim": "The Burj Khalifa contains 65 escalators.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.992453396320343,
+      "premise": "The Burj Khalifa has 57 elevators and 8 escalators."
+    },
+    {
+      "claim": "Yvonne Strahovski is an Australian producer.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9777976274490356,
+      "premise": "This brief period of revival for Penguin Specials in contributing to the national dialogue was not sustained after the departure of Godwin in 1967, and with the rise in television journalism the Specials series declined in significance through the 1970s and 1980s. The last Special was published in 1988 with Keith Thompson's Under Siege: Racism and Violence in Britain Today."
+    },
+    {
+      "claim": "The SpongeBob SquarePants Movie stars a dog.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9902926683425903,
+      "premise": "== Literature ==\n2004: Marc Cerasini: SpongeBob SquarePants Movie: A novelization of the hit movie!, Simon Spotlight, ISBN 978-0689868405\n\n\n== Notes ==\n\n\n== References ==\n\n\n== External links ==\n\nOfficial website at the Wayback Machine (archived November 20, 2004)\nThe SpongeBob SquarePants Movie at Rotten Tomatoes \nThe SpongeBob SquarePants Movie at IMDb"
+    },
+    {
+      "claim": "Planet Hollywood Las Vegas is operated by a corporation based on game theory.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.984594464302063,
+      "premise": "This is nowhere near the 45% reduction goal to limit global warming to 1.5 °C or the 25% reduction goal to limit it to 2 °C.\n\n\n== Society and culture ==\n\n\n=== Denial and misinformation ===\n\nPublic debate about climate change has been strongly affected by climate change denial and misinformation, which first emerged in the United States and has since spread to other countries, particularly Canada a"
+    },
+    {
+      "claim": "John Frusciante has a car.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9965033531188965,
+      "premise": "Black and Gass gave them the choice between Pets or Meat, Balboa's Biblical Theater and the Axe Lords Featuring Gorgazon's Mischief (Gass's favorite)."
+    },
+    {
+      "claim": "The Originals (TV series) is Californian.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9997561573982239,
+      "premise": "The account by François Cauche from 1651 is the only description of the egg and the call:\n\nI have seen in Mauritius birds bigger than a Swan, without feathers on the body, which is covered with a black down; the hinder part is round, the rump adorned with curled feathers as many in number as the bird is years old."
+    },
+    {
+      "claim": "Yvonne Strahovski has worked on movies and TV shows.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9135984778404236,
+      "premise": "== External links ==\n\nYvonne Strahovski at IMDb\nYvonne Strahovski at TV Guide"
+    },
+    {
+      "claim": "Part of The Last Song (film) was fought on a beach.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.8757864832878113,
+      "premise": "The Last Song may refer to:\n\n\n== Film, television, and literature ==\nThe Last Song (1942 film), a Hungarian drama film directed by Frigyes Bán\nThe Last Song (1980 film), an American television film directed by Alan J. Levi\nThe Last Song (2010 film), an adaptation of a novel by Nicholas Sparks, directed by Julie Anne Robinson\nThe Last Song (TV series), a British television series written by Carla L"
+    },
+    {
+      "claim": "LinkedIn is based on Earth.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.9976100921630859,
+      "premise": "The lists are based on more than one billion actions by LinkedIn members worldwide."
+    },
+    {
+      "claim": "Henri Kontinen won the Australian Open men's doubles championship in 2011.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.9876658916473389,
+      "premise": "Kontinen and Peers won the 2017 Australian Open doubles championship in January 2017, and on 3 April 2017 Kontinen became world No. 1 doubles player—the first Finnish player, male or female, to do so."
+    },
+    {
+      "claim": "Temple Grandin was directed by a Croatian filmmaker.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9972794651985168,
+      "premise": "In July 2025 Russian authorities declared Yale University to be an \"undesirable\" organization, banning its activities in the country."
+    },
+    {
+      "claim": "Nate Diaz competed in California for Strikeforce.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9998700618743896,
+      "premise": "=== 2007–2009: Wild Hope and Amanda Leigh ===\n\nIn early 2006, Moore said that she missed her music career and that singing is what she was the \"most passionate about\"."
+    },
+    {
+      "claim": "NXT Tag Team Championship was produced by World Wrestling Entertainment, Inc.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9989205598831177,
+      "premise": "It became the third-highest-grossing animated film of all time (behind The Lion King and Aladdin)."
+    },
+    {
+      "claim": "Move (Little Mix song) was released on the CD Salute.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9993606209754944,
+      "premise": "The results were published in Nature on December 5, 1985."
+    },
+    {
+      "claim": "Honeymoon is the third perfume line by Lana Del Rey.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9990480542182922,
+      "premise": "Honeymoon is the fourth studio album by American singer-songwriter, and record producer Lana Del Rey."
+    },
+    {
+      "claim": "Anneliese van der Pol is an actress.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9947072267532349,
+      "premise": "Anneliese Louise van der Pol (born September 23, 1984) is a Dutch actress and singer."
+    },
+    {
+      "claim": "Freddie Highmore has been nominated for the Critics' Choice Television Award.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9206870198249817,
+      "premise": "Highmore starred as Norman Bates in the drama-thriller series Bates Motel (2013–2017), for which he was nominated thrice for the Critics' Choice Television Award for Best Actor in a Drama Series and won a People's Choice Award."
+    },
+    {
+      "claim": "Stomp the Yard stars an American actress born in the 1980s.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9993003606796265,
+      "premise": "== Sequel ==\nRainforest Films announced a Stomp the Yard sequel, called Stomp the Yard: Homecoming."
+    },
+    {
+      "claim": "Azithromycin is prescribed under different trade names.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9986722469329834,
+      "premise": "It is available as a generic medication and is sold under many brand names worldwide."
+    },
+    {
+      "claim": "The Ellen Show was created by an act of providence.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.8726198673248291,
+      "premise": "Buddhism later disappeared and locals were forced to convert to Islam."
+    },
+    {
+      "claim": "Rick Ross had nothing to do with the creation of Hood Billionaire.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9990397095680237,
+      "premise": "=== 2014: Mastermind and Hood Billionaire ===\nIn March 2014, Rick Ross released his sixth album, Mastermind."
+    },
+    {
+      "claim": "Bob Ross created a painting show.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9817257523536682,
+      "premise": "Ross created three versions of each painting."
+    },
+    {
+      "claim": "David Lloyd George was a prime minister.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9981600642204285,
+      "premise": "David Lloyd George, 1st Earl Lloyd-George of Dwyfor (17 January 1863 – 26 March 1945), was Prime Minister of the United Kingdom from 1916 to 1922."
+    },
+    {
+      "claim": "South Island is rarely referred to as the \"mainland\" of New Zealand.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9602130055427551,
+      "premise": "The island is occasionally referred to by residents as 'the Mainland'."
+    },
+    {
+      "claim": "San Francisco Bay Area contains many international airports.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9967251420021057,
+      "premise": "A specific set of rules to guide no-gi competitions is issued by the IBJJF, but there may be variation in the set of rules applied in each competition."
+    },
+    {
+      "claim": "The Fame was released in February 2016.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9927895665168762,
+      "premise": "\"Poker Face\" was released as the second single from the album."
+    },
+    {
+      "claim": "Ekta Kapoor did not produce Kumkum Bhagya.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9997791647911072,
+      "premise": "Some of her other popular shows include Pavitra Rishta, Bade Achhe Lagte Hain, Yeh Hai Mohabbatein, Jodha Akbar, Naagin, Kumkum Bhagya, Kasam Tere Pyaar Ki, Kundali Bhagya, Yeh Hai Chahatein, and several others that were credited with starting a new wave on Indian television, leading to her being known as the \"Czarina of Television\" and \"the Queen of Indian Television\"."
+    },
+    {
+      "claim": "Richard Fortus refuses to join Guns N' Roses.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9879342317581177,
+      "premise": "Fortus left the Dead Daisies in 2016 to focus on Guns N' Roses."
+    },
+    {
+      "claim": "The latest ceremony of the Logie Awards was at Boston.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9992582201957703,
+      "premise": "== Live performers ==\nMany local and overseas performers have appeared at the Logie Awards ceremony."
+    },
+    {
+      "claim": "Mickey Thompson has yet to participate in a Baja 1000.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9965820908546448,
+      "premise": "It attracted new participants like the late Mickey Thompson, Indy 500 winner Parnelli Jones, movie actor James Garner, and Mary McGee, the first woman to compete in the event."
+    },
+    {
+      "claim": "Julie Bowen is Texan.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9986823201179504,
+      "premise": "However, the relationship of king crabs to the rest of Paguroidea has been a highly contentious topic."
+    },
+    {
+      "claim": "The SpongeBob SquarePants Movie was directed by Stephen Hillenburg.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9934448003768921,
+      "premise": "The SpongeBob SquarePants Movie is a 2004 American animated adventure comedy film co-written and directed by Stephen Hillenburg."
+    },
+    {
+      "claim": "A United Kingdom is a 2016 play.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9998282194137573,
+      "premise": "The use of Chinese calendars was in part political; it was seen as obligatory for Joseon to defer to the use of the calendar of its suzerain, Ming."
+    },
+    {
+      "claim": "Anne Boleyn did not return to England.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9982326030731201,
+      "premise": "Henry did not acknowledge either child, but he did recognise his illegitimate son Henry Fitzroy, by Elizabeth Blount, Lady Talboys."
+    },
+    {
+      "claim": "The Dodo has been depicted with a green beak.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.993973433971405,
+      "premise": "It has been depicted with brownish-grey plumage, yellow feet, a tuft of tail feathers, a grey, naked head, and a black, yellow, and green beak."
+    },
+    {
+      "claim": "Punch-Drunk Love features Jeremy Blake's abstract video art.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.996607780456543,
+      "premise": "=== Reactors ===\n\nThe X-10 Graphite Reactor at Oak Ridge National Laboratory (ORNL) in Oak Ridge, Tennessee, formerly known as the Clinton Pile and X-10 Pile, was the world's second artificial nuclear reactor (after Enrico Fermi's Chicago Pile) and was the first reactor designed and built for continuous operation."
+    },
+    {
+      "claim": "Adam Lambert's album premiered at number one on the U.S. Billboard 200.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9993340373039246,
+      "premise": "The album premiered at number one on the U.S."
+    },
+    {
+      "claim": "Watertown, Massachusetts is in the most populous state in New England.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.9753620624542236,
+      "premise": "With an estimated population of over 7.1 million, it is the most populous state in New England (with nearly half of all New Englanders residing in Massachusetts), the 16th-most-populous in the United States, and the third-most densely populated U.S. state after New Jersey and Rhode Island."
+    },
+    {
+      "claim": "Malta claims to be the historical Melita mentioned in the New Testament.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9988240599632263,
+      "premise": "Fart Proudly: Writings of Benjamin Franklin You Never Read in School."
+    },
+    {
+      "claim": "Exotic Birds opened for Queen.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9991405010223389,
+      "premise": "In June 2020, Jeff Weiner stepped down as CEO and became executive chairman after 11 years in the role."
+    },
+    {
+      "claim": "Jed Whedon was born in a hospital.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9999020099639893,
+      "premise": "Jon Pareles of The New York Times commented that Wayne \"has clearly worked to make 'Tha Carter III' a statement of its own: one that moves beyond standard hip-hop boasting (though there's plenty of that) to thoughts that can be introspective or gleefully unhinged\"."
+    },
+    {
+      "claim": "There were 3,090,953 Mormon members in May of 1971.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9743203520774841,
+      "premise": "As the largest and second-largest U.S. ports respectively, the Port of Los Angeles and the Port of Long Beach in Southern California collectively play a pivotal role in the global supply chain, together hauling in about 40% of all imports to the U.S. by TEU volume."
+    },
+    {
+      "claim": "A Good Day to Die Hard was written by Skip Woods.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.8215004205703735,
+      "premise": "The film was directed by John Moore and written by Skip Woods, and stars Bruce Willis as John McClane in his final film in the franchise."
+    },
+    {
+      "claim": "Ekta Kapoor directed Kumkum Bhagya.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9900521636009216,
+      "premise": "== Awards and nominations ==\n\n\n== References ==\n\n\n== External links ==\n\nKumkum Bhagya at ZEE5\nKumkum Bhagya at IMDb"
+    },
+    {
+      "claim": "Kenny Chesney's full name is Kenneth Arnold Chesney.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.7474358081817627,
+      "premise": "Kenneth Arnold Chesney (born March 26, 1968) is an American country singer."
+    },
+    {
+      "claim": "Battle of the Bastards is not a television episode.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9997699856758118,
+      "premise": "\"Battle of the Bastards\" is the ninth and penultimate episode of the sixth season of HBO's fantasy television series Game of Thrones and its 59th episode overall."
+    },
+    {
+      "claim": "Atlanta metropolitan area is located in south Georgia.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9913530945777893,
+      "premise": "Census Bureau has defined a metropolitan area for Atlanta which includes, but is not limited to, Roswell, Georgia and Sandy Springs, Georgia."
+    },
+    {
+      "claim": "Chadwick Boseman was in the movie 24.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9996168613433838,
+      "premise": "Pooja Hegde was selected to play the female lead role, thus marking his second collaboration with Hegde after DJ: Duvvada Jagannadham."
+    },
+    {
+      "claim": "B. R. Ambedkar was called Baba Saheb by his followers.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9998524188995361,
+      "premise": "A downloadable Saw chapter for the asymmetrical horror game Dead by Daylight was released on January 23, 2018, featuring David Tapp as a survivor and Amanda Young as a killer alongside Gideon Meat Plant as a map."
+    },
+    {
+      "claim": "Padua is unconnected politically to the province of Padua.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9985686540603638,
+      "premise": "Padua ( PAD-ew-ə; Italian: Padova [ˈpaːdova] ; Venetian: Pàdova, Pàdoa or Pàoa) is a city and comune (municipality) in the autonomous region of Veneto in northern Italy, and the capital of the province of Padua."
+    },
+    {
+      "claim": "Ang Lee is solely Japanese.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9994850158691406,
+      "premise": "Ang Lee  (Chinese: 李安; pinyin: Lǐ Ān; born October 23, 1954) is a Taiwanese filmmaker."
+    },
+    {
+      "claim": "The Love Club EP is an album.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "entailment",
+      "score": 0.9478492736816406,
+      "premise": "The Love Club EP is the debut extended play (EP) by New Zealand singer-songwriter Lorde."
+    },
+    {
+      "claim": "Dan Brown is an American author with five kids.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9947499632835388,
+      "premise": "Hidden food items restore health, and bonus lives are earned at certain score thresholds."
+    },
+    {
+      "claim": "Two and a Half Men is an British television sitcom.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9997718930244446,
+      "premise": "Two and a Half Men is an American television sitcom, created by Chuck Lorre and Lee Aronsohn, that aired for 12 seasons on CBS from September 22, 2003, to February 19, 2015."
+    },
+    {
+      "claim": "Internet access requires the use of hardware.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9676423668861389,
+      "premise": "Lemmy had equipment and items featured in the Rock and Roll Hall of Fame; his Ace of Spades tour jacket was lost by the museum in 2012, leading to a spat."
+    },
+    {
+      "claim": "Bonaire was part of the Netherlands Antilles until 2000.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9899252653121948,
+      "premise": "Bonaire was part of the Netherlands Antilles until the country's dissolution in 2010, when the island became a special municipality (officially, a \"Caribbean public body\") within the country of the Netherlands."
+    },
+    {
+      "claim": "Yin and yang contain a section of the opposite element in each portion.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.7354660630226135,
+      "premise": "=== Toponymy ===\nMany Chinese place names or toponyms contain the word yang 'sunny side', and a few contain yin 'shady side'."
+    },
+    {
+      "claim": "Exit the King is a thriller.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9972374439239502,
+      "premise": "Ringed seals are ideal prey as they are abundant and small enough to be overpowered by even small bears."
+    },
+    {
+      "claim": "Nina Jacobson worked for Buena Vista Motion Pictures Group until July 17, 2006.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.9979002475738525,
+      "premise": "=== Vice presidential oath ===\nThe ceremony began with the vice presidential oath of office."
+    },
+    {
+      "claim": "Jefferson Davis was born in Maine.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9996110796928406,
+      "premise": "Jefferson was born on June 3, 1808, at the family homestead in Davisburg, a village Samuel had established that later became Fairview, Kentucky."
+    },
+    {
+      "claim": "There was zero genocides that took place in Rwanda.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.9720173478126526,
+      "premise": "The UCI Road World Championships took place in Kigali in September 2025."
+    },
+    {
+      "claim": "Maximum Overdrive is a 1986 science fiction action horror comedy film written and directed by Stephen King.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "neutral",
+      "score": 0.8787181377410889,
+      "premise": "Maximum Overdrive is a 1986 American science fiction action horror film written and directed by Stephen King in his directorial debut."
+    },
+    {
+      "claim": "Benjamin Franklin was born on April 17th, 1790.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.9916336536407471,
+      "premise": "Franklin died from pleuritic attack at his home in Philadelphia on April 17, 1790, at age 84."
+    },
+    {
+      "claim": "Food Network is available in the United States.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9942235350608826,
+      "premise": "As of November 2023, Food Network is available to approximately 70,000,000 pay television households in the United States, down from its 2011 peak of 100,000,000 households."
+    },
+    {
+      "claim": "Chinatown director is a convicted statutory rapist from Poland.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9968400001525879,
+      "premise": "Another theory suggests a derivation from the term Kenta Aki, which could have come from an Algonquian language, in particular from Shawnee."
+    },
+    {
+      "claim": "Barbarella is a film from 1968.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "entailment",
+      "score": 0.9971750974655151,
+      "premise": "Barbarella (later marketed as Barbarella: Queen of the Galaxy) is a 1968 English-language science fiction film directed by Roger Vadim, based on the French comic series by Jean-Claude Forest."
+    },
+    {
+      "claim": "Prague's historic center was first included in the UNESCO list of World Heritage Sites in 1937.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9936351776123047,
+      "premise": "Since 1992, the historic centre of Prague has been included in the UNESCO list of World Heritage Sites."
+    },
+    {
+      "claim": "Ayananka Bose is a Gemini.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "neutral",
+      "score": 0.7820587754249573,
+      "premise": "In an interview with GQ, she said Disney needed to confirm she could sing, so she spent a month preparing before auditioning and landing the role."
+    },
+    {
+      "claim": "The Bengal tiger has spots.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.998891294002533,
+      "premise": "He has created a \"replica\" of the shield, which turns out to be made out of scrap metal and human remains and grafted directly onto his forearm, and which proves far less powerful than Captain America's own shield."
+    },
+    {
+      "claim": "University of Chicago Law School is ranked egg for \"Faculty quality based on American Academy of Arts and Sciences Membership.\"",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9997586607933044,
+      "premise": "The bear primarily feeds on the seal's energy-rich blubber."
+    },
+    {
+      "claim": "The Invisible Man was based on a play.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "contradiction",
+      "score": 0.8752729296684265,
+      "premise": "The Human Fly, a 1957 film loosely based on the original story\nThe Invisible Man (1984 film), a Soviet film adaptation\nThe Invisible Man (2020 film), a modern adaptation of both the novel by H. G. Wells and the 1933 film of the same name\n\n\n== Television ==\n\n\n=== Episodes ===\n\"Invisible Man\", Inspector Chingum season 1, episode 7 (2019)\n\"Invisible Man\", Married season 1, episode 6 (2014)\n\"Invisible"
+    },
+    {
+      "claim": "Henry Cavill played Superman.",
+      "fever_label": "SUPPORTS",
+      "expected": "entailment",
+      "predicted": "contradiction",
+      "score": 0.4923833906650543,
+      "premise": "== Filmography ==\n\n\n=== Film ===\n\n\n=== Television ===\n\n\n=== Video games ===\n\n\n== Awards and nominations ==\n\n\n== Notes ==\n\n\n== References ==\n\n\n== External links ==\n\nHenry Cavill at IMDb \nHenry Cavill on Instagram\nHenry Cavill Net Worth\nHenry Cavill on Wikipedia"
+    },
+    {
+      "claim": "Lucy Hale's mother's name is Karen.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.99298495054245,
+      "premise": "Karen Lucille Hale (born June 14, 1989) is an American actress and singer."
+    },
+    {
+      "claim": "Argentina is subdivided into forty-eight cities.",
+      "fever_label": "REFUTES",
+      "expected": "contradiction",
+      "predicted": "neutral",
+      "score": 0.9915819764137268,
+      "premise": "=== Urbanisation ===\n\nArgentina is highly urbanised, with 92% of its population living in cities: the ten largest metropolitan areas account for half of the population."
+    },
+    {
+      "claim": "The Church of Jesus Christ of Latter-day Saints has a law of marriage.",
+      "fever_label": "NOT ENOUGH INFO",
+      "expected": "neutral",
+      "predicted": "contradiction",
+      "score": 0.9829984307289124,
+      "premise": "One journalist in the United Kingdom said, 'Is this going to be your theme as a trilogy?' and I said, 'Yes, it's like Krzysztof Kieślowski's Three Colours trilogy."
+    }
+  ],
+  "limitations": [
+    "Premise is a BM25-selected sentence from a reconstructed page, not the frozen FEVER gold sentence.",
+    "NOT ENOUGH INFO premises are random non-gold sentences."
+  ]
+}

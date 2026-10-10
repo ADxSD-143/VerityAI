@@ -127,7 +127,27 @@ Benchmark: FEVER development split, deterministic stratified sample of 500, seed
 limitations: [`docs/EVALUATION.md`](docs/EVALUATION.md).
 
 <!-- EVAL_SUMMARY_START -->
-Results table is recorded in `docs/EVALUATION.md` after the evaluation scripts are run.
+### Measured results (recorded; full protocol in `docs/EVALUATION.md`)
+
+**Retrieval** — FEVER dev, 330 evaluable claims, 1161-page reconstructed corpus:
+
+| Retriever | Recall@5 | Precision@5 | MRR |
+|---|---|---|---|
+| TF-IDF (baseline only) | 0.958 | 0.221 | 0.941 |
+| BM25 | 0.943 | 0.221 | 0.901 |
+| BGE dense | **0.973** | 0.226 | **0.985** |
+| Hybrid (BM25 + BGE, RRF k=60) | 0.953 | 0.222 | 0.960 |
+| Hybrid + cross-encoder rerank | 0.971 | 0.228 | 0.982 |
+
+**NLI** — 493 claims:
+
+| Model | Accuracy | Macro-F1 |
+|---|---|---|
+| `DeBERTa-v3-base-mnli-fever-anli` (default) | **0.675** | **0.671** |
+| `nli-deberta-v3-small` (documented fallback) | 0.448 | 0.458 |
+
+**End-to-end** — 8 hand-labelled live claims: **4/8** matched the expected status (see the
+limitations below).
 <!-- EVAL_SUMMARY_END -->
 
 ## Deployment
@@ -149,6 +169,12 @@ docker run -p 7860:7860 verityai      # http://127.0.0.1:7860
 - Retrieval covers only the configured permitted sources — **not the entire internet**.
 - NLI scores are per evidence-claim pair, not truth probabilities; models can be wrong, especially
   on numeric, temporal and negation-heavy claims.
+- **Known false-positive mode**: a nonsense claim can be reported `SUPPORTED` from a single passage.
+  In the end-to-end check, *"Zorbax-9 was the first spacecraft to land on the Sun"* returned
+  `SUPPORTED` — with `limited_corroboration = true`, but still a verdict. Treat single-source
+  verdicts with suspicion.
+- Retrieval can pull a *different entity* with a similar name (the Eiffel Tower page vs Eiffel Tower
+  (Paris, Texas)), which can surface as `CONFLICTING_EVIDENCE` for an otherwise simple claim.
 - English-first. Hindi/Hinglish input is accepted but **not verified** (see
   [`docs/EVALUATION.md`](docs/EVALUATION.md)).
 - FEVER-retrieval results do not imply real-world accuracy for current events or arbitrary sites.

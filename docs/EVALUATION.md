@@ -118,7 +118,25 @@ page**, not the frozen FEVER gold sentence, so for many claims the retrieved sen
 does not entail the claim and *neutral* is the correct behaviour. These numbers indicate NLI
 quality under our construction — they are not a FEVER leaderboard score.
 
-Raw results: `experiments/results/eval_nli.json`.
+**`cross-encoder/nli-deberta-v3-small`** — accuracy **0.448**, macro-F1 **0.458**,
+mean latency **98.0 ms** /pair. Its label order is `{0: 'contradiction', 1: 'entailment',
+2: 'neutral'}` — **different** from the base model, which is exactly why the runtime reads the
+map from the loaded config and validates it (`test_nli_labels.py`). Assuming the order would have
+corrupted every label.
+
+| Class | Precision | Recall | F1 | n |
+|---|---|---|---|---|
+| entailment | 0.920 | 0.421 | 0.577 | 164 |
+| neutral | 0.290 | 0.305 | 0.297 | 167 |
+| contradiction | 0.417 | 0.623 | 0.500 | 162 |
+
+**Decision.** The base model is retained as the default: it measured far higher accuracy
+(0.675 vs 0.448) and macro-F1 (0.671 vs 0.458) at essentially the same CPU latency on this host.
+`nli-deberta-v3-small` is documented as a smaller fallback for a host that cannot fit the base
+model — **not** as an equivalent alternative.
+
+Raw results: `experiments/results/eval_nli.json` (base) and
+`experiments/results/eval_nli_small.json` (small).
 <!-- NLI_RESULTS_END -->
 
 ## End-to-end
@@ -128,14 +146,63 @@ A small hand-labelled set of live claims, run through the real pipeline
 indicative only.
 
 <!-- E2E_RESULTS_START -->
-_Results recorded after running `python experiments/eval_e2e.py`._
+### Recorded results (2026-10-10)
+
+8 hand-labelled live claims; **4/8** matched the expected status. Latency 2.0–19.8 s per claim
+(live retrieval + NLI, warm models).
+
+| Claim | Expected | Actual | Supporting passages |
+|---|---|---|---|
+| The Eiffel Tower is located in Paris. | SUPPORTED | CONFLICTING_EVIDENCE | 5 |
+| The Great Wall of China is located in Japan. | REFUTED | REFUTED ✓ | 0 |
+| The capital of Australia is Canberra. | SUPPORTED | SUPPORTED ✓ | 3 |
+| The capital of Australia is Sydney. | REFUTED | CONFLICTING_EVIDENCE | 2 |
+| Python was created by Guido van Rossum. | SUPPORTED | SUPPORTED ✓ | 4 |
+| Mount Everest is the highest mountain above sea level on Earth. | SUPPORTED | SUPPORTED ✓ | 4 |
+| The Amazon River is the longest river in the world by every measure. | CONFLICTING_EVIDENCE | REFUTED | 0 |
+| Zorbax-9 was the first spacecraft to land on the Sun. | INSUFFICIENT_EVIDENCE | SUPPORTED | 1 |
+
+**Interpretation (honest, not spun).**
+
+- Two misses are **retrieval** artefacts: for "Eiffel Tower … Paris" and "capital of Australia is
+  Sydney" the retriever also pulled a *different entity* (Eiffel Tower (Paris, Texas); pages about
+  Sydney) whose passages the NLI model judged contradictory, so the pipeline reported
+  `CONFLICTING_EVIDENCE` instead of a single verdict. The behaviour is traceable (the conflicting
+  passage is returned), but it is a real precision problem.
+- One miss is a **labelling judgement**: "The Amazon River is the longest river …" was labelled
+  CONFLICTING; the pipeline returned REFUTED.
+- **The important failure**: the nonsense claim "Zorbax-9 was the first spacecraft to land on the
+  Sun" was reported **SUPPORTED** from a single passage (NLI entailment ≥ 0.50). The pipeline *did*
+  set `limited_corroboration = true` and its explanation states the verdict rests on one
+  independent source, but it still returned `SUPPORTED` rather than `INSUFFICIENT_EVIDENCE`. This
+  is a genuine false-positive mode: one spurious entailment can carry a verdict.
+
+**Decision recorded.** The aggregation policy was **not** tuned on this 8-claim set — doing so
+would be fitting to the test. The false-positive mode is documented as a limitation, and
+`limited_corroboration` is the current mitigation. A future improvement (not implemented here)
+would require a higher NLI threshold, or ≥2 independent sources, before an unqualified `SUPPORTED`.
+
+Raw: `experiments/results/eval_e2e.json`.
 <!-- E2E_RESULTS_END -->
 
 ## Model and hardware details
 
 <!-- RESOURCES_START -->
-_Recorded by `python experiments/measure_resources.py`: model ids, revisions, on-disk sizes,
-cold-load times and inference latency on the test machine._
+### Recorded measurements (2026-10-10, CPU-only)
+
+Host: Intel i7-12650HX (14 cores / 20 threads), 15.73 GB RAM, Windows; `verity_device=cpu`.
+
+| Model | Role | On-disk size | Cold load | Inference |
+|---|---|---|---|---|
+| `BAAI/bge-small-en-v1.5` | dense retrieval | 134.5 MB | 13.3 s | 58 ms/doc (batch of 8) |
+| `MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli` | NLI | 380.0 MB | 3.3 s | 103 ms/pair (batch of 4) |
+| `cross-encoder/ms-marco-MiniLM-L-6-v2` | reranker | 91.8 MB | 3.3 s | 16 ms/pair (batch of 8) |
+
+All three are below the ~500 MB per-artifact budget. An end-to-end analysis on live sources
+measured **11.6 s** for one claim with warm models (live retrieval + hybrid ranking + NLI over the
+top candidates).
+
+Raw: `experiments/results/measure_resources.json`.
 <!-- RESOURCES_END -->
 
 ## Language support

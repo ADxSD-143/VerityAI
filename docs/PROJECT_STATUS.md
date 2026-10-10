@@ -1,103 +1,105 @@
 # VerityAI Project Status
 
 ## Last Updated
-2026-10-10 14:30 +05:30 (Asia/Kolkata)
+2026-10-10 15:55 +05:30 (Asia/Kolkata)
 
 ## Current Milestone
-M2 — Pretrained semantic retrieval (M0, M1 PASS). M2/M3 code exists; measured benchmark
-results come from the M4 scripts.
+M5/M6 (M0–M4 PASS). M7 publication/deployment is prepared but blocked on credentials.
 
 ## Overall Status
-In progress.
+In progress — the application is built, tested and evaluated; publishing/deploying is blocked on
+GitHub CLI install + Hugging Face auth.
 
 ## Environment
-- **OS**: Windows (win32), PowerShell 5.1, working dir `D:\project ideas\VerityAI`.
-- **Python**: 3.11.7 (`C:\Users\LENOVO\AppData\Local\Programs\Python\Python311\python.exe`).
-  The `py` launcher is **broken** (points at a missing Python 3.14) — use `python` / the venv.
-- **Venv**: `.venv` (on D:). Deps installed from the **Tsinghua PyPI mirror** (PyPI's CDN was
-  ~33 KB/s here vs ~245 KB/s from the mirror).
-- **Node**: v24.15.0 / npm 11.12.1 (unused — vanilla frontend).
-- **git**: 2.55.0. Identity `aditya narayan <adityanarayansd@gmail.com>`. Repo initialised
-  (branch `main`, first commit `ca099f3`).
-- **GitHub CLI**: **NOT installed** (`gh` absent) → M7 repo creation blocked pending install/auth.
-- **Hugging Face auth**: **no token** present → M7 Space deploy blocked pending auth.
-- **Compute**: i7-12650HX (14c/20t), 15.73 GB RAM, RTX 4050 4 GB (unused; CPU default).
-  Disk: C: 29.5 GB free (tight), D: 213 GB free → venv, `HF_HOME=D:\hf-cache`, embed cache on D:.
-- **Selected hosting**: Hugging Face Spaces (Docker), app port 7860.
-
-### Environment blocker found and fixed: Windows Application Control
-A Windows Application Control policy blocked the **newest** wheels of `scikit-learn` (1.9.1),
-`pandas` (3.0.6) and `pyarrow` (26.0.0) with *"DLL load failed ... blocked by an Application
-Control policy"*. Because `transformers` imports `sklearn` when it is present, this broke
-`transformers` → `sentence-transformers` entirely.
-
-**Fix**: pin older, allowed releases — `scikit-learn==1.5.2`, `pandas==2.2.3`, `pyarrow==17.0.0`
-(constraints added to `pyproject.toml` `[eval]`). All imports now succeed:
-`torch 2.14.1+cpu`, `transformers 4.57.6`, `sentence-transformers 3.4.1`, `numpy 2.4.6`,
-`datasets 2.21.0`.
+- **OS**: Windows (win32), PowerShell 5.1, repo `D:\project ideas\VerityAI`.
+- **Python**: 3.11.7 in `.venv` (deps installed from a PyPI **mirror**; PyPI's CDN was ~33 KB/s here).
+- **Key versions**: `torch 2.14.1+cpu`, `transformers 4.57.6`, `sentence-transformers 3.4.1`,
+  `numpy 2.4.6`, `scikit-learn 1.5.2`, `pandas 2.2.3`, `pyarrow 17.0.0`, `datasets 2.21.0`.
+- **Node**: v24.15.0 (unused — vanilla frontend). **git**: 2.55.0.
+- **GitHub CLI**: NOT installed. **Hugging Face auth**: no token. **Docker**: NOT installed.
+- **Compute**: i7-12650HX (14c/20t), 15.73 GB RAM, CPU-only inference. `HF_HOME=D:\hf-cache`.
 
 ## Completed
-- **M0** — environment audit; `AGENTS.md`, `PLAN.md`, `docs/PROJECT_STATUS.md`.
-- **M1** — verified end-to-end:
-  - `pytest -q` → **63 passed**; `ruff check backend experiments scripts` → **All checks passed**.
-  - Server started; `GET /health` → `{"status":"ok", ... models loaded: BGE + NLI}`.
-  - `POST /api/analyze` for *"The Eiffel Tower is located in Paris."* → real evidence
-    (wikipedia n=36, wikidata n=14, openalex n=38; factcheck `skipped`), 11 629 ms, not degraded,
-    verdict `CONFLICTING_EVIDENCE` (5 supporting / 1 contradicting passage).
-  - Frontend `/`, `/styles.css`, `/app.js` → 200. `analyze-url` with `169.254.169.254` → 400
-    `unsafe_url`. Empty body → 422.
-- Models downloaded to `D:\hf-cache` (490.7 MB cached): BGE load 72.1 s, NLI load 112.7 s
-  (both include download).
+- **M0** audit + control files.
+- **M1** — app verified end-to-end (63 tests pass, ruff clean, live `/api/analyze` with real
+  Wikipedia + Wikidata + OpenAlex evidence, SSRF + validation paths).
+- **M2** — BGE dense + BM25 + RRF + dedup + optional reranker implemented; **retrieval benchmark
+  run** (330 evaluable claims, 1161-page corpus).
+- **M3** — NLI implemented with config-read label map; **NLI benchmark run** for base and small.
+- **M4** — FEVER `labelled_dev` sample (500, seed 42), all evaluation artefacts saved.
+- **M5** (code) — SSRF-safe URL extraction + tests; secret scan clean (no `.env`, no secret-named
+  files, no tracked file > 1 MB).
+- **M6** (code/docs) — `README.md`, `AGENTS.md`, `PLAN.md`, `ARCHITECTURE`, `API`, `SECURITY`,
+  `DATASETS`, `EVALUATION`, `DEVELOPMENT_LOG`, 11 theory pages, 4 experiment records, CI workflow,
+  Dockerfile, README Spaces frontmatter.
 
 ## In Progress
-- M2/M3 gate evidence: run the retrieval benchmark, NLI benchmark and resource measurement.
+- M5/M6 gate sign-off (docs + CI are written; CI has not run on GitHub yet because the repo is not
+  published).
+- M7 publication/deployment.
 
 ## Next Actions
-1. `python experiments/build_fever_sample.py --limit 500 --seed 42` (FEVER dev sample).
-2. `python experiments/eval_retrieval.py` and `python experiments/eval_nli.py`.
-3. `python experiments/eval_e2e.py`; `python experiments/measure_resources.py`.
-4. Fill the recorded results into `docs/EVALUATION.md`, `README.md` and `docs/experiments/`.
-5. Commit; then M6 docs/CI polish; then M7 publish/deploy.
+1. Install and authenticate the GitHub CLI (`winget install --id GitHub.cli`), then create the
+   public repo and push.
+2. Authenticate Hugging Face (`huggingface-cli login` or `HF_TOKEN`), then create the Docker Space.
+3. After deploy: verify the public frontend + `/health` + one real analysis, and replace the
+   `DEPLOY_URL` placeholder in `README.md`.
+4. Run CI on GitHub and confirm it is green.
 
 ## Milestone Gates
-- M0: **PASS** · M1: **PASS** · M2–M7: NOT RUN.
+- M0 **PASS** · M1 **PASS** · M2 **PASS** · M3 **PASS** · M4 **PASS** · M5/M6 code+docs complete
+  (gate sign-off pending a published CI run) · M7 **BLOCKED** on credentials.
 
 ## Tests and Verification
 | Command | Outcome |
 |---|---|
 | `ruff check backend experiments scripts` | All checks passed |
-| `pytest -q` | 63 passed (1 Starlette deprecation warning) |
-| `uvicorn app.main:app` + `GET /health` | 200, models loaded |
-| `POST /api/analyze` (Eiffel Tower) | 200, real multi-source evidence, 11.6 s |
-| `GET /`, `/styles.css`, `/app.js` | 200 |
+| `pytest -q` (63 tests) | exit code 0, all passed |
+| `pytest -q -m live` | not yet run (opt-in; sources already exercised via `/api/analyze` and `eval_e2e`) |
+| `POST /api/analyze` (live) | 200, real multi-source evidence, 11.6 s |
 | `POST /api/analyze-url` (metadata IP) | 400 `unsafe_url` |
-| `POST /api/analyze` `{}` | 422 `invalid_input` |
+| secret scan (grep + `git ls-files`) | clean; no `.env`; no tracked file > 1 MB |
+| `docker build` | **not run** — Docker is not installed on this host |
 
 ## Evaluation
-Not yet run (M4). No metrics recorded. `experiments/results/` is empty.
+All artefacts in `experiments/results/`:
+- `fever_sample.json` — 500 claims, seed 42, labels 166 REFUTES / 167 SUPPORTS / 167 NEI; 367 gold
+  pages + 800 distractors.
+- `eval_retrieval.json` — 330 evaluable claims, 1161-page corpus. R@5/MRR: TF-IDF 0.958/0.941,
+  BM25 0.943/0.901, BGE 0.973/0.985, hybrid 0.953/0.960, hybrid+rerank 0.971/0.982.
+- `eval_nli.json` (base) — accuracy 0.675, macro-F1 0.671, 90.5 ms/pair.
+- `eval_nli_small.json` (small) — accuracy 0.448, macro-F1 0.458, 98.0 ms/pair.
+- `eval_e2e.json` — 4/8 live claims matched; one false positive on a nonsense claim documented.
+- `measure_resources.json` — BGE 134.5 MB, NLI 380.0 MB, reranker 91.8 MB (all < 500 MB budget).
 
 ## Decisions
-- Vanilla no-build frontend; HF Spaces Docker hosting; CPU-only torch.
-- Deterministic regex sentence segmentation + entity hints (no spaCy dependency).
-- `VERITY_PRELOAD_MODELS` switch so tests never download models.
-- Pinned older sklearn/pandas/pyarrow for Windows Application Control compatibility (see above).
-- `.commandcode/` gitignored; `.gitattributes` normalises to LF.
+- Default retrieval = hybrid BM25+BGE (RRF). BGE dense measured higher MRR; hybrid retained for
+  exact-term robustness — a documented judgement call, not a measured win. Reranker **off** by
+  default (no ranking gain for +1.5 s/claim).
+- Default NLI = base model (clearly better than the small model on this host).
+- Aggregation policy **not** tuned on the 8-claim e2e set; the single-source false positive is
+  documented as a limitation rather than patched to fit the test.
+- Pinned older sklearn/pandas/pyarrow for Windows Application Control compatibility.
 
 ## Blockers
-1. **`gh` CLI not installed** — blocks `gh repo create` in M7. Action: install (`winget install
-   --id GitHub.cli`) and authenticate, or push via an existing credential. Independent work continues.
-2. **No Hugging Face token** — blocks automated Space deploy in M7. Action: `huggingface-cli login`
-   or set `HF_TOKEN`. Deploy artifacts are prepared meanwhile.
+1. **`gh` CLI not installed** — blocks repo creation/push. Action: `winget install --id GitHub.cli`
+   then `gh auth login`, or push with an existing credential.
+2. **No Hugging Face token** — blocks Space creation/upload. Action: `huggingface-cli login` or set
+   `HF_TOKEN`.
+3. **Docker not installed** — the image cannot be built locally; HF Spaces builds it server-side.
+   Action: install Docker Desktop if local build validation is wanted.
+All independent work (code, tests, evaluation, docs, deploy artefacts) is complete.
 
 ## GitHub
-Local repo initialised, `main`, commit `ca099f3`. Not published yet. Intended: public `VerityAI`.
+Local repo on `main`. Intent: public `VerityAI` under the authenticated account. **Not published.**
 
 ## Deployment
-Not deployed. Intended: Hugging Face Spaces (Docker), port 7860. `Dockerfile` + README Spaces
-frontmatter are in place.
+Not deployed. `Dockerfile` + README Spaces frontmatter are ready (port 7860). Public URL to be
+recorded here and in `README.md` once verified.
 
 ## Resume Instructions
-Continue M2/M3: run the FEVER sample build and the evaluation scripts (see Next Actions), then fill
-the results into `docs/EVALUATION.md`. Do not re-run the environment audit or re-create control
-files. The two M7 blockers must not halt M2–M6. Note: the server was stopped after verification;
-restart with `HF_HOME=D:\hf-cache .\.venv\Scripts\python.exe -m uvicorn app.main:app`.
+Everything up to publishing is done. To finish M7: install/authenticate `gh` and HF, push the repo,
+create the Docker Space, then verify the public frontend, `/health`, and one real analysis and write
+the URL into `README.md` (`DEPLOY_URL` block). Do not re-run the environment audit, the evaluation
+runs, or re-create the control files. Restart the server with:
+`$env:HF_HOME="D:\hf-cache"; .\.venv\Scripts\python.exe -m uvicorn app.main:app --port 8000`.
