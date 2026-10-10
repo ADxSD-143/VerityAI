@@ -21,6 +21,11 @@ The full FEVER Wikipedia dump (`wiki_pages`, ~5.4M pages, multi-GB) is deliberat
 downloaded. Instead the retrieval corpus is **reconstructed from live Wikipedia** for the union
 of gold evidence page titles in the sample, and cached under `data/fever_corpus/`.
 
+Distractors are drawn deterministically (seed 42) from the evidence-page titles of **non-sampled**
+claims. That deterministic pool is only **2525** titles, so the harder-corpus request
+(`--distractors 5000`) is capped by the pool: the recorded harder run used 367 gold + 2042 usable
+distractor pages = **2409 usable pages** (483 titles unavailable).
+
 **Consequences (documented, not hidden):**
 
 - Relevance is **page-level** (was a gold page retrieved in the top-k), not sentence-level.

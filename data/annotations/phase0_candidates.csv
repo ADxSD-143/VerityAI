@@ -1,0 +1,101 @@
+case_id,claim_text,language,input_type,proposed_claim_type,proposed_verdict,proposed_handling,rationale,ambiguous,split
+P0-101,The Eiffel Tower is located in Paris.,en,claim,CHECKABLE_FACT,SUPPORTED,,standard verifiable fact; well documented,no,held_out
+P0-102,The capital of Australia is Canberra.,en,claim,CHECKABLE_FACT,SUPPORTED,,standard verifiable fact; well documented,no,held_out
+P0-103,Python was created by Guido van Rossum.,en,claim,CHECKABLE_FACT,SUPPORTED,,supported by programming-language history,no,held_out
+P0-104,Mount Everest is the highest mountain above sea level on Earth.,en,claim,CHECKABLE_FACT,SUPPORTED,,standard geography fact,no,held_out
+P0-105,Water is composed of hydrogen and oxygen.,en,claim,CHECKABLE_FACT,SUPPORTED,,basic chemistry,no,held_out
+P0-106,The Great Wall of China is located in China.,en,claim,CHECKABLE_FACT,SUPPORTED,,geography,no,held_out
+P0-107,Jupiter is the largest planet in the Solar System.,en,claim,CHECKABLE_FACT,SUPPORTED,,astronomy,no,held_out
+P0-108,The Pacific Ocean is the largest ocean on Earth.,en,claim,CHECKABLE_FACT,SUPPORTED,,geography,no,held_out
+P0-109,Tokyo is the capital of Japan.,en,claim,CHECKABLE_FACT,SUPPORTED,,geography,no,held_out
+P0-110,The Nile flows into the Mediterranean Sea.,en,claim,CHECKABLE_FACT,SUPPORTED,,geography,no,held_out
+P0-111,Albert Einstein developed the theory of relativity.,en,claim,CHECKABLE_FACT,SUPPORTED,,physics history,no,held_out
+P0-112,The chemical symbol for gold is Au.,en,claim,CHECKABLE_FACT,SUPPORTED,,chemistry; from Latin aurum,no,held_out
+P0-113,The Amazon rainforest is located in South America.,en,claim,CHECKABLE_FACT,SUPPORTED,,geography,no,held_out
+P0-114,The Moon orbits the Earth.,en,claim,CHECKABLE_FACT,SUPPORTED,,astronomy,no,held_out
+P0-115,World War II ended in 1945.,en,claim,CHECKABLE_FACT,SUPPORTED,,history,no,held_out
+P0-116,Leonardo da Vinci painted the Mona Lisa.,en,claim,CHECKABLE_FACT,SUPPORTED,,art history,no,held_out
+P0-117,The Sahara is the largest hot desert in the world.,en,claim,CHECKABLE_FACT,SUPPORTED,,geography; hot-desert qualifier matters,no,tuning
+P0-118,The Great Barrier Reef is off the coast of Australia.,en,claim,CHECKABLE_FACT,SUPPORTED,,geography,no,tuning
+P0-119,The Statue of Liberty is in New York City.,en,claim,CHECKABLE_FACT,SUPPORTED,,geography,no,tuning
+P0-120,Mount Fuji is in Japan.,en,claim,CHECKABLE_FACT,SUPPORTED,,geography,no,tuning
+P0-121,William Shakespeare wrote Hamlet.,en,claim,CHECKABLE_FACT,SUPPORTED,,literature history,no,tuning
+P0-122,The Great Wall of China is located in Japan.,en,claim,CHECKABLE_FACT,REFUTED,,deliberate false location,no,held_out
+P0-123,The capital of Australia is Sydney.,en,claim,CHECKABLE_FACT,REFUTED,,common misconception,no,held_out
+P0-124,Mount Everest is located in Africa.,en,claim,CHECKABLE_FACT,REFUTED,,false location,no,held_out
+P0-125,The Sun orbits the Earth.,en,claim,CHECKABLE_FACT,REFUTED,,inverted heliocentrism,no,held_out
+P0-126,The Eiffel Tower is located in Berlin.,en,claim,CHECKABLE_FACT,REFUTED,,false location,no,held_out
+P0-127,Python was created by Bill Gates.,en,claim,CHECKABLE_FACT,REFUTED,,false attribution,no,held_out
+P0-128,Jupiter is the smallest planet in the Solar System.,en,claim,CHECKABLE_FACT,REFUTED,,false; it is the largest,no,held_out
+P0-129,The chemical symbol for gold is Go.,en,claim,CHECKABLE_FACT,REFUTED,,false symbol,no,held_out
+P0-130,The Amazon rainforest is located in Africa.,en,claim,CHECKABLE_FACT,REFUTED,,false continent,no,held_out
+P0-131,World War II ended in 1939.,en,claim,CHECKABLE_FACT,REFUTED,,false date,no,tuning
+P0-132,Mount Fuji is in China.,en,claim,CHECKABLE_FACT,REFUTED,,false location,no,tuning
+P0-133,The Statue of Liberty is in London.,en,claim,CHECKABLE_FACT,REFUTED,,false location,no,tuning
+P0-134,Sound travels faster in air than in water.,en,claim,CHECKABLE_FACT,REFUTED,,false; faster in water,no,tuning
+P0-135,Water is composed of carbon and nitrogen.,en,claim,CHECKABLE_FACT,REFUTED,,false composition,no,tuning
+P0-136,Albert Einstein developed the theory of evolution.,en,claim,CHECKABLE_FACT,REFUTED,,false attribution; Darwin,no,tuning
+P0-137,The Moon orbits Mars.,en,claim,CHECKABLE_FACT,REFUTED,,false; orbits Earth,no,tuning
+P0-138,The Nile is the longest river in South America.,en,claim,CHECKABLE_FACT,REFUTED,,false continent; it is in Africa,no,tuning
+P0-139,The Amazon River is the longest river in the world by every measure.,en,claim,CHECKABLE_FACT,CONFLICTING_EVIDENCE,,contested measure (discharge vs length); sources disagree,yes,held_out
+P0-140,Mount Everest is the tallest mountain measured from base to peak.,en,claim,CHECKABLE_FACT,CONFLICTING_EVIDENCE,,depends on measurement definition (Mauna Kea from base),yes,held_out
+P0-141,The Great Wall of China is visible from space with the naked eye.,en,claim,CHECKABLE_FACT,CONFLICTING_EVIDENCE,,widely disputed; depends on definition of visible,yes,held_out
+P0-142,The Nile is the longest river in the world.,en,claim,CHECKABLE_FACT,CONFLICTING_EVIDENCE,,contested vs the Amazon depending on measurement,yes,held_out
+P0-143,Humans only use ten percent of their brain.,en,claim,CHECKABLE_FACT,CONFLICTING_EVIDENCE,,popular myth; sources refute it but phrasing is contested,yes,tuning
+P0-144,Coffee is the most consumed beverage in the world after water.,en,claim,CHECKABLE_FACT,CONFLICTING_EVIDENCE,,ranking depends on source and timeframe,yes,tuning
+P0-145,Zorbax-9 was the first spacecraft to land on the Sun.,en,claim,CHECKABLE_FACT,INSUFFICIENT_EVIDENCE,,nonsense; no such mission; regression case for the single-source safeguard,yes,held_out
+P0-146,The Keltar-7 device was manufactured in Iceland in 1893.,en,claim,CHECKABLE_FACT,INSUFFICIENT_EVIDENCE,,fictional entity; no evidence expected,no,held_out
+P0-147,The VerityAI-1 satellite launched in 2031.,en,claim,CHECKABLE_FACT,INSUFFICIENT_EVIDENCE,,future/nonexistent event,no,held_out
+P0-148,The mayor of New Avalon resigned in 2022.,en,claim,CHECKABLE_FACT,INSUFFICIENT_EVIDENCE,,fictional place,no,tuning
+P0-149,A man in a small town set an unrecorded local record for something unspecified.,en,claim,CHECKABLE_FACT,INSUFFICIENT_EVIDENCE,,unverifiable and underspecified,no,tuning
+P0-150,Chocolate is the best ice cream flavor.,en,claim,OPINION_SUBJECTIVE,,,subjective preference; no true/false,no,held_out
+P0-151,Mumbai is the greatest city in the world.,en,claim,OPINION_SUBJECTIVE,,,subjective; no true/false,no,held_out
+P0-152,Cristiano Ronaldo is the greatest footballer of all time.,en,claim,OPINION_SUBJECTIVE,,,subjective sporting opinion,no,held_out
+P0-153,Summer is the most pleasant season.,en,claim,OPINION_SUBJECTIVE,,,subjective preference,no,held_out
+P0-154,Classical music is better than pop music.,en,claim,OPINION_SUBJECTIVE,,,subjective taste,no,held_out
+P0-155,Cats make better pets than dogs.,en,claim,OPINION_SUBJECTIVE,,,subjective preference,no,held_out
+P0-156,That actor is the hottest person alive.,en,claim,OPINION_SUBJECTIVE,,,subjective attractiveness; example from the spec,no,tuning
+P0-157,This is the best phone ever made.,en,claim,OPINION_SUBJECTIVE,,,subjective evaluation,no,tuning
+P0-158,Freedom is more important than security.,en,claim,OPINION_SUBJECTIVE,,,value judgement,no,tuning
+P0-159,Pizza is overrated.,en,claim,OPINION_SUBJECTIVE,,,subjective evaluation,no,tuning
+P0-160,A politician was accused of corruption in a newspaper report and no court finding exists.,en,claim,ALLEGATION,NOT_VERIFIABLE,report alleged vs officially proven,do not assert the allegation is true,yes,held_out
+P0-161,A company executive was accused of fraud and the case is still pending.,en,claim,ALLEGATION,NOT_VERIFIABLE,report allegation status,no verdict on truth while pending,yes,held_out
+P0-162,A celebrity was rumoured to have evaded taxes and no official finding exists.,en,claim,ALLEGATION,NOT_VERIFIABLE,distinguish rumour from proven,report allegation status only,yes,held_out
+P0-163,A minister allegedly took a bribe and an investigation was opened but not concluded.,en,claim,ALLEGATION,NOT_VERIFIABLE,report investigation status,allegation handling; not a proven finding,yes,held_out
+P0-164,A sports figure was accused of doping and the appeal is ongoing.,en,claim,ALLEGATION,NOT_VERIFIABLE,report allegation and appeal status,allegation handling,yes,tuning
+P0-165,A businessperson was charged with money laundering and the trial is ongoing.,en,claim,ALLEGATION,NOT_VERIFIABLE,charged is not convicted,allegation handling,yes,tuning
+P0-166,A public official was accused of nepotism in hiring.,en,claim,ALLEGATION,NOT_VERIFIABLE,report allegation only,allegation handling,yes,tuning
+P0-167,Napoleon Bonaparte was exiled to the island of Saint Helena.,en,claim,CHECKABLE_FACT,SUPPORTED,,history,no,held_out
+P0-168,The chemical symbol for sodium is Na.,en,claim,CHECKABLE_FACT,SUPPORTED,,chemistry,no,held_out
+P0-169,The currency of Japan is the yen.,en,claim,CHECKABLE_FACT,SUPPORTED,,economics,no,tuning
+P0-170,The Earth has one natural satellite.,en,claim,CHECKABLE_FACT,SUPPORTED,,astronomy,no,tuning
+P0-171,Bitcoin will reach one million dollars by 2030.,en,claim,PREDICTION,NOT_VERIFIABLE,,future prediction; not checkable now,no,held_out
+P0-172,India will win the next cricket World Cup.,en,claim,PREDICTION,NOT_VERIFIABLE,,future event,no,held_out
+P0-173,AI will replace most programmers by 2035.,en,claim,PREDICTION,NOT_VERIFIABLE,,future prediction,no,held_out
+P0-174,The sea level will rise by one metre by 2100.,en,claim,PREDICTION,NOT_VERIFIABLE,,future projection; models disagree,no,tuning
+P0-175,Things are getting worse.,en,claim,UNCLEAR,,,unclear referent and standard,no,held_out
+P0-176,The system is broken.,en,claim,UNCLEAR,,,unclear which system,no,held_out
+P0-177,Everyone knows that.,en,claim,UNCLEAR,,,no proposition to check,no,held_out
+P0-178,It was a huge success.,en,claim,UNCLEAR,,,vague and unverifiable without context,no,tuning
+P0-179,The situation is complicated.,en,claim,UNCLEAR,,,vague,no,tuning
+P0-180,They should do something about it.,en,claim,UNCLEAR,,,vague; opinion-like imperative,no,tuning
+P0-181,भारत की राजधानी नई दिल्ली है।,hi,claim,CHECKABLE_FACT,SUPPORTED,,hindi geography fact; multilingual probe,no,held_out
+P0-182,ताजमहल आगरा में स्थित है।,hi,claim,CHECKABLE_FACT,SUPPORTED,,hindi geography fact,no,held_out
+P0-183,चंद्रमा पृथ्वी की परिक्रमा करता है।,hi,claim,CHECKABLE_FACT,SUPPORTED,,hindi astronomy fact,no,tuning
+P0-184,Delhi India ki capital hai.,hinglish,claim,CHECKABLE_FACT,SUPPORTED,,hinglish fact,no,held_out
+P0-185,Taj Mahal Agra me hai.,hinglish,claim,CHECKABLE_FACT,SUPPORTED,,hinglish fact,no,tuning
+P0-186,Modi sabse best PM hai.,hinglish,claim,OPINION_SUBJECTIVE,,,hinglish political opinion,no,held_out
+P0-187,Ye news bilkul jhooti hai.,hinglish,claim,UNCLEAR,,,hinglish; no specific claim to check,no,tuning
+P0-188,The GDP of India is larger than the GDP of Japan.,en,claim,CHECKABLE_FACT,CONFLICTING_EVIDENCE,,varies by year and by nominal vs PPP measure,yes,held_out
+P0-189,The tongue has distinct regions for different tastes.,en,claim,CHECKABLE_FACT,CONFLICTING_EVIDENCE,,popular misconception; phrasing contested,yes,tuning
+P0-190,Sharks are older than trees.,en,claim,CHECKABLE_FACT,SUPPORTED,,evolutionary timeline; usually supported,no,held_out
+P0-191,The Atlantic Ocean is smaller than the Pacific Ocean.,en,claim,CHECKABLE_FACT,SUPPORTED,,geography,no,held_out
+P0-192,The chemical symbol for iron is Fe.,en,claim,CHECKABLE_FACT,SUPPORTED,,chemistry,no,tuning
+P0-193,The Nile is located in Australia.,en,claim,CHECKABLE_FACT,REFUTED,,false continent,no,held_out
+P0-194,The currency of the United Kingdom is the euro.,en,claim,CHECKABLE_FACT,REFUTED,,false; it is the pound sterling,no,held_out
+P0-195,The Earth is flat.,en,claim,CHECKABLE_FACT,REFUTED,,refuted by overwhelming evidence,no,held_out
+P0-196,The Sun is a star.,en,claim,CHECKABLE_FACT,SUPPORTED,,astronomy,no,tuning
+P0-197,Bananas are berries.,en,claim,CHECKABLE_FACT,SUPPORTED,,botanical classification; commonly surprising,no,tuning
+P0-198,The largest desert in the world is Antarctica.,en,claim,CHECKABLE_FACT,CONFLICTING_EVIDENCE,,depends on hot vs cold desert definition,yes,tuning
+P0-199,This product is the best on the market.,en,claim,OPINION_SUBJECTIVE,,,subjective marketing claim,no,held_out
+P0-200,A court found a defendant guilty and the conviction is final.,en,claim,ALLEGATION,NOT_VERIFIABLE,report as officially proven,officially proven not merely alleged,yes,held_out

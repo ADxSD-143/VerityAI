@@ -13,20 +13,39 @@ from scripts and saved artefacts, not estimates.
 ## Retrieval
 
 The full FEVER Wikipedia dump is several GB, so the corpus is reconstructed from live Wikipedia and
-scores page-level relevance, not frozen sentence-level evidence. The previous run used 1161 pages
-(367 gold pages plus 800 distractors), evaluated 330 claims, and omitted claims without a gold page
-in the reconstructed corpus. That corpus does not satisfy the harder-corpus requirement.
+scores page-level relevance, not frozen sentence-level evidence. The earlier run used 1161 pages
+(367 gold pages plus 800 distractors); it is superseded by the harder 2409-page run recorded below.
+Claims without a gold page in the reconstructed corpus are omitted and counted.
 
 Run on a machine with network access and the model cache available:
 
-    python experiments/build_fever_sample.py --limit 500 --seed 42 --distractors 4000
+    python experiments/build_fever_sample.py --limit 500 --seed 42 --distractors 5000
     python experiments/eval_retrieval.py --limit 500 --max-pages 5000
 
-The retrieval script records percentile bootstrap 95% CIs for Recall@5, Precision@5, MRR and mean
-latency, plus a paired per-claim bootstrap CI for the MRR difference (BGE dense minus hybrid RRF).
-Resampling uses fixed seeds and 2,000 resamples. The prior point estimates are historical only;
-the harder-corpus run is still pending. Choose the default retriever only after inspecting the
-paired CI; do not claim a difference if the interval includes zero.
+### Recorded harder-corpus run (2026-10-10)
+
+The deterministic distractor pool from non-sampled FEVER `labelled_dev` evidence titles is **2525**
+titles, so the `--distractors 5000` request is capped by the pool. Corpus: **2409 usable pages**
+(367 gold + 2042 distractors; 483 titles unavailable), 330 evaluable claims. Percentile bootstrap
+95% CIs, 2000 resamples, fixed seeds.
+
+| Retriever | Recall@5 [95% CI] | Precision@5 [95% CI] | MRR [95% CI] |
+|---|---|---|---|
+| TF-IDF | 0.938 [0.914, 0.959] | 0.212 [0.205, 0.221] | 0.901 [0.876, 0.925] |
+| BM25 | 0.916 [0.887, 0.943] | 0.212 [0.202, 0.223] | 0.858 [0.826, 0.889] |
+| **BGE dense** | 0.968 [0.952, 0.981] | 0.222 [0.214, 0.232] | **0.975 [0.961, 0.987]** |
+| Hybrid RRF | 0.946 [0.923, 0.967] | 0.219 [0.210, 0.229] | 0.955 [0.935, 0.974] |
+| Hybrid + rerank | 0.965 [0.948, 0.980] | 0.224 [0.215, 0.235] | 0.966 [0.948, 0.980] |
+
+Paired per-claim MRR difference (BGE dense − hybrid RRF) = **+0.0196, 95% CI [0.0027, 0.0377]**
+(n=330). The interval excludes zero: on this reconstructed page-level task BGE dense is better than
+hybrid and is also cheaper (dense-only ≈ 29.5 ms/claim vs BM25+dense+fusion ≈ 44 ms).
+
+**Decision.** The runtime default is now **dense-only** (`VERITY_RETRIEVAL_MODE=dense`); `hybrid`
+remains selectable. The earlier justification for hybrid — exact-term robustness for names, dates
+and numbers in the *live* setting — is **not** measured by this page-level benchmark and is no longer
+the default; treat it as an untested hypothesis. The reranker stays disabled by default. Negative
+result recorded: the original hypothesis (hybrid + rerank beats single retrievers) was not confirmed.
 
 ## NLI
 

@@ -88,6 +88,8 @@ def retrieve(
         outcome.degraded_reasons.append(f"dense retrieval unavailable: {exc}")
 
     rankings = [r for r in (bm25_order, dense_order) if r]
+    if settings.verity_retrieval_mode == "dense" and dense_order:
+        rankings = [dense_order]
     if not rankings:
         return outcome
 

@@ -3,47 +3,143 @@
   "sample_size": 500,
   "evaluated": 330,
   "skipped_no_gold_in_corpus": 170,
-  "corpus_pages": 1161,
-  "corpus_pages_unavailable": 6,
+  "corpus_pages": 2409,
+  "corpus_pages_unavailable": 483,
   "top_k": 5,
   "dense_model": "BAAI/bge-small-en-v1.5",
   "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
   "results": {
     "tfidf": {
-      "recall@5": 0.9577938475665748,
-      "precision@5": 0.22060606060606186,
-      "mrr": 0.9412262718959019,
-      "mean_latency_ms": 6.305996363869671,
+      "recall@5": 0.9375688705234159,
+      "recall@5_ci95": {
+        "lower": 0.9140840220385673,
+        "upper": 0.959159779614325
+      },
+      "precision@5": 0.2121212121212133,
+      "precision@5_ci95": {
+        "lower": 0.20484848484848595,
+        "upper": 0.2206060606060618
+      },
+      "mrr": 0.9009790764790766,
+      "mrr_ci95": {
+        "lower": 0.8755122655122655,
+        "upper": 0.9248463203463201
+      },
+      "mean_latency_ms": 11.396013939415614,
+      "mean_latency_ms_ci95": {
+        "lower": 11.350684545477359,
+        "upper": 11.459062727292554
+      },
       "n": 330
     },
     "bm25": {
-      "recall@5": 0.9431244260789716,
-      "precision@5": 0.22060606060606172,
-      "mrr": 0.9013174301313501,
-      "mean_latency_ms": 6.721818170538454,
+      "recall@5": 0.9155991735537189,
+      "recall@5_ci95": {
+        "lower": 0.8871212121212121,
+        "upper": 0.9426193755739211
+      },
+      "precision@5": 0.21212121212121315,
+      "precision@5_ci95": {
+        "lower": 0.20181818181818287,
+        "upper": 0.22303030303030427
+      },
+      "mrr": 0.8582888519902208,
+      "mrr_ci95": {
+        "lower": 0.8261502747280707,
+        "upper": 0.8885093054139354
+      },
+      "mean_latency_ms": 12.261742727269214,
+      "mean_latency_ms_ci95": {
+        "lower": 11.873639394032194,
+        "upper": 12.66011969690391
+      },
       "n": 330
     },
     "bge": {
-      "recall@5": 0.9733241505968778,
-      "precision@5": 0.22606060606060732,
-      "mrr": 0.984862258953168,
-      "mean_latency_ms": 27.692258785563435,
+      "recall@5": 0.9677685950413224,
+      "recall@5_ci95": {
+        "lower": 0.9517906336088156,
+        "upper": 0.9813131313131312
+      },
+      "precision@5": 0.22242424242424363,
+      "precision@5_ci95": {
+        "lower": 0.2139393939393952,
+        "upper": 0.23151515151515292
+      },
+      "mrr": 0.9750066308600226,
+      "mrr_ci95": {
+        "lower": 0.9606259531861283,
+        "upper": 0.9871212121212121
+      },
+      "mean_latency_ms": 29.536622727242833,
+      "mean_latency_ms_ci95": {
+        "lower": 29.313690303041025,
+        "upper": 29.804109090847223
+      },
       "n": 330
     },
     "hybrid": {
-      "recall@5": 0.9529729109274564,
-      "precision@5": 0.2224242424242436,
-      "mrr": 0.9603673373410214,
-      "mean_latency_ms": 1.1140094011683355,
+      "recall@5": 0.9463842975206612,
+      "recall@5_ci95": {
+        "lower": 0.9226469237832875,
+        "upper": 0.9671717171717172
+      },
+      "precision@5": 0.21878787878787995,
+      "precision@5_ci95": {
+        "lower": 0.20969696969697074,
+        "upper": 0.22909090909091023
+      },
+      "mrr": 0.9554387536047615,
+      "mrr_ci95": {
+        "lower": 0.9352456100479816,
+        "upper": 0.9738250806432625
+      },
+      "mean_latency_ms": 2.4983809091116367,
+      "mean_latency_ms_ci95": {
+        "lower": 2.4803557575730584,
+        "upper": 2.5150969697334045
+      },
       "n": 330
     },
     "hybrid_rerank": {
-      "recall@5": 0.9709022038567493,
-      "precision@5": 0.2278787878787891,
-      "mrr": 0.9815404040404041,
-      "mean_latency_ms": 1528.2237848478624,
+      "recall@5": 0.9652203856749311,
+      "recall@5_ci95": {
+        "lower": 0.9475436179981634,
+        "upper": 0.9803030303030303
+      },
+      "precision@5": 0.22424242424242544,
+      "precision@5_ci95": {
+        "lower": 0.2145454545454558,
+        "upper": 0.23515151515151642
+      },
+      "mrr": 0.9655362318840578,
+      "mrr_ci95": {
+        "lower": 0.9483759332454983,
+        "upper": 0.9800509442248574
+      },
+      "mean_latency_ms": 1472.6498578788028,
+      "mean_latency_ms_ci95": {
+        "lower": 1467.0473875757593,
+        "upper": 1478.463720909129
+      },
       "n": 330
     }
+  },
+  "paired_comparison": {
+    "metric": "MRR",
+    "difference": "BGE dense minus hybrid RRF",
+    "mean_difference": 0.019567877255261035,
+    "difference_ci95": {
+      "lower": 0.0027390539046985543,
+      "upper": 0.037660700695910564
+    },
+    "n": 330
+  },
+  "bootstrap": {
+    "method": "non-parametric percentile bootstrap over claims",
+    "resamples": 2000,
+    "seed": 42,
+    "confidence_level": 0.95
   },
   "limitations": [
     "Corpus reconstructed from live Wikipedia, not the frozen FEVER dump.",

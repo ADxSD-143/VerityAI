@@ -15,9 +15,9 @@ license: mit
 # VerityAI — evidence-grounded, multi-source claim checking
 
 VerityAI takes a **claim**, a **paragraph/article**, or an **article URL**, retrieves real
-evidence from permitted public sources, ranks it with a hybrid lexical + semantic retriever,
-judges each passage against the claim with a pretrained NLI model, and returns a **traceable**
-report.
+evidence from permitted public sources, ranks it with a pretrained dense retriever (hybrid lexical +
+semantic selectable), judges each passage against the claim with a pretrained NLI model, and returns
+a **traceable** report.
 
 **Core principle.** VerityAI evaluates claims against *retrieved evidence*. It does not know the
 truth of every statement. A similarity, entailment or confidence score is never presented as the
@@ -25,8 +25,9 @@ probability that a claim is true.
 
 ## Features
 
-- **Hybrid retrieval** — BM25 (lexical) + `BAAI/bge-small-en-v1.5` (dense) fused with
-  Reciprocal Rank Fusion, with optional cross-encoder reranking.
+- **Dense-first retrieval** — `BAAI/bge-small-en-v1.5` by default (measured best MRR on our
+  benchmark); hybrid BM25 + BGE via Reciprocal Rank Fusion remains selectable
+  (`VERITY_RETRIEVAL_MODE`), with optional cross-encoder reranking.
 - **Pretrained NLI** — `MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli`, premise = evidence passage,
   hypothesis = claim. Label order is read from the model config and unit-tested.
 - **Real sources** — Wikipedia/MediaWiki, Wikidata, OpenAlex, and (optionally) Google Fact Check
@@ -49,7 +50,7 @@ claim / text / url
    -> [url] SSRF-safe fetch + article extraction
    -> claim extraction (sentences + cautious claim filter)
    -> source adapters (concurrent): Wikipedia | Wikidata | OpenAlex | FactCheck?
-   -> BM25  +  BGE dense   ->  RRF fusion  ->  dedup  ->  optional rerank
+   -> BGE dense (default)  |  BM25 + BGE RRF (hybrid)  ->  dedup  ->  optional rerank
    -> NLI (premise = passage, hypothesis = claim)
    -> source independence clustering
    -> conservative aggregation -> report
@@ -130,15 +131,18 @@ limitations: [`docs/EVALUATION.md`](docs/EVALUATION.md).
 <!-- EVAL_SUMMARY_START -->
 ### Measured results (recorded; full protocol in `docs/EVALUATION.md`)
 
-**Retrieval** — FEVER dev, 330 evaluable claims, 1161-page reconstructed corpus:
+**Retrieval** — FEVER dev, 330 evaluable claims, 2409-page reconstructed corpus (harder run;
+bootstrap 95% CIs in `docs/EVALUATION.md`):
 
-| Retriever | Recall@5 | Precision@5 | MRR |
-|---|---|---|---|
-| TF-IDF (baseline only) | 0.958 | 0.221 | 0.941 |
-| BM25 | 0.943 | 0.221 | 0.901 |
-| BGE dense | **0.973** | 0.226 | **0.985** |
-| Hybrid (BM25 + BGE, RRF k=60) | 0.953 | 0.222 | 0.960 |
-| Hybrid + cross-encoder rerank | 0.971 | 0.228 | 0.982 |
+| Retriever | Recall@5 | MRR |
+|---|---|---|
+| TF-IDF (baseline only) | 0.938 | 0.901 |
+| BM25 | 0.916 | 0.858 |
+| BGE dense (**default**) | **0.968** | **0.975** |
+| Hybrid (BM25 + BGE, RRF k=60) | 0.946 | 0.955 |
+| Hybrid + cross-encoder rerank | 0.965 | 0.966 |
+
+Paired MRR difference (dense − hybrid) = +0.020, 95% CI [0.003, 0.038] → dense-only is the default.
 
 **NLI** — 493 claims:
 

@@ -137,11 +137,21 @@ audit, the benchmark evaluations, or re-create the control files. Restart the se
 **Existing NLI result investigation:** saved model configs show different label orders and runtime reads config.id2label. The small model's saved confusion matrix is in canonical label order and consistent with its saved predictions, so its 0.448 accuracy is not explained by an obvious label mapping swap. Existing aggregate results cannot isolate the remaining cause.
 
 **Open gate items:**
-1. Branch CI must pass after implementation.
-2. Re-run retrieval on a larger deterministic distractor corpus and report paired BGE-minus-hybrid MRR bootstrap CI.
-3. Re-run both NLI candidates with bootstrap CIs; measure CPU latency and peak RAM on the target host.
-4. Human-review and label at least 60 claims with a fixed held-out split, including opinions and allegations.
-5. Tune tau_single only on a separate tuning split; the 8-claim diagnostic and Zorbax-9 regression are not held-out evidence.
-6. Deployment remains blocked on owner-provided Hugging Face write credentials and authorization to create the Space.
+1. ~~Branch CI must pass after implementation.~~ **DONE** — the PR #1 merge left `main` red (ruff `UP041` + a url-safety test broken by the new `ge=1024` bound). Fixed in `d16ebe4`; CI run #10 on `d16ebe4` = **success**.
+2. ~~Re-run retrieval on a larger deterministic distractor corpus and report paired BGE-minus-hybrid MRR bootstrap CI.~~ **DONE** — see "Harder-corpus retrieval" below.
+3. Re-run both NLI candidates with bootstrap CIs; measure CPU latency and peak RAM on the target host. **PENDING.**
+4. Human-review and label at least 60 claims with a fixed held-out split, including opinions and allegations. **DRAFTED, AWAITING REVIEW** — `data/annotations/phase0_candidates.csv` (100 proposed rows; 62 held_out / 38 tuning) + `.md` notes. These are machine-proposed, not gold.
+5. Tune tau_single only on a separate tuning split; the 8-claim diagnostic and Zorbax-9 regression are not held-out evidence. **PENDING** (blocked on item 4 sign-off).
+6. Deployment remains blocked on owner-provided Hugging Face write credentials and authorization to create the Space. **BLOCKED.**
 
-**Next commands after CI passes:** run the FEVER sample builder with 4,000 distractor pages, then retrieval evaluation with max-pages 5000; rerun both NLI commands in docs/EVALUATION.md; complete data/annotations/phase0_e2e_template.csv with human-reviewed labels before computing held-out metrics.
+**Harder-corpus retrieval (recorded 2026-10-10).** Distractor pool caps at 2525 titles →
+**2409 usable pages** (367 gold + 2042 distractors; 483 unavailable), 330 evaluable claims.
+Bootstrap 95% CIs (2000 resamples). BGE dense: R@5 0.968 [0.952, 0.981], MRR **0.975 [0.961, 0.987]**.
+Hybrid RRF: R@5 0.946 [0.923, 0.967], MRR 0.955 [0.935, 0.974]. Paired MRR difference
+(BGE − hybrid) = **+0.0196, 95% CI [0.0027, 0.0377]** (n=330) — excludes zero. **Decision:** the
+runtime default is now **dense-only** (`VERITY_RETRIEVAL_MODE=dense`, `backend/app/retrieval/pipeline.py`);
+`hybrid` stays selectable. Full table in `docs/EVALUATION.md` and `docs/experiments/001-retrieval-comparison.md`.
+
+**Next commands:** rerun both NLI commands in `docs/EVALUATION.md` (base + small) with CIs; review
+`data/annotations/phase0_candidates.csv` and promote verified rows to `phase0_e2e_template.csv`
+(keep >=60 held_out); then tune tau_single on the tuning split only.

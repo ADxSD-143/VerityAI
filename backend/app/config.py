@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from functools import lru_cache
+from typing import Literal
 
 from pydantic import Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -33,6 +34,7 @@ class Settings(BaseSettings):
     verity_top_k_nli: int = Field(default=6, ge=1, le=50)
     verity_max_claims: int = Field(default=5, ge=1, le=20)
     verity_use_reranker: bool = False
+    verity_retrieval_mode: Literal["dense", "hybrid"] = "dense"
     verity_rrf_k: int = Field(default=60, ge=1)
     verity_embed_cache_dir: str | None = None
     verity_preload_models: bool = True
