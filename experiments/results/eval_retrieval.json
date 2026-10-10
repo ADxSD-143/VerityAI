@@ -1,0 +1,52 @@
+{
+  "benchmark": "fever-dev-page-retrieval",
+  "sample_size": 500,
+  "evaluated": 330,
+  "skipped_no_gold_in_corpus": 170,
+  "corpus_pages": 1161,
+  "corpus_pages_unavailable": 6,
+  "top_k": 5,
+  "dense_model": "BAAI/bge-small-en-v1.5",
+  "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "results": {
+    "tfidf": {
+      "recall@5": 0.9577938475665748,
+      "precision@5": 0.22060606060606186,
+      "mrr": 0.9412262718959019,
+      "mean_latency_ms": 6.305996363869671,
+      "n": 330
+    },
+    "bm25": {
+      "recall@5": 0.9431244260789716,
+      "precision@5": 0.22060606060606172,
+      "mrr": 0.9013174301313501,
+      "mean_latency_ms": 6.721818170538454,
+      "n": 330
+    },
+    "bge": {
+      "recall@5": 0.9733241505968778,
+      "precision@5": 0.22606060606060732,
+      "mrr": 0.984862258953168,
+      "mean_latency_ms": 27.692258785563435,
+      "n": 330
+    },
+    "hybrid": {
+      "recall@5": 0.9529729109274564,
+      "precision@5": 0.2224242424242436,
+      "mrr": 0.9603673373410214,
+      "mean_latency_ms": 1.1140094011683355,
+      "n": 330
+    },
+    "hybrid_rerank": {
+      "recall@5": 0.9709022038567493,
+      "precision@5": 0.2278787878787891,
+      "mrr": 0.9815404040404041,
+      "mean_latency_ms": 1528.2237848478624,
+      "n": 330
+    }
+  },
+  "limitations": [
+    "Corpus reconstructed from live Wikipedia, not the frozen FEVER dump.",
+    "Relevance is page-level (gold evidence page in top-k), not sentence-level."
+  ]
+}

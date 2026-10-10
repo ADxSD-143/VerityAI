@@ -2,6 +2,32 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-10 — M2/M3 evaluation: real errors and fixes
+
+- **Windows Application Control blocked newest wheels.** `scikit-learn 1.9.1`,
+  `pandas 3.0.6` and `pyarrow 26.0.0` failed with *"DLL load failed ... blocked by an
+  Application Control policy"*. Because `transformers` imports sklearn when it is installed,
+  this also broke `transformers` → `sentence-transformers`. **Root cause**: the policy blocks
+  the newly released binaries, not these libraries in general. **Fix**: pin
+  `scikit-learn==1.5.2`, `pandas==2.2.3`, `pyarrow==17.0.0` (older, allowed). All imports OK.
+- **FEVER dataset schema.** The HF `fever` `v1.0` config has **no `validation` split**; the
+  development split is `labelled_dev`, and it requires `trust_remote_code=True`. Its rows are
+  **flattened** (one row per evidence annotation, so claim ids repeat) with scalar
+  `evidence_wiki_url` / `evidence_sentence_id` columns and `-LRB-`/`-RRB-` encoded titles.
+  **Fix**: group rows back into claims and decode titles. Result: 500 claims, 333 with gold
+  evidence, 367 gold pages, plus 800 deterministic distractor pages → 1167-page corpus.
+- **`py` launcher broken**; **PyPI CDN throttled** (~33 KB/s vs ~245 KB/s on a mirror) — the
+  install was switched to a PyPI mirror.
+- **Performance bug in `eval_retrieval.py`**: `tfidf.transform(texts)` was recomputed for every
+  claim, and `titles.index(...)` (O(n)) was used inside the per-claim loop. **Fix**: build the
+  TF-IDF matrix once and use a `title → index` dict.
+- **Measured reality**: corpus embedding of ~1161 Wikipedia pages with `bge-small-en-v1.5` on
+  this CPU costs several minutes of real compute (~7 cores busy); cross-encoder reranking of
+  333 × 20 pairs is the other dominant cost. Numbers, not assumptions, drove the evaluation
+  runtime.
+- **Lesson**: verify the evaluation dataset schema and the host's application-control policy
+  *before* building on them.
+
 ## 2026-10-10 — M0: environment audit and control files
 
 - **Environment**: Windows, Python 3.11.7, pip 26.2.1 (in venv), Node v24.15.0, git 2.55.0,

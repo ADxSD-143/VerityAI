@@ -72,14 +72,16 @@ def main() -> None:
     pages, missing = build_corpus(examples, distractors, args.max_pages)
     titles = list(pages.keys())
     texts = [pages[t] for t in titles]
-    print(f"Corpus: {len(titles)} pages ({len(missing)} unavailable)")
+    title_to_idx = {title: i for i, title in enumerate(titles)}
+    print(f"Corpus: {len(titles)} pages ({len(missing)} unavailable)", flush=True)
 
     if not titles:
         raise SystemExit("Empty corpus - network unavailable? Nothing to evaluate.")
 
-    print("Fitting retrievers...")
+    print("Fitting retrievers...", flush=True)
     bm25 = BM25Index(texts)
     tfidf = TfidfVectorizer().fit(texts)
+    tfidf_matrix = tfidf.transform(texts)
     model = get_sentence_transformer(args.dense_model)
     dense = DenseIndex(texts, model, args.dense_model)
     reranker = None
@@ -104,7 +106,7 @@ def main() -> None:
         evaluated += 1
 
         start = time.perf_counter()
-        tfidf_sims = (tfidf.transform(texts) @ tfidf.transform([claim]).T).toarray().ravel()
+        tfidf_sims = (tfidf_matrix @ tfidf.transform([claim]).T).toarray().ravel()
         tfidf_order = [titles[i] for i in np.argsort(-tfidf_sims)]
         metrics["tfidf"]["latency_ms"].append((time.perf_counter() - start) * 1000)
 
@@ -116,8 +118,8 @@ def main() -> None:
         dense_order = [titles[i] for i, _ in dense.rank(claim, len(titles))]
         metrics["bge"]["latency_ms"].append((time.perf_counter() - start) * 1000)
 
-        b_idx = [titles.index(t) for t in bm25_order]
-        d_idx = [titles.index(t) for t in dense_order]
+        b_idx = [title_to_idx[t] for t in bm25_order]
+        d_idx = [title_to_idx[t] for t in dense_order]
         start = time.perf_counter()
         fused_idx = [i for i, _ in rrf_fuse([b_idx, d_idx], k=60)]
         hybrid_order = [titles[i] for i in fused_idx]

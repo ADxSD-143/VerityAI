@@ -39,6 +39,7 @@ def main() -> None:
     parser.add_argument("--limit", type=int, default=500)
     parser.add_argument("--model", default="MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli")
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--out", default="eval_nli.json")
     args = parser.parse_args()
 
     sample = load_json("fever_sample.json")
@@ -134,7 +135,7 @@ def main() -> None:
             "NOT ENOUGH INFO premises are random non-gold sentences.",
         ],
     }
-    path = save_json("eval_nli.json", payload)
+    path = save_json(args.out, payload)
     print(f"\nWrote {path}")
     print(f"n={len(y_true)} accuracy={accuracy} macro_f1={macro_f1}")
     print("confusion matrix (rows=true, cols=pred):", labels, matrix)
