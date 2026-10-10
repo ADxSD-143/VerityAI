@@ -142,11 +142,33 @@ blocker reported); no secrets exposed.
 **Risks/fallback.** `gh` CLI missing / HF token missing → prepare all artifacts, document the
 exact blocker and the one manual step required; never claim deployment without verification.
 **Recorded (GitHub half — done).** Repository is **public** at
-`https://github.com/ADxSD-143/VerityAI`; `main` = `f97a075`; GitHub Actions CI **green**
-(run `38047977416`, success).
+`https://github.com/ADxSD-143/VerityAI`; `main` = `eec56f7`; GitHub Actions CI **green**
+(run `38050601549`, success).
 **Pending (deployment half).** The Hugging Face Space is **not deployed**. No Hugging Face token is
 present (no `HF_TOKEN`, no cached login) and Docker is not installed, so the image cannot be built
 locally (HF Spaces builds it server-side). Deploy artifacts are ready (`Dockerfile`, README Spaces
 frontmatter, port 7860). Required user action: `huggingface-cli login` (write token), create the
 Docker Space, push, then verify the public frontend + `/health` + one real analysis and record the
 URL in `README.md` (`DEPLOY_URL`). M7 is **not** `PASS` until that is verified.
+
+
+---
+
+## Product Phase 0 — reliability hardening (ACTIVE)
+
+This product roadmap is separate from the original engineering milestones M0–M7 above.
+Do not begin Phase 1 web-search expansion until this phase's gate passes.
+
+Phase 0 work includes per-client request limits, body and analysis timeouts, NLI label-map
+regression tests, bootstrap confidence intervals, a harder retrieval corpus, and a separate
+human-labelled held-out set.
+
+The annotation template is data/annotations/phase0_e2e_template.csv. Gold labels must be reviewed
+by a human and must not be generated automatically. Existing FEVER results are not an untouched
+held-out set, and the existing 8-claim end-to-end diagnostic must not be used to tune thresholds.
+
+**Gate status: IN PROGRESS.** Tests and CI must pass; the larger-corpus retrieval evaluation and its
+paired bootstrap interval must be recorded; both NLI candidates need fresh confidence intervals;
+at least 60 human-labelled held-out claims must exist; the tau_single curve must use a separate
+tuning split. Hugging Face deployment remains blocked until the owner provides credentials and
+authorizes Space creation.

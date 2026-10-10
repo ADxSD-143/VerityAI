@@ -37,6 +37,7 @@ probability that a claim is true.
   `CONFLICTING_EVIDENCE`, `UNABLE_TO_ASSESS`. No verdict is forced on weak evidence.
 - **SSRF-safe URL fetching** — private/loopback/link-local/metadata destinations blocked, per-hop
   redirect validation, size/time caps, content-type allowlist.
+- **Request protection** — per-client analysis rate limit, JSON body cap, body-read timeout and total analysis timeout.
 - **No paid services** — CPU inference; no API keys required for the core pipeline.
 - **Polished, accessible, build-free frontend** — vanilla HTML/CSS/JS served by the backend.
 
@@ -179,7 +180,7 @@ docker run -p 7860:7860 verityai      # http://127.0.0.1:7860
 - English-first. Hindi/Hinglish input is accepted but **not verified** (see
   [`docs/EVALUATION.md`](docs/EVALUATION.md)).
 - FEVER-retrieval results do not imply real-world accuracy for current events or arbitrary sites.
-- No per-client rate limiting on the public demo.
+- Rate limiting is process-local and based on the socket peer IP; proxies may cause shared buckets, and multiple workers do not share counters.
 - DNS-rebinding TOCTOU on URL fetch is mitigated, not eliminated (see
   [`docs/SECURITY.md`](docs/SECURITY.md)).
 

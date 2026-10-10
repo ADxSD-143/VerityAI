@@ -4,12 +4,10 @@
 2026-10-10 (Asia/Kolkata)
 
 ## Current Milestone
-M0–M6 PASS. M7 IN PROGRESS — GitHub publication is **done and verified**; the Hugging Face Space
-deployment is **pending** (blocked on a Hugging Face token).
+Product Phase 0 — reliability hardening **IN PROGRESS**. Historical M0–M6 are complete; M7 deployment remains pending on a Hugging Face token.
 
 ## Overall Status
-Published and CI-green on GitHub. Only the free deployment (Hugging Face Space) remains, and it is
-blocked on Hugging Face credentials.
+The public repository and CI are verified. Phase 0 hardening is active. Deployment remains blocked on credentials; the larger-corpus evaluation and human-labelled held-out set are outstanding.
 
 ## Environment
 - **OS**: Windows (win32), PowerShell 5.1, repo `D:\project ideas\VerityAI`.
@@ -32,10 +30,10 @@ blocked on Hugging Face credentials.
 - **M4** — FEVER `labelled_dev` sample (500, seed 42), all evaluation artefacts saved.
 - **M5** (code) — SSRF-safe URL extraction + tests; secret scan clean.
 - **M6** (code/docs/CI) — full docs set, CI workflow, Dockerfile, README Spaces frontmatter; **CI
-  verified green on GitHub** (run `38047977416` on `f97a075` ⇒ success; run #1 on `47a7602` ⇒
+  verified green on GitHub** (latest main CI run `38050601549` on `eec56f7` ⇒ success; run #1 on `47a7602` ⇒
   success).
 - **M7 (part)** — **GitHub publication**: public repo at
-  [`github.com/ADxSD-143/VerityAI`](https://github.com/ADxSD-143/VerityAI), `main` = `f97a075`.
+  [`github.com/ADxSD-143/VerityAI`](https://github.com/ADxSD-143/VerityAI), `main` = `eec56f7`.
 - **Aggregation safeguard** — single-source verdicts must clear `tau_single` (default 0.75); adds
   `backend/tests/test_aggregation_regression.py`. Closes the recorded Zorbax-9 false positive
   (re-checked live: now `INSUFFICIENT_EVIDENCE`, best entailment 0.519).
@@ -73,7 +71,7 @@ blocked on Hugging Face credentials.
 | `POST /api/analyze` (live) | 200, real multi-source evidence |
 | `POST /api/analyze-url` (metadata IP) | 400 `unsafe_url` |
 | secret scan (grep + `git ls-files`) | clean; no `.env`; no tracked file > 1 MB |
-| GitHub Actions CI (run `38047977416`, `f97a075`) | **success** |
+| GitHub Actions CI (run `38050601549`, `eec56f7`) | **success** |
 | `docker build` | **not run** — Docker is not installed on this host |
 
 ## Evaluation
@@ -110,7 +108,7 @@ All artefacts in `experiments/results/`:
 
 ## GitHub
 **Published**: [`github.com/ADxSD-143/VerityAI`](https://github.com/ADxSD-143/VerityAI), public,
-default branch `main`, `f97a075` on `main`, CI green.
+default branch `main`, `eec56f7` on `main`, CI green.
 
 ## Deployment
 Not deployed. `Dockerfile` + README Spaces frontmatter are ready (port 7860). Public URL to be
@@ -122,3 +120,28 @@ Hugging Face, create the Docker Space, push, then verify the public frontend, `/
 real analysis and write the URL into `README.md` (`DEPLOY_URL`). Do not re-run the environment
 audit, the benchmark evaluations, or re-create the control files. Restart the server with:
 `$env:HF_HOME="D:\hf-cache"; .\.venv\Scripts\python.exe -m uvicorn app.main:app --port 8000`.
+
+
+## Product Phase 0 checkpoint — 2026-10-10
+
+**Current phase:** Phase 0 — reliability hardening; IN PROGRESS.
+
+**Changes prepared in branch phase0/hardening-evaluation:**
+- Process-local per-client sliding-window rate limiting on /api/analyze and /api/analyze-url (default 10 requests / 60 seconds).
+- Request-body cap (1,000,000 bytes), body-read timeout (5 seconds), total analysis timeout (60 seconds), and typed 413/408/429/504 errors.
+- Candidate NLI config-label mapping tests for both recorded model candidates.
+- Evaluation scripts now calculate deterministic percentile bootstrap 95% CIs; fresh reruns remain necessary for the harder-corpus results and current latency intervals.
+- FEVER training-contamination warning added to evaluation documentation.
+- Annotation template is intentionally blank; labels are not fabricated.
+
+**Existing NLI result investigation:** saved model configs show different label orders and runtime reads config.id2label. The small model's saved confusion matrix is in canonical label order and consistent with its saved predictions, so its 0.448 accuracy is not explained by an obvious label mapping swap. Existing aggregate results cannot isolate the remaining cause.
+
+**Open gate items:**
+1. Branch CI must pass after implementation.
+2. Re-run retrieval on a larger deterministic distractor corpus and report paired BGE-minus-hybrid MRR bootstrap CI.
+3. Re-run both NLI candidates with bootstrap CIs; measure CPU latency and peak RAM on the target host.
+4. Human-review and label at least 60 claims with a fixed held-out split, including opinions and allegations.
+5. Tune tau_single only on a separate tuning split; the 8-claim diagnostic and Zorbax-9 regression are not held-out evidence.
+6. Deployment remains blocked on owner-provided Hugging Face write credentials and authorization to create the Space.
+
+**Next commands after CI passes:** run the FEVER sample builder with 4,000 distractor pages, then retrieval evaluation with max-pages 5000; rerun both NLI commands in docs/EVALUATION.md; complete data/annotations/phase0_e2e_template.csv with human-reviewed labels before computing held-out metrics.

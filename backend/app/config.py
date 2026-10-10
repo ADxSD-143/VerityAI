@@ -1,11 +1,4 @@
-"""Runtime configuration.
-
-All fields map to environment variables of the same (lower-cased) name, so
-``VERITY_PORT`` sets ``verity_port`` and ``FACTCHECK_API_KEY`` sets
-``factcheck_api_key``. Every value has a working default: the core pipeline runs
-keyless and offline-from-paid-services.
-"""
-
+"""Runtime configuration."""
 from __future__ import annotations
 
 from functools import lru_cache
@@ -44,10 +37,15 @@ class Settings(BaseSettings):
     verity_embed_cache_dir: str | None = None
     verity_preload_models: bool = True
 
-    verity_url_max_bytes: int = 3_000_000
-    verity_url_timeout_s: float = 15.0
-    verity_source_timeout_s: float = 20.0
-    verity_max_pages_per_source: int = 4
+    verity_url_max_bytes: int = Field(default=3_000_000, ge=1024, le=20_000_000)
+    verity_url_timeout_s: float = Field(default=15.0, gt=0.0, le=60.0)
+    verity_source_timeout_s: float = Field(default=20.0, gt=0.0, le=90.0)
+    verity_analysis_timeout_s: float = Field(default=60.0, gt=0.0, le=180.0)
+    verity_request_body_timeout_s: float = Field(default=5.0, gt=0.0, le=30.0)
+    verity_max_request_bytes: int = Field(default=1_000_000, ge=1024, le=5_000_000)
+    verity_rate_limit_requests: int = Field(default=10, ge=1, le=1000)
+    verity_rate_limit_window_s: float = Field(default=60.0, gt=0.0, le=3600.0)
+    verity_max_pages_per_source: int = Field(default=4, ge=1, le=20)
 
     factcheck_api_key: str | None = None
     openalex_mailto: str | None = None
