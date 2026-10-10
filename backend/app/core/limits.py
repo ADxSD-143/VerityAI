@@ -83,7 +83,7 @@ class RequestLimitsMiddleware:
         while True:
             try:
                 message = await asyncio.wait_for(receive(), timeout=self.body_timeout_s)
-            except asyncio.TimeoutError:
+            except TimeoutError:
                 await self._reject(
                     send, 408, "request_body_timeout",
                     "Request body was not received before the time limit.",
