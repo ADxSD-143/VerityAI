@@ -96,7 +96,7 @@ async def test_oversized_response_is_rejected(monkeypatch):
             return_value=httpx.Response(200, headers={"content-type": "text/html"}, content=body)
         )
         with pytest.raises(UrlFetchError):
-            await ue.fetch_and_extract("http://big.test/", Settings(verity_url_max_bytes=100))
+            await ue.fetch_and_extract("http://big.test/", Settings(verity_url_max_bytes=1024))
 
 
 @pytest.mark.asyncio
