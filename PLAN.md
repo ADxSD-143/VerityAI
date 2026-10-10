@@ -29,20 +29,25 @@ hardware/disk/network probes recorded in `docs/PROJECT_STATUS.md`.
 **Gate.** Plan is concrete/executable; compute + hosting constraints recorded; no mandatory
 paid service; every proposed model has a verification plan.
 
-## M1 — Application skeleton and real evidence retrieval — `IN PROGRESS`
+## M1 — Application skeleton and real evidence retrieval — `PASS`
 
 **Objective.** End-to-end foundation with real, source-attributed retrieval (no ML yet).
 **Deliverables.** FastAPI backend; responsive static frontend; input validation; MediaWiki
 source adapter; structured response; source links; `/health`; unit + integration tests;
 documented local startup.
-**Verification.** `pytest -q`; start server; `GET /health`; `POST /api/analyze` on a real
-claim returns real Wikipedia passages with URLs; simulate source failure → no fabrication.
-**Gate.** App starts with documented commands; a claim returns real source-attributed
-passages; no fabrication on failure; focused + integration tests pass.
-**Risks/fallback.** Wikipedia API unavailable → adapter reports failure and the analysis
-returns `UNABLE_TO_ASSESS`, never invented evidence.
+**Verification.** `pytest -q` → 63 passed; `ruff check` → clean; server up; `GET /health` OK;
+`POST /api/analyze` on "The Eiffel Tower is located in Paris." returned real Wikipedia +
+Wikidata + OpenAlex passages with URLs and a traceable verdict (11.6 s, not degraded);
+frontend + assets served; `POST /api/analyze-url` with a metadata IP → 400 `unsafe_url`;
+empty body → 422.
+**Gate.** **PASS** — app starts with documented commands; a claim returns real source-attributed
+passages; no fabrication on failure (fact-check source reported as `skipped`); focused +
+integration tests pass.
+**Note.** A simple claim returned `CONFLICTING_EVIDENCE` because retrieval also pulled the
+"Eiffel Tower (Paris, Texas)" article and one passage was judged contradictory. This is honest,
+traceable behaviour (and a quality item to watch in M2/M3), not a gate failure.
 
-## M2 — Pretrained semantic retrieval — `NOT STARTED`
+## M2 — Pretrained semantic retrieval — `IN PROGRESS`
 
 **Objective.** Replace keyword-only retrieval with a hybrid semantic pipeline.
 **Deliverables.** BGE dense retrieval (official query prefix, normalized embeddings);

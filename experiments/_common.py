@@ -9,6 +9,8 @@ from __future__ import annotations
 
 import json
 import random
+import time
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 import httpx
@@ -24,6 +26,23 @@ USER_AGENT = "VerityAI-eval/0.1 (academic evaluation; contact: adityanarayansd@g
 
 FEVER_LABELS = ("SUPPORTS", "REFUTES", "NOT ENOUGH INFO")
 LABEL_TO_NLI = {"SUPPORTS": "entailment", "REFUTES": "contradiction", "NOT ENOUGH INFO": "neutral"}
+
+_FEVER_TITLE_SUBSTITUTIONS = (
+    ("-LRB-", "("), ("-RRB-", ")"),
+    ("-LSB-", "["), ("-RSB-", "]"),
+    ("-LCB-", "{"), ("-RCB-", "}"),
+)
+
+
+def decode_fever_title(raw: object) -> str | None:
+    """FEVER encodes wiki titles with underscore separators and -LRB-/-RRB- style brackets."""
+    if not isinstance(raw, str) or not raw.strip():
+        return None
+    title = raw
+    for token, char in _FEVER_TITLE_SUBSTITUTIONS:
+        title = title.replace(token, char)
+    title = title.replace("_", " ").strip()
+    return title or None
 
 
 def save_json(name: str, payload: dict | list) -> Path:
@@ -91,6 +110,7 @@ def fetch_wikipedia_page(title: str, lang: str = "en") -> dict | None:
     path = CORPUS_DIR / f"{lang}_{safe}.json"
     if path.exists():
         return json.loads(path.read_text(encoding="utf-8"))
+    time.sleep(0.1)
     params = {
         "action": "query",
         "prop": "extracts",
@@ -117,6 +137,27 @@ def fetch_wikipedia_page(title: str, lang: str = "en") -> dict | None:
     }
     path.write_text(json.dumps(payload, ensure_ascii=False), encoding="utf-8")
     return payload
+
+
+def fetch_many(
+    titles: list[str], workers: int = 8, progress_every: int = 200
+) -> tuple[dict[str, str], list[str]]:
+    """Fetch many Wikipedia pages concurrently (cached on disk). Returns (pages, missing)."""
+    pages: dict[str, str] = {}
+    missing: list[str] = []
+    if not titles:
+        return pages, missing
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        for i, (title, data) in enumerate(
+            zip(titles, executor.map(fetch_wikipedia_page, titles), strict=True), 1
+        ):
+            if data and data.get("extract"):
+                pages[title] = data["extract"]
+            else:
+                missing.append(title)
+            if progress_every and i % progress_every == 0:
+                print(f"  fetched {i}/{len(titles)} pages ({len(pages)} usable)", flush=True)
+    return pages, missing
 
 
 def recall_at_k(gold: set[str], retrieved: list[str], k: int) -> float | None:

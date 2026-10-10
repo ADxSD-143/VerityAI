@@ -27,7 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "backend"))
 
 import numpy as np  # noqa: E402
 from _common import (  # noqa: E402
-    fetch_wikipedia_page,
+    fetch_many,
     load_json,
     mean,
     precision_at_k,
@@ -45,22 +45,16 @@ TOP_K = 5
 RERANK_POOL = 20
 
 
-def build_corpus(examples, max_pages):
+def build_corpus(examples, distractors, max_pages):
     titles: list[str] = []
     for example in examples:
         for title in example["evidence_pages"]:
             if title not in titles:
                 titles.append(title)
-    titles = titles[:max_pages]
-    pages = {}
-    missing = []
-    for title in titles:
-        data = fetch_wikipedia_page(title)
-        if data and data.get("extract"):
-            pages[title] = data["extract"]
-        else:
-            missing.append(title)
-    return pages, missing
+    for title in distractors:
+        if title not in titles:
+            titles.append(title)
+    return fetch_many(titles[:max_pages])
 
 
 def main() -> None:
@@ -73,8 +67,9 @@ def main() -> None:
 
     sample = load_json("fever_sample.json")
     examples = sample["examples"][: args.limit]
-    print(f"Building corpus from {len(examples)} claims...")
-    pages, missing = build_corpus(examples, args.max_pages)
+    distractors = sample.get("distractor_pages", [])
+    print(f"Building corpus from {len(examples)} claims + {len(distractors)} distractors...")
+    pages, missing = build_corpus(examples, distractors, args.max_pages)
     titles = list(pages.keys())
     texts = [pages[t] for t in titles]
     print(f"Corpus: {len(titles)} pages ({len(missing)} unavailable)")

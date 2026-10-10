@@ -24,7 +24,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "backend"))
 
-from _common import LABEL_TO_NLI, fetch_wikipedia_page, load_json, save_json  # noqa: E402
+from _common import LABEL_TO_NLI, fetch_many, load_json, save_json  # noqa: E402
 from app.analysis.nli import CANONICAL_LABELS, NLIModel  # noqa: E402
 from app.core.text import split_sentences, tokenize  # noqa: E402
 from app.retrieval.lexical import BM25Index  # noqa: E402
@@ -44,12 +44,13 @@ def main() -> None:
     sample = load_json("fever_sample.json")
     examples = sample["examples"][: args.limit]
 
-    pages: dict[str, str] = {}
+    needed: list[str] = []
     for example in examples:
         for title in example["evidence_pages"]:
-            if title not in pages:
-                data = fetch_wikipedia_page(title)
-                pages[title] = data["extract"] if data and data.get("extract") else ""
+            if title not in needed:
+                needed.append(title)
+    page_map, _ = fetch_many(needed)
+    pages: dict[str, str] = {title: page_map.get(title, "") for title in needed}
 
     distractor_pool: list[str] = []
     for text in pages.values():
