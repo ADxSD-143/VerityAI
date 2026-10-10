@@ -27,6 +27,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "backend"))
 
 import numpy as np  # noqa: E402
 from _common import (  # noqa: E402
+    bootstrap_mean_ci,
     fetch_many,
     load_json,
     mean,

@@ -30,7 +30,7 @@ The public repository and CI are verified. Phase 0 hardening is active. Deployme
 - **M4** — FEVER `labelled_dev` sample (500, seed 42), all evaluation artefacts saved.
 - **M5** (code) — SSRF-safe URL extraction + tests; secret scan clean.
 - **M6** (code/docs/CI) — full docs set, CI workflow, Dockerfile, README Spaces frontmatter; **CI
-  verified green on GitHub** (run `38047977416` on `f97a075` ⇒ success; run #1 on `47a7602` ⇒
+  verified green on GitHub** (latest main CI run `38050601549` on `eec56f7` ⇒ success; run #1 on `47a7602` ⇒
   success).
 - **M7 (part)** — **GitHub publication**: public repo at
   [`github.com/ADxSD-143/VerityAI`](https://github.com/ADxSD-143/VerityAI), `main` = `eec56f7`.

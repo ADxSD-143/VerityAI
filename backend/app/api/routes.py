@@ -32,7 +32,7 @@ async def _analyze_with_timeout(request: Request, payload: AnalyzeRequest) -> An
     timeout_s = request.app.state.settings.verity_analysis_timeout_s
     try:
         return await asyncio.wait_for(request.app.state.analyzer.analyze(payload), timeout=timeout_s)
-    except TimeoutError as exc:
+    except asyncio.TimeoutError as exc:
         raise AnalysisTimeoutError(
             "Analysis exceeded the configured time limit.", details={"timeout_s": timeout_s}
         ) from exc

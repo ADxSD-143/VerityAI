@@ -142,8 +142,8 @@ blocker reported); no secrets exposed.
 **Risks/fallback.** `gh` CLI missing / HF token missing → prepare all artifacts, document the
 exact blocker and the one manual step required; never claim deployment without verification.
 **Recorded (GitHub half — done).** Repository is **public** at
-`https://github.com/ADxSD-143/VerityAI`; `main` = `f97a075`; GitHub Actions CI **green**
-(run `38047977416`, success).
+`https://github.com/ADxSD-143/VerityAI`; `main` = `eec56f7`; GitHub Actions CI **green**
+(run `38050601549`, success).
 **Pending (deployment half).** The Hugging Face Space is **not deployed**. No Hugging Face token is
 present (no `HF_TOKEN`, no cached login) and Docker is not installed, so the image cannot be built
 locally (HF Spaces builds it server-side). Deploy artifacts are ready (`Dockerfile`, README Spaces
