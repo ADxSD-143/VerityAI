@@ -66,11 +66,24 @@ noisy: support/refute uses a BM25-selected sentence from reconstructed gold page
 random sentence from a pooled set. This limitation affects the evaluation and must not be described
 as a pure model comparison.
 
-The NLI script now saves deterministic percentile bootstrap 95% CIs for accuracy, macro-F1 and mean
-CPU latency, with 2,000 resamples, and per-example latency. Prior point estimates from 2026-10-10:
-base accuracy 0.675 / macro-F1 0.671 / mean latency 90.5 ms per pair; small accuracy 0.448 /
-macro-F1 0.458 / mean latency 98.0 ms per pair. These prior values do not include the new CIs;
-rerun both commands before using them as Phase 0 results.
+### Recorded NLI results (2026-10-10, CPU-only)
+
+Base model `MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli`, n=493, percentile bootstrap 95% CIs
+(2000 resamples, fixed seeds; `experiments/results/eval_nli.json`):
+
+- accuracy **0.675** [0.633, 0.716]
+- macro-F1 **0.671** [0.630, 0.712]
+- mean latency **159.9 ms/pair** [155.6, 165.1] — this host was under CPU contention during the
+  run, so it is not directly comparable to the earlier 90.5 ms point estimate.
+
+**Small candidate could not be re-run on this host — BLOCKED (environment).**
+`cross-encoder/nli-deberta-v3-small` is DeBERTa-v2, whose tokenizer imports `sentencepiece`; the
+host's Windows Application Control policy blocks the `sentencepiece` native DLL
+(`ImportError: DLL load failed while importing _sentencepiece ... blocked by an Application Control
+policy`). The historical small-model point estimates (accuracy 0.448 / macro-F1 0.458) are therefore
+**not reproducible on this host** and carry no CI. This is an environment blocker, not a model
+result; do not cite 0.448/0.458 as current. Reproduce the base result on a host where models load:
+`python experiments/eval_nli.py --limit 500 --model MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli`.
 
 ## End-to-end held-out evaluation
 

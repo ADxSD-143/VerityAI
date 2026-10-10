@@ -2,6 +2,21 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-10 — NLI re-evaluation: base CI recorded, small model blocked
+
+- Re-ran the NLI evaluation on the current code. Base model `DeBERTa-v3-base-mnli-fever-anli`:
+  accuracy **0.675** [0.633, 0.716], macro-F1 **0.671** [0.630, 0.712], mean latency
+  **159.9 ms/pair** [155.6, 165.1] (2000-resample percentile bootstrap; `eval_nli.json`).
+- **Blocker**: `cross-encoder/nli-deberta-v3-small` failed to load — its DeBERTa-v2 tokenizer imports
+  `sentencepiece`, and the host's Windows Application Control policy blocks the `sentencepiece` DLL
+  (`ImportError: DLL load failed ... blocked by an Application Control policy`). Same policy class
+  that forced older sklearn/pandas/pyarrow pins. The small model cannot be evaluated on this host;
+  the historical 0.448/0.458 point estimates are not reproducible here and now carry no CI.
+- Latency rose vs the earlier 90.5 ms/pair because the host was under CPU contention during the run
+  (several stray Python processes); it is contention-dependent, not a model regression.
+- **Lesson**: an application-control policy is a real evaluation constraint — a candidate model is
+  only usable if its tokenizer/deps are permitted on the target host.
+
 ## 2026-10-10 — Single-source aggregation safeguard (false-positive fix)
 
 - **Problem**: `docs/experiments/004-end-to-end.md` recorded the nonsense claim "Zorbax-9 … land on

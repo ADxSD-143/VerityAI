@@ -139,7 +139,7 @@ audit, the benchmark evaluations, or re-create the control files. Restart the se
 **Open gate items:**
 1. ~~Branch CI must pass after implementation.~~ **DONE** — the PR #1 merge left `main` red (ruff `UP041` + a url-safety test broken by the new `ge=1024` bound). Fixed in `d16ebe4`; CI run #10 on `d16ebe4` = **success**.
 2. ~~Re-run retrieval on a larger deterministic distractor corpus and report paired BGE-minus-hybrid MRR bootstrap CI.~~ **DONE** — see "Harder-corpus retrieval" below.
-3. Re-run both NLI candidates with bootstrap CIs; measure CPU latency and peak RAM on the target host. **PENDING.**
+3. Re-run both NLI candidates with bootstrap CIs; measure CPU latency and peak RAM. **PARTIAL** — base re-run: accuracy **0.675 [0.633, 0.716]**, macro-F1 **0.671 [0.630, 0.712]**, mean latency **159.9 ms/pair [155.6, 165.1]**. Small candidate **BLOCKED**: its DeBERTa-v2 tokenizer needs `sentencepiece`, whose DLL the host's Windows Application Control policy blocks; the historical 0.448/0.458 are not reproducible here.
 4. Human-review and label at least 60 claims with a fixed held-out split, including opinions and allegations. **DRAFTED, AWAITING REVIEW** — `data/annotations/phase0_candidates.csv` (100 proposed rows; 62 held_out / 38 tuning) + `.md` notes. These are machine-proposed, not gold.
 5. Tune tau_single only on a separate tuning split; the 8-claim diagnostic and Zorbax-9 regression are not held-out evidence. **PENDING** (blocked on item 4 sign-off).
 6. Deployment remains blocked on owner-provided Hugging Face write credentials and authorization to create the Space. **BLOCKED.**
@@ -152,6 +152,6 @@ Hybrid RRF: R@5 0.946 [0.923, 0.967], MRR 0.955 [0.935, 0.974]. Paired MRR diffe
 runtime default is now **dense-only** (`VERITY_RETRIEVAL_MODE=dense`, `backend/app/retrieval/pipeline.py`);
 `hybrid` stays selectable. Full table in `docs/EVALUATION.md` and `docs/experiments/001-retrieval-comparison.md`.
 
-**Next commands:** rerun both NLI commands in `docs/EVALUATION.md` (base + small) with CIs; review
-`data/annotations/phase0_candidates.csv` and promote verified rows to `phase0_e2e_template.csv`
-(keep >=60 held_out); then tune tau_single on the tuning split only.
+**Next commands:** review `data/annotations/phase0_candidates.csv` and promote verified rows to
+`phase0_e2e_template.csv` (keep >=60 held_out); then tune tau_single on the tuning split only. The
+small NLI candidate can only be evaluated on a host where `sentencepiece` is not blocked.
