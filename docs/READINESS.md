@@ -8,7 +8,7 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 
 - **Repo/CI**: repo is public; GitHub Actions CI is green on the current `main` (`89f402f`, run
   `38114131072`) and on prior commits (verified via the GitHub Actions API).
-- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **108 passed**
+- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **117 passed**
   (verified locally on this host, `VERITY_PRELOAD_MODELS=false`, no network).
 - **Request hardening is implemented and tested** (`backend/app/core/limits.py`,
   `backend/app/main.py`, `backend/app/api/routes.py`): per-client sliding-window rate limit on
@@ -77,6 +77,8 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 | Rate limiting / size+time caps | yes | yes | n/a | no | Active |
 | SSRF-safe URL fetch | yes | yes | n/a | no | Active |
 | Privacy / log hygiene | yes | yes | n/a | no | Active |
+| Source adapters (OpenAlex/Wikidata/FactCheck) | yes | yes | n/a | no | Active |
+| Partial source failure (one adapter down) | yes | yes | n/a | no | Active |
 | Aggregation safeguard | yes | yes | 1 live re-check | no | Active |
 | Dense retrieval default | yes | yes | yes (CIs) | no | Active |
 | NLI base / small | yes | yes | base CIs done; small blocked (host) | no | Base active; small blocked |

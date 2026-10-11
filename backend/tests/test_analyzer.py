@@ -92,6 +92,21 @@ async def test_all_sources_failing_is_unable_to_assess(monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_one_source_failing_does_not_block_the_others(monkeypatch):
+    good = FakeAdapter([make_passage("Paris is the capital of France.", url="https://a.test/1")])
+    bad = FakeAdapter([], status="error", error="boom")
+    analyzer = _analyzer([good, bad], [score("entailment", 0.9)])
+    monkeypatch.setattr(analyzer_module, "retrieve", fake_retrieve_factory())
+
+    report = await analyzer.analyze(AnalyzeRequest(claim="Paris is the capital of France."))
+
+    claim = report.claims[0]
+    assert claim.status == Verdict.SUPPORTED
+    assert len(report.sources_queried) == 2
+    assert [record.source for record in report.source_failures] == ["fake"]
+
+
+@pytest.mark.asyncio
 async def test_long_text_extracts_multiple_claims(monkeypatch):
     passages = [make_passage("Paris is the capital of France.", url="https://a.test/1")]
     analyzer = _analyzer([FakeAdapter(passages)], [score("entailment", 0.9), score("entailment", 0.9)])
