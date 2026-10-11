@@ -66,7 +66,7 @@ The public repository and CI are verified. Phase 0 hardening is active. Deployme
 | Command | Outcome |
 |---|---|
 | `ruff check backend experiments scripts` | All checks passed |
-| `pytest -q` (150 tests) | exit code 0, all passed |
+| `pytest -q` (152 tests) | exit code 0, all passed |
 | `pytest -q -m live` (3 tests) | 3 passed in 27 s (Wikipedia + Wikinews adapters + full `/api/analyze`); opt-in, excluded from CI |
 | `POST /api/analyze` (live) | 200, real multi-source evidence |
 | `POST /api/analyze-url` (metadata IP) | 400 `unsafe_url` |
@@ -154,6 +154,9 @@ audit, the benchmark evaluations, or re-create the control files. Restart the se
 - **Claim-type evaluation ready**: the held-out harness (`experiments/eval_e2e_heldout.py`) now scores predicted-vs-gold claim-type accuracy per type with a bootstrap CI, for when the labelled set exists.
 - **Allegation handling**: allegations run the evidence pipeline but are always `NOT_VERIFIABLE`; the report discloses support/contradict counts and whether an *official-finding* signal appears, and never declares the allegation true or false (`services/allegation.py`).
 - **Phase 3 (partial)**: tokenization is Unicode-aware and claim detection now accepts Devanagari copulas/verbs, so Hindi statements are no longer rejected outright. Models remain English-first; Hindi quality is **unverified** (no labelled set).
+- **Frontend integration test** (`backend/tests/test_frontend.py`): the served page exposes the expected UI contract, static assets load, and `app.js` calls `/api/analyze` and knows every backend status.
+- **README capability status** table added (implemented / tested / evaluated / blocked).
+- **Citation + injection checks**: every returned evidence URL is absolute http(s), and instructions embedded in fetched URL content do not change the verdict.
 
 **Existing NLI result investigation:** saved model configs show different label orders and runtime reads config.id2label. The small model's saved confusion matrix is in canonical label order and consistent with its saved predictions, so its 0.448 accuracy is not explained by an obvious label mapping swap. Existing aggregate results cannot isolate the remaining cause.
 
