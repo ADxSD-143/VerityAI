@@ -30,6 +30,7 @@
     CONFLICTING_EVIDENCE: "Conflicting evidence",
     INSUFFICIENT_EVIDENCE: "Insufficient evidence",
     UNABLE_TO_ASSESS: "Unable to assess",
+    NOT_VERIFIABLE: "Opinion / not directly verifiable",
   };
 
   const $ = (id) => document.getElementById(id);

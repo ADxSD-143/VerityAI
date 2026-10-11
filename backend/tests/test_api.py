@@ -145,3 +145,14 @@ def test_analyze_rejects_whitespace_only_claim():
         response = client.post("/api/analyze", json={"claim": "   "})
     assert response.status_code == 422
     assert response.json()["code"] == "invalid_input"
+
+
+def test_opinion_claim_returns_not_verifiable():
+    with TestClient(create_app()) as client:
+        response = client.post(
+            "/api/analyze", json={"claim": "Chocolate is the best ice cream flavor."}
+        )
+    assert response.status_code == 200
+    claim = response.json()["claims"][0]
+    assert claim["status"] == "NOT_VERIFIABLE"
+    assert claim["claim_type"] == "OPINION_SUBJECTIVE"

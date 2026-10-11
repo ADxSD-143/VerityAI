@@ -16,7 +16,9 @@ POST /api/analyze {claim | text | url}
   -> input validation (exactly one field)
   -> [url] SSRF-safe fetch + article extraction
   -> claim extraction (single claim kept verbatim; long text segmented + filtered)
-  -> for each claim:
+  -> claim-type classification (rules): fact | opinion | prediction | allegation | unclear
+     (non-fact claims short-circuit to NOT_VERIFIABLE, no retrieval)
+  -> for each fact claim:
        source adapters (concurrent): Wikipedia | Wikidata | OpenAlex | (optional) FactCheck
        -> candidate passages (sentence-level, with provenance)
        -> BGE dense ranking (default)  |  BM25 + BGE via RRF (hybrid, VERITY_RETRIEVAL_MODE)
@@ -42,7 +44,7 @@ POST /api/analyze {claim | text | url}
 | `backend/app/sources/` | One adapter per external source (see below) |
 | `backend/app/retrieval/` | `lexical` (BM25), `dense` (BGE), `fusion` (RRF), `rerank` (cross-encoder), `pipeline` |
 | `backend/app/analysis/` | `nli`, `independence`, `aggregation` |
-| `backend/app/services/` | `claim_extraction`, `url_extract` (SSRF-safe), `analyzer` (orchestration) |
+| `backend/app/services/` | `claim_extraction`, `claim_type` (rules classifier), `url_extract` (SSRF-safe), `analyzer` (orchestration) |
 | `backend/app/models_io.py` | Lazy, process-wide model registry with failure caching |
 | `frontend/` | Vanilla HTML/CSS/JS single page, no build step |
 
@@ -89,6 +91,7 @@ Aggregation is explicit rule-based (see `docs/theory/evidence-aggregation.md`):
 | Situation | Status |
 |---|---|
 | no strong evidence either way | `INSUFFICIENT_EVIDENCE` |
+| non-fact statement (opinion / prediction / allegation / unclear) | `NOT_VERIFIABLE` (no retrieval, no true/false) |
 | strong support **and** strong contradiction | `CONFLICTING_EVIDENCE` |
 | strong support only, corroborated or single source with score ≥ `tau_single` | `SUPPORTED` (flagged `limited_corroboration` if < 2 independent sources) |
 | strong support only, single source with score < `tau_single` | `INSUFFICIENT_EVIDENCE` |

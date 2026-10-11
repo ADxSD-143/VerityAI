@@ -143,3 +143,14 @@ Prior CPU-only host: Intel i7-12650HX, 15.73 GB RAM. Recorded model sizes: BGE 1
 DeBERTa base 380 MB, reranker 91.8 MB. Prior NLI latency was 90.5 ms/pair (base) and 98.0 ms/pair
 (small). These are historical point measurements; rerun to obtain bootstrap intervals and current
 peak RAM alongside any new model comparison.
+
+## Claim-type classification (Phase 2)
+
+A deterministic, rules-based classifier (`backend/app/services/claim_type.py`) classifies each
+statement as `CHECKABLE_FACT`, `OPINION_SUBJECTIVE`, `PREDICTION`, `ALLEGATION` or `UNCLEAR`.
+Non-fact statements return `NOT_VERIFIABLE` and skip the evidence pipeline, so a true/false verdict
+is never forced on an opinion, prediction or unclear input.
+
+**Not yet evaluated.** Macro-F1 and a confusion matrix require a human-labelled claim-type set,
+which is blocked on the same owner-reviewed annotation gate as the held-out evaluation. Unit tests
+cover the rules; they are not an accuracy estimate.

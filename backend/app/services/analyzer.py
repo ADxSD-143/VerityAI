@@ -42,6 +42,14 @@ from ..schemas.models import (
 from ..sources.base import EvidencePassage, SourceResult, now_iso
 from ..sources.registry import build_adapters
 from .claim_extraction import ExtractedClaim, extract_claims, query_variants, single_claim
+from .claim_type import (
+    ALLEGATION,
+    NON_FACT_TYPES,
+    OPINION_SUBJECTIVE,
+    PREDICTION,
+    UNCLEAR,
+    classify_claim_type,
+)
 from .url_extract import fetch_and_extract
 
 MAX_PASSAGES_PER_CLAIM = 400
@@ -117,6 +125,10 @@ class Analyzer:
         headers = {"User-Agent": self.settings.verity_user_agent}
         async with httpx.AsyncClient(timeout=timeout, headers=headers) as client:
             for index, claim in enumerate(claims):
+                claim_type = classify_claim_type(claim.text)
+                if claim_type in NON_FACT_TYPES:
+                    claims_out.append(self._non_verifiable(claim, index, claim_type))
+                    continue
                 assessment, reasons, records, failed = await self._analyze_claim(
                     claim,
                     index,
@@ -125,6 +137,7 @@ class Analyzer:
                     top_k_nli=top_k_nli,
                     use_reranker=use_reranker,
                 )
+                assessment.claim_type = claim_type
                 claims_out.append(assessment)
                 degraded_reasons.extend(reasons)
                 source_records.extend(records)
@@ -337,6 +350,40 @@ class Analyzer:
             fact_checks=fact_checks,
         )
         return assessment, degraded, records, failures
+
+    @staticmethod
+    def _non_verifiable(claim: ExtractedClaim, index: int, claim_type: str) -> ClaimAssessment:
+        explanations = {
+            OPINION_SUBJECTIVE: (
+                "Subjective statement - not directly verifiable against evidence; no search "
+                "verdict is given."
+            ),
+            PREDICTION: "Future prediction - cannot be verified against retrieved evidence.",
+            ALLEGATION: (
+                "Allegation about a person or organisation - reporting that an allegation exists "
+                "is not evidence that it is true; no true/false verdict is given."
+            ),
+            UNCLEAR: "No checkable factual claim was identified in this statement.",
+        }
+        return ClaimAssessment(
+            claim_id=f"c{index + 1}",
+            text=claim.text,
+            start=claim.start,
+            end=claim.end,
+            status=Verdict.NOT_VERIFIABLE,
+            claim_type=claim_type,
+            explanation=explanations.get(claim_type, "Not verifiable against retrieved evidence."),
+            limited_corroboration=False,
+            claim_notes=list(claim.notes),
+            stats=ClaimStats(
+                passages_considered=0,
+                support_passages=0,
+                contradict_passages=0,
+                support_sources=0,
+                contradict_sources=0,
+                independent_groups=0,
+            ),
+        )
 
     @staticmethod
     def _evidence_item(

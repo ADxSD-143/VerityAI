@@ -194,6 +194,7 @@ button:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
 .badge.CONFLICTING_EVIDENCE { background: var(--warn-bg); color: var(--warn); border-color: var(--warn); }
 .badge.INSUFFICIENT_EVIDENCE { background: var(--neutral-bg); color: var(--neutral); border-color: var(--border); }
 .badge.UNABLE_TO_ASSESS { background: var(--unknown-bg); color: var(--unknown); border-color: var(--unknown); }
+.badge.NOT_VERIFIABLE { background: var(--neutral-bg); color: var(--neutral); border-color: var(--border); }
 
 .explanation { margin: 0.7rem 0 0; font-size: 0.92rem; }
 .limited-note { margin: 0.5rem 0 0; font-size: 0.82rem; color: var(--warn); }

@@ -36,7 +36,11 @@ probability that a claim is true.
 - **Source independence** — near-duplicate / syndicated passages are clustered so copies are not
   counted as independent corroboration.
 - **Conservative verdicts** — `SUPPORTED`, `REFUTED`, `INSUFFICIENT_EVIDENCE`,
-  `CONFLICTING_EVIDENCE`, `UNABLE_TO_ASSESS`. No verdict is forced on weak evidence.
+  `CONFLICTING_EVIDENCE`, `UNABLE_TO_ASSESS`, `NOT_VERIFIABLE`. No verdict is forced on weak
+  evidence.
+- **Claim-type aware** — each statement is classified first (fact / opinion / prediction /
+  allegation / unclear); non-fact statements return `NOT_VERIFIABLE` instead of a forced
+  true/false verdict.
 - **SSRF-safe URL fetching** — private/loopback/link-local/metadata destinations blocked, per-hop
   redirect validation, size/time caps, content-type allowlist.
 - **Request protection** — per-client analysis rate limit, JSON body cap, body-read timeout and total analysis timeout.

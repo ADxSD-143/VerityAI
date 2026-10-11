@@ -176,3 +176,27 @@ async def test_dated_evidence_has_no_recency_note(monkeypatch):
     report = await analyzer.analyze(AnalyzeRequest(claim="Paris is the capital of France."))
 
     assert not any("no publication date" in note for note in report.claims[0].claim_notes)
+
+
+@pytest.mark.asyncio
+async def test_opinion_claim_is_not_verifiable_and_skips_search(monkeypatch):
+    analyzer = _analyzer([FakeAdapter([])], [])
+    monkeypatch.setattr(analyzer_module, "retrieve", fake_retrieve_factory())
+
+    report = await analyzer.analyze(AnalyzeRequest(claim="Chocolate is the best ice cream flavor."))
+
+    claim = report.claims[0]
+    assert claim.status == Verdict.NOT_VERIFIABLE
+    assert claim.claim_type == "OPINION_SUBJECTIVE"
+    assert report.sources_queried == []
+
+
+@pytest.mark.asyncio
+async def test_fact_claim_carries_claim_type(monkeypatch):
+    passages = [make_passage("Paris is the capital of France.", url="https://a.test/1")]
+    analyzer = _analyzer([FakeAdapter(passages)], [score("entailment", 0.9)])
+    monkeypatch.setattr(analyzer_module, "retrieve", fake_retrieve_factory())
+
+    report = await analyzer.analyze(AnalyzeRequest(claim="Paris is the capital of France."))
+
+    assert report.claims[0].claim_type == "CHECKABLE_FACT"

@@ -14,6 +14,7 @@ class Verdict(StrEnum):
     INSUFFICIENT_EVIDENCE = "INSUFFICIENT_EVIDENCE"
     CONFLICTING_EVIDENCE = "CONFLICTING_EVIDENCE"
     UNABLE_TO_ASSESS = "UNABLE_TO_ASSESS"
+    NOT_VERIFIABLE = "NOT_VERIFIABLE"
 
 
 class NLIProbabilities(BaseModel):
@@ -68,6 +69,7 @@ class ClaimAssessment(BaseModel):
     start: int | None = None
     end: int | None = None
     status: Verdict
+    claim_type: str | None = None
     explanation: str
     limited_corroboration: bool = False
     claim_notes: list[str] = Field(default_factory=list)
