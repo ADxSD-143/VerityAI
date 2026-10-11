@@ -135,6 +135,7 @@ audit, the benchmark evaluations, or re-create the control files. Restart the se
 - Annotation template is intentionally blank; labels are not fabricated.
 - Annotation **validation + leakage tooling** and the **held-out harness** (`experiments/annotation_tools.py`, `experiments/eval_e2e_heldout.py`); the harness refuses to score unreviewed/under-sized sets.
 - **Script-aware tokenization** fixes non-Latin source independence (`app/core/text.py`); distinct Devanagari passages are no longer merged into one independent source.
+- **Vertical-slice coverage** (`backend/tests/test_api.py`): paragraph (`text`) and URL success paths, evidence-provenance/uncertainty assertions, and a prompt-injection boundary test (retrieved text is evidence, never instructions).
 
 **Existing NLI result investigation:** saved model configs show different label orders and runtime reads config.id2label. The small model's saved confusion matrix is in canonical label order and consistent with its saved predictions, so its 0.448 accuracy is not explained by an obvious label mapping swap. Existing aggregate results cannot isolate the remaining cause.
 
