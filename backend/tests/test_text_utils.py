@@ -8,6 +8,7 @@ from app.core.text import (
     normalize_whitespace,
     shingles,
     split_sentences,
+    tokenize,
 )
 
 
@@ -58,3 +59,20 @@ def test_entity_hints_negation_and_year():
 def test_normalize_whitespace_and_domain():
     assert normalize_whitespace("  a   b\n c ") == "a b c"
     assert domain_of("https://en.wikipedia.org/wiki/Paris") == "en.wikipedia.org"
+
+
+def test_tokenize_handles_non_latin_script():
+    assert tokenize("The Eiffel Tower") == ["the", "eiffel", "tower"]
+    assert tokenize("भारत की राजधानी नई दिल्ली है।")
+
+
+def test_distinct_non_latin_texts_are_not_duplicates():
+    first = shingles("भारत की राजधानी नई दिल्ली है।")
+    other = shingles("ताजमहल आगरा में स्थित है।")
+    assert first and other
+    assert jaccard(first, other) < 0.8
+
+
+def test_empty_shingles_are_not_treated_as_duplicates():
+    assert shingles("") == frozenset()
+    assert jaccard(shingles(""), shingles("... !!!")) == 0.0

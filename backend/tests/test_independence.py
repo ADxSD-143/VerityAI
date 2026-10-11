@@ -32,3 +32,17 @@ def test_distinct_passages_are_independent():
 def test_document_key_prefers_page_id_then_url():
     assert document_key(_passage(page_id="123")) == "wikipedia:123"
     assert document_key(_passage(page_id=None, url="https://a.test/1#frag")) == "https://a.test/1"
+
+
+def test_distinct_non_latin_passages_are_independent():
+    groups = cluster_passages(
+        ["भारत की राजधानी नई दिल्ली है।", "ताजमहल आगरा में स्थित है।"],
+        ["https://a.test/1", "https://b.test/2"],
+    )
+    assert groups[0] != groups[1]
+
+
+def test_identical_non_latin_passages_merge():
+    text = "भारत की राजधानी नई दिल्ली है।"
+    groups = cluster_passages([text, text], ["https://a.test/1", "https://b.test/2"])
+    assert groups[0] == groups[1]

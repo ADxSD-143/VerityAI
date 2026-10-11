@@ -100,8 +100,10 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
    analysis, and a failure path before advertising. Acceptance: responsive public URL recorded.
 4. **Low — stale-ish docs drift** as parallel sessions commit. Fix: keep `PROJECT_STATUS.md`
    authoritative and update on each change. Acceptance: status matches `main`.
-5. **Medium — Latin-only tokenizer.** `app.core.text.tokenize` matches only `[A-Za-z0-9]`, so
-   non-Latin text tokenizes to nothing and `shingles` / `analysis/independence` collapse distinct
-   passages (Jaccard 1.0), which would overstate corroboration. Affects Hindi/Hinglish (Phase 3).
-   Fix: script-aware tokenization/shingling + a regression test. Acceptance: distinct non-Latin
-   passages are not merged into one independent source.
+5. ~~**Medium — Latin-only tokenizer.**~~ **FIXED (2026-10-11).** `tokenize` is now Unicode-aware
+   (`[^\W_]+`); `shingles` returns an empty set for token-less text, and `jaccard` treats an empty
+   shingle set as "no comparable content" (0.0) instead of 1.0. Distinct non-Latin or
+   punctuation-only passages are therefore no longer merged into one "independent" source.
+   Regression tests: `test_distinct_non_latin_passages_are_independent`,
+   `test_identical_non_latin_passages_merge`, and text-level tests. Still open (Phase 3):
+   `looks_like_claim`'s verb hint is Latin-only, so pure-Hindi claims are not extracted.

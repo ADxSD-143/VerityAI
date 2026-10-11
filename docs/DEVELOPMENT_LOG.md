@@ -2,6 +2,18 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-11 — Script-aware tokenization fixes non-Latin source independence
+
+- **Fix**: `app.core.text.tokenize` now uses a Unicode-aware pattern (`[^\W_]+`) instead of
+  `[A-Za-z0-9]+`, so Devanagari / non-Latin text produces tokens. ASCII tokenization is unchanged.
+- `shingles()` now returns an empty set for token-less text (the old `"<empty>"` fallback made every
+  token-less string identical), and `jaccard()` treats an empty shingle set as "no comparable content"
+  (0.0) instead of 1.0. Distinct non-Latin / punctuation-only passages are therefore no longer merged
+  into one "independent" source, which had overstated corroboration.
+- Regression tests added at the text level and at `analysis/independence` (`cluster_passages`).
+- Still unsupported (Phase 3): `looks_like_claim`'s verb hint is Latin-only, so pure-Hindi claims are
+  not extracted. Documented, not changed here.
+
 ## 2026-10-10 — Annotation tooling; Latin-only tokenizer limitation
 
 - Added `experiments/annotation_tools.py` (+ `backend/tests/test_annotation_tools.py`) to validate

@@ -12,7 +12,10 @@ import re
 from dataclasses import dataclass
 
 _WS = re.compile(r"\s+")
-_TOKEN = re.compile(r"[A-Za-z0-9]+(?:['\-][A-Za-z0-9]+)*")
+# Unicode-aware: ``[^\W_]`` is a word character (letters/digits), excluding underscore, in any
+# script. This keeps ASCII tokenization identical while letting non-Latin scripts (e.g. Devanagari)
+# produce tokens instead of collapsing to none.
+_TOKEN = re.compile(r"[^\W_]+(?:['\-][^\W_]+)*")
 
 _TITLES = {
     "mr", "mrs", "ms", "dr", "prof", "st", "mt", "sr", "jr", "gen", "sen", "rep",
@@ -152,15 +155,14 @@ def looks_like_claim(sentence: str) -> bool:
 
 def shingles(text: str, n: int = 5) -> frozenset[int]:
     tokens = tokenize(text)
-    if len(tokens) < n:
-        tokens = tokens or ["<empty>"]
+    if not tokens:
+        return frozenset()
     grams = [" ".join(tokens[i : i + n]) for i in range(max(1, len(tokens) - n + 1))]
     return frozenset(hash(g) for g in grams)
 
 
 def jaccard(a: frozenset[int], b: frozenset[int]) -> float:
-    if not a and not b:
-        return 1.0
+    # An empty shingle set means "no comparable content"; it must never count as a duplicate.
     if not a or not b:
         return 0.0
     inter = len(a & b)

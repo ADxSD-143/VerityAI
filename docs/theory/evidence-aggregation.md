@@ -6,7 +6,8 @@ source.
 
 **Independence.** `backend/app/analysis/independence.py` groups passages by document key
 (page id, else canonical URL), then merges groups whose text is a near-duplicate (5-gram Jaccard
-≥ 0.8). Aggregation counts **groups**, not passages.
+≥ 0.8). Tokenization is Unicode-aware, and a passage with no comparable shingles is never treated as
+a duplicate of another. Aggregation counts **groups**, not passages.
 
 **Aggregation rules.** `backend/app/analysis/aggregation.py`. A passage is a *strong* supporter /
 contradictor when its NLI argmax label is entailment / contradiction **and** the score is ≥ `tau`
