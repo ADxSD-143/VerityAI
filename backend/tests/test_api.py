@@ -201,3 +201,20 @@ def test_instructions_in_fetched_url_content_are_not_executed(monkeypatch):
     assert response.status_code == 200
     # The verdict follows the evidence, not the instruction embedded in the fetched page.
     assert response.json()["claims"][0]["status"] == "REFUTED"
+
+
+def test_openapi_schema_exposes_current_statuses_and_claim_type():
+    with TestClient(create_app()) as client:
+        schema = client.get("/openapi.json")
+    assert schema.status_code == 200
+    text = schema.text
+    for status in (
+        "SUPPORTED",
+        "REFUTED",
+        "CONFLICTING_EVIDENCE",
+        "INSUFFICIENT_EVIDENCE",
+        "UNABLE_TO_ASSESS",
+        "NOT_VERIFIABLE",
+    ):
+        assert status in text
+    assert "claim_type" in text

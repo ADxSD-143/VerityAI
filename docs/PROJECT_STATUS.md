@@ -66,7 +66,7 @@ The public repository and CI are verified. Phase 0 hardening is active. Deployme
 | Command | Outcome |
 |---|---|
 | `ruff check backend experiments scripts` | All checks passed |
-| `pytest -q` (152 tests) | exit code 0, all passed |
+| `pytest -q` (153 tests) | exit code 0, all passed |
 | `pytest -q -m live` (3 tests) | 3 passed in 27 s (Wikipedia + Wikinews adapters + full `/api/analyze`); opt-in, excluded from CI |
 | `POST /api/analyze` (live) | 200, real multi-source evidence |
 | `POST /api/analyze-url` (metadata IP) | 400 `unsafe_url` |
