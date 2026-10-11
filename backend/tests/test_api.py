@@ -1,4 +1,5 @@
 import app.services.analyzer as analyzer_module
+from app.core.errors import UrlFetchError
 from app.main import create_app
 from app.services.url_extract import FetchedArticle
 from conftest import FakeAdapter, FakeNLI, fake_retrieve_factory, make_passage, score
@@ -116,3 +117,14 @@ def test_retrieved_instructions_are_not_executed(monkeypatch):
     # The verdict follows the (faked) NLI evidence, not the instruction embedded in the page.
     assert claim["status"] == "REFUTED"
     assert "IGNORE ALL PREVIOUS INSTRUCTIONS" in claim["contradicting"][0]["passage"]
+
+
+def test_analyze_url_fetch_failure_is_reported(monkeypatch):
+    async def _boom(url, settings):  # noqa: ANN001
+        raise UrlFetchError("upstream unreachable")
+
+    monkeypatch.setattr(analyzer_module, "fetch_and_extract", _boom)
+    with TestClient(create_app()) as client:
+        response = client.post("/api/analyze-url", json={"url": "https://example.com/x"})
+    assert response.status_code == 502
+    assert response.json()["code"] == "url_fetch_failed"

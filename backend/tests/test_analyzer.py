@@ -1,5 +1,6 @@
 import app.services.analyzer as analyzer_module
 import pytest
+from app.core.errors import ModelLoadError
 from app.schemas.models import AnalyzeRequest, Verdict
 from app.services.analyzer import Analyzer
 from conftest import FakeAdapter, FakeNLI, fake_retrieve_factory, make_passage, score
@@ -120,3 +121,22 @@ async def test_long_text_extracts_multiple_claims(monkeypatch):
 
     assert report.input.kind == "text"
     assert len(report.claims) >= 2
+
+
+@pytest.mark.asyncio
+async def test_nli_model_failure_degrades_to_unable_to_assess(monkeypatch):
+    class _BrokenNLI:
+        def predict_batch(self, pairs, batch_size: int = 16):  # noqa: ANN001
+            raise ModelLoadError("nli model unavailable")
+
+    passages = [make_passage("Paris is the capital of France.", url="https://a.test/1")]
+    analyzer = _analyzer([FakeAdapter(passages)], [])
+    analyzer._nli = _BrokenNLI()
+    monkeypatch.setattr(analyzer_module, "retrieve", fake_retrieve_factory())
+
+    report = await analyzer.analyze(AnalyzeRequest(claim="Paris is the capital of France."))
+
+    claim = report.claims[0]
+    assert claim.status == Verdict.UNABLE_TO_ASSESS
+    assert report.meta.degraded_mode is True
+    assert any("evidence assessment unavailable" in reason for reason in report.meta.degraded_reasons)
