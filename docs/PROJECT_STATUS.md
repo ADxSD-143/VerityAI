@@ -66,7 +66,7 @@ The public repository and CI are verified. Phase 0 hardening is active. Deployme
 | Command | Outcome |
 |---|---|
 | `ruff check backend experiments scripts` | All checks passed |
-| `pytest -q` (121 tests) | exit code 0, all passed |
+| `pytest -q` (124 tests) | exit code 0, all passed |
 | `pytest -q -m live` | not automated (opt-in); sources exercised via `/api/analyze`, `eval_e2e`, and a live Zorbax-9 re-check |
 | `POST /api/analyze` (live) | 200, real multi-source evidence |
 | `POST /api/analyze-url` (metadata IP) | 400 `unsafe_url` |
@@ -145,6 +145,7 @@ audit, the benchmark evaluations, or re-create the control files. Restart the se
 - **Source-adapter reliability** (`backend/tests/test_source_adapters.py`, `test_analyzer.py`): OpenAlex/Wikidata/FactCheck success + soft-failure paths, FactCheck skips without a key, and one failing source does not block the others.
 - **Error paths**: an NLI model-load failure degrades to `UNABLE_TO_ASSESS` with a visible degraded reason, and a URL-fetch failure returns typed `url_fetch_failed` (502).
 - **Rate-limiter unit tests** (`test_limits.py`): per-client isolation and unprotected-path bypass, exercised directly on `RequestLimitsMiddleware`.
+- **Limit/redirect edge cases**: a redirect loop beyond the hop limit is rejected (`url_extract`), and a streamed body with no `Content-Length` is capped while streaming (413).
 
 **Existing NLI result investigation:** saved model configs show different label orders and runtime reads config.id2label. The small model's saved confusion matrix is in canonical label order and consistent with its saved predictions, so its 0.448 accuracy is not explained by an obvious label mapping swap. Existing aggregate results cannot isolate the remaining cause.
 

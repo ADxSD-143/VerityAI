@@ -88,6 +88,17 @@ async def test_redirect_to_private_destination_is_blocked(monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_redirect_loop_is_rejected(monkeypatch):
+    monkeypatch.setattr(ue, "resolve_and_validate", lambda host, port: [PUBLIC_IP])
+    with respx.mock(assert_all_called=False) as mock:
+        mock.get("http://start.test/").mock(
+            return_value=httpx.Response(302, headers={"location": "http://start.test/"})
+        )
+        with pytest.raises(UrlFetchError):
+            await ue.fetch_and_extract("http://start.test/", Settings())
+
+
+@pytest.mark.asyncio
 async def test_oversized_response_is_rejected(monkeypatch):
     monkeypatch.setattr(ue, "resolve_and_validate", lambda host, port: [PUBLIC_IP])
     body = ("<html><body>" + "x" * 5000 + "</body></html>").encode()

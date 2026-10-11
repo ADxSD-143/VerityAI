@@ -26,6 +26,22 @@ async def _call(middleware, ip: str, path: str = "/api/analyze") -> int:
     return captured["http.response.start"]["status"]
 
 
+async def _call_chunked(middleware, ip: str, chunks: list[bytes]) -> tuple[int, bytes]:
+    """Send a body as multiple http.request messages with no Content-Length header."""
+    captured: dict = {}
+    messages = [{"type": "http.request", "body": chunk, "more_body": True} for chunk in chunks]
+    messages.append({"type": "http.request", "body": b"", "more_body": False})
+
+    async def receive():
+        return messages.pop(0)
+
+    async def send(message):
+        captured[message["type"]] = message
+
+    await middleware(_scope(ip), receive, send)
+    return captured["http.response.start"]["status"], captured["http.response.body"]["body"]
+
+
 def test_analysis_endpoints_are_rate_limited_per_client():
     app = create_app(
         Settings(
@@ -72,3 +88,17 @@ async def test_rate_limiter_ignores_unprotected_paths():
     assert await _call(middleware, "10.0.0.3") == 429
     # /health is not a protected path, so it is never rate limited.
     assert await _call(middleware, "10.0.0.3", path="/health") == 200
+
+
+async def test_streamed_body_over_cap_is_rejected():
+    # No Content-Length header: the cap must still be enforced while streaming.
+    middleware = RequestLimitsMiddleware(_ok_app, max_requests=10, window_s=60, max_body_bytes=10)
+    status, body = await _call_chunked(middleware, "10.0.0.9", [b"x" * 8, b"x" * 8])
+    assert status == 413
+    assert b"request_too_large" in body
+
+
+async def test_streamed_body_under_cap_is_allowed():
+    middleware = RequestLimitsMiddleware(_ok_app, max_requests=10, window_s=60, max_body_bytes=1024)
+    status, _ = await _call_chunked(middleware, "10.0.0.10", [b"x" * 8])
+    assert status == 200
