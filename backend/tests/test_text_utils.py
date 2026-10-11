@@ -73,6 +73,12 @@ def test_distinct_non_latin_texts_are_not_duplicates():
     assert jaccard(first, other) < 0.8
 
 
+def test_looks_like_claim_accepts_hindi_statements():
+    assert looks_like_claim("भारत की राजधानी नई दिल्ली है।")
+    assert looks_like_claim("ताजमहल आगरा में स्थित है।")
+    assert not looks_like_claim("क्या ताजमहल आगरा में है?")
+
+
 def test_empty_shingles_are_not_treated_as_duplicates():
     assert shingles("") == frozenset()
     assert jaccard(shingles(""), shingles("... !!!")) == 0.0

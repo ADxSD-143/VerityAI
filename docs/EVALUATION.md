@@ -158,3 +158,14 @@ which is blocked on the same owner-reviewed annotation gate as the held-out eval
 cover the rules; they are not an accuracy estimate. The held-out harness
 (`experiments/eval_e2e_heldout.py`) already records predicted-vs-gold claim-type accuracy per type
 with a bootstrap CI, so per-type numbers can be produced as soon as the labelled set is reviewed.
+
+## Hindi / Hinglish (Phase 3 — experimental, unverified)
+
+Tokenization is Unicode-aware, so Devanagari text produces tokens, and claim detection accepts
+common Hindi copulas/verbs (`है`, `था`, `स्थित`, ...). This means Hindi statements are no longer
+rejected before retrieval, and distinct Hindi passages are not merged as duplicates.
+
+**No Hindi quality claim is made.** The dense retriever (`bge-small-en-v1.5`) and the NLI model are
+English-first, and no labelled Hindi/Hinglish set has been reviewed. Hindi/Hinglish performance must
+not be inferred from English results; it requires a representative human-labelled evaluation that is
+still outstanding.

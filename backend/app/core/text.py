@@ -44,6 +44,11 @@ _VERB_HINT = re.compile(
     r"\b(is|are|was|were|has|have|had|will|would|can|could|may|might|must|do|does|did|"
     r"[a-z]{4,}ed|[a-z]{3,}s)\b"
 )
+# Devanagari copulas / common verbs so Hindi sentences are not rejected outright. This is a
+# heuristic, not a parser; Hindi support remains experimental (see docs/EVALUATION.md).
+_VERB_HINT_DEV = re.compile(
+    r"(है|हैं|था|थी|थे|होगा|होगी|गया|गई|किया|करता|करती|रहा|रही|होता|होती|हुआ|हुई|स्थित)"
+)
 
 
 @dataclass(frozen=True)
@@ -148,7 +153,7 @@ def looks_like_claim(sentence: str) -> bool:
         return False
     if re.match(r"^[-*•\d.)\s]+$", text):
         return False
-    if not _VERB_HINT.search(text):
+    if not (_VERB_HINT.search(text) or _VERB_HINT_DEV.search(text)):
         return False
     return True
 
