@@ -2,6 +2,17 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-11 — Classifier diagnostic vs proposed annotations
+
+- Ran the rules classifier over the 100 **machine-proposed** candidate rows as a *diagnostic* (the
+  proposed types are **not ground truth**): 94/100 agreed after adding a Hinglish/Hindi superlative
+  marker (`sabse` / `सबसे`). The 6 remaining disagreements are genuinely hard — evaluative or unclear
+  statements ("Summer is the most pleasant season.", "They should do something about it.") and a
+  conviction phrased as fact ("A court found a defendant guilty...").
+- Deliberately **not** tuned to match the proposed labels — that would be fitting to unreviewed
+  machine labels. Evaluative comparatives ("X is larger than Y" is often factual) were left out.
+- Lesson: use proposed labels only to find rule blind spots, never as an accuracy target.
+
 ## 2026-10-11 — Phase 1/2/3 increments (evidence, claim handling, scripts)
 
 - **Phase 1**: optional keyless **Wikinews** source (`VERITY_ENABLE_WIKINEWS`, off by default),

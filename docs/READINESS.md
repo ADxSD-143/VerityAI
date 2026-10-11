@@ -8,7 +8,7 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 
 - **Repo/CI**: repo is public; GitHub Actions CI is green on the current `main` (`89f402f`, run
   `38114131072`) and on prior commits (verified via the GitHub Actions API).
-- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **153 passed**
+- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **154 passed**
   (verified locally on this host, `VERITY_PRELOAD_MODELS=false`, no network).
 - **Live smoke tests** (opt-in): `pytest -q -m live` → **3 passed** in 27 s — the real Wikipedia and
   Wikinews adapters return evidence with provenance, and the full `/api/analyze` pipeline runs end

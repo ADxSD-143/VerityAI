@@ -25,6 +25,11 @@ def test_predictions():
     assert classify_claim_type("The sea level will rise by one metre by 2100.") == PREDICTION
 
 
+def test_hindi_and_hinglish_superlatives_are_opinions():
+    assert classify_claim_type("Modi sabse best PM hai.") == OPINION_SUBJECTIVE
+    assert classify_claim_type("यह सबसे अच्छा विकल्प है।") == OPINION_SUBJECTIVE
+
+
 def test_allegations():
     assert classify_claim_type("The minister was accused of corruption in 2019.") == ALLEGATION
     assert classify_claim_type("A company executive was charged with fraud last year.") == ALLEGATION

@@ -35,7 +35,7 @@ _ALLEGATION = re.compile(
 _OPINION = re.compile(
     r"\b(i think|i believe|i feel|in my opinion|imo|personally|the best|the worst|"
     r"the greatest|the hottest|the most beautiful|the ugliest|overrated|underrated|"
-    r"better than|worse than|should|is the best|is the worst)\b",
+    r"better than|worse than|should|is the best|is the worst)\b|(?:sabse|सबसे)",
     re.IGNORECASE,
 )
 _PREDICTION = re.compile(
