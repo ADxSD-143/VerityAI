@@ -2,6 +2,21 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-11 — Phase 1/2/3 increments (evidence, claim handling, scripts)
+
+- **Phase 1**: optional keyless **Wikinews** source (`VERITY_ENABLE_WIKINEWS`, off by default),
+  reusing the MediaWiki adapter; provenance/recency disclosure in the report (publication-date
+  limitation + per-claim count of undated passages).
+- **Phase 2**: deterministic rules-based claim-type classifier; **opinions / predictions / unclear**
+  short-circuit to `NOT_VERIFIABLE` (no retrieval, no true/false). **Allegations** run the pipeline
+  but are always `NOT_VERIFIABLE`, with alleged-vs-official-finding disclosure. The held-out harness
+  now scores claim-type accuracy. Classifier **accuracy is not yet evaluated** (needs labels).
+- **Phase 3 (groundwork)**: tokenization is Unicode-aware and claim detection accepts Devanagari
+  copulas/verbs, so Hindi statements are extracted rather than rejected. Models remain English-first;
+  Hindi quality is **unverified**.
+- **Lesson**: keep rule-based behaviour conservative and default-off when its value is unmeasured;
+  disclose rather than decide (allegations) and expose what is unknown (recency, language).
+
 ## 2026-10-11 — Script-aware tokenization fixes non-Latin source independence
 
 - **Fix**: `app.core.text.tokenize` now uses a Unicode-aware pattern (`[^\W_]+`) instead of

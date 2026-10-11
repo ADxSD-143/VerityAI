@@ -174,6 +174,27 @@ docker build -t verityai .
 docker run -p 7860:7860 verityai      # http://127.0.0.1:7860
 ```
 
+## Capability status
+
+Honest matrix — a capability counts as done only when it is implemented, tested and documented
+(full table in [`docs/READINESS.md`](docs/READINESS.md)).
+
+| Capability | Status |
+|---|---|
+| Text / claim / URL checking | Implemented · tested · live-verified |
+| Request limits (rate / body / timeouts) | Implemented · tested |
+| SSRF-safe URL fetch | Implemented · tested |
+| Source independence + aggregation safeguard | Implemented · tested (one live re-check) |
+| Retrieval (dense default; hybrid selectable) | Implemented · evaluated with bootstrap CIs |
+| NLI (base model) | Evaluated with CIs · small model blocked on this host |
+| Claim-type classification + allegation handling | Implemented · tested · **accuracy not yet evaluated** |
+| Provenance / recency disclosure | Implemented · tested |
+| Hindi / Hinglish | Experimental (tokenization + claim detection only) · **unverified** |
+| Held-out end-to-end evaluation | **Blocked** on human-reviewed labels |
+| `tau_single` tuning | **Blocked** on a reviewed tuning split |
+| Media (OCR) and live checking | Planned |
+| Public deployment | **Blocked** on Hugging Face credentials |
+
 ## Limitations and known failure modes
 
 - Retrieval covers only the configured permitted sources — **not the entire internet**.
