@@ -54,7 +54,8 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 - **Human-reviewed held-out labels** (≥60). Drafted candidates exist
   (`data/annotations/phase0_candidates.csv`, 100 proposed rows, 62 held-out / 38 tuning) but are
   machine-proposed and **not gold**. Annotation validation tooling now exists
-  (`experiments/annotation_tools.py`) and rejects cross-split leakage.
+  (`experiments/annotation_tools.py`) and rejects cross-split leakage; the held-out harness
+  (`experiments/eval_e2e_heldout.py`) refuses to score until the gate passes.
 - `tau_single` tuning on a tuning split (blocked on the reviewed labels).
 - Deployment verification (no live URL).
 

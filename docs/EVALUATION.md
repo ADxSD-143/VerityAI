@@ -106,6 +106,16 @@ enums, flags duplicate case ids and claim texts, errors on near-duplicate claim 
 tuning/held-out split (measured with script-agnostic character n-grams), and requires >=60 reviewed
 held-out rows in gold mode. It never fills labels; unreviewed rows are excluded, never guessed.
 
+Once at least 60 held-out rows are reviewed, score them end to end:
+
+    python experiments/eval_e2e_heldout.py --path data/annotations/phase0_e2e_template.csv
+
+The harness (`experiments/eval_e2e_heldout.py`) re-validates the file and **refuses to run** if it
+fails (unreviewed or under-sized held-out set). It scores factual rows on the verdict and non-factual
+rows on handling (opinions/predictions/allegations must not receive SUPPORTED/REFUTED), reports
+overall and per-claim-type agreement with bootstrap 95% CIs, and writes
+`experiments/results/eval_e2e_heldout.json`. It never turns model output into gold.
+
 For each model change, report CPU latency per claim and peak RAM. Bootstrap 95% CIs are required.
 If a claimed improvement's interval includes zero, report it as inconclusive. Record negative results.
 Do not tune tau_single on the existing 8-claim diagnostic or held-out set; choose it using a distinct

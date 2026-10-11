@@ -33,3 +33,10 @@ The validator checks required columns, claim-type/verdict enums, duplicate case 
 and near-duplicate claim leakage across the tuning/held-out split (script-agnostic character
 n-grams). In `gold` mode it errors until at least 60 held-out rows are reviewed. It never fills
 labels; unreviewed rows are excluded, never guessed.
+
+Once the file passes, score it end to end (drives the real pipeline):
+
+    python experiments/eval_e2e_heldout.py --path data/annotations/phase0_e2e_template.csv
+
+The harness refuses to run unless validation passes, and scores factual rows on the verdict and
+non-factual rows on handling (no SUPPORTED/REFUTED for opinions/predictions/allegations).
