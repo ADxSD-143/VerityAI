@@ -2,6 +2,21 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-10 — Annotation tooling; Latin-only tokenizer limitation
+
+- Added `experiments/annotation_tools.py` (+ `backend/tests/test_annotation_tools.py`) to validate
+  annotation CSVs and detect claim / near-duplicate leakage across the tuning/held-out split before
+  any metric is computed. It never fills labels.
+- **Found while testing**: `app.core.text.tokenize` uses `[A-Za-z0-9]+` (Latin-only), so non-Latin
+  text (e.g. Devanagari) yields **zero** tokens; `shingles()` then falls back to a single `"<empty>"`
+  gram, so *every* token-less text has Jaccard 1.0 with every other. This made three distinct Hindi
+  claims look identical. Leakage detection now uses script-agnostic character n-grams.
+- **Latent risk (not fixed here)**: the same collapse affects `analysis/independence.cluster_passages`
+  for short (<5 Latin-token) and non-Latin passages — distinct passages can be merged into one
+  "independent" source, which would overstate corroboration. Relevant to Phase 3 (Hindi/Hinglish).
+  Recorded in `docs/READINESS.md`; not changed in this cycle to avoid altering clustering behaviour
+  without measured justification.
+
 ## 2026-10-10 — NLI re-evaluation: base CI recorded, small model blocked
 
 - Re-ran the NLI evaluation on the current code. Base model `DeBERTa-v3-base-mnli-fever-anli`:

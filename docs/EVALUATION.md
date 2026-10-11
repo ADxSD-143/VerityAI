@@ -97,6 +97,15 @@ Human reviewers must fill labels and source URLs; ambiguous cases must be adjudi
 fabricate labels or auto-label using VerityAI. Keep a fixed seed/split; any failure case used to
 change a policy moves to the tuning set.
 
+Validate an annotation file before using it for any metric:
+
+    python experiments/annotation_tools.py --path data/annotations/phase0_e2e_template.csv --schema gold
+
+The validator (`experiments/annotation_tools.py`) enforces the column schema and claim-type/verdict
+enums, flags duplicate case ids and claim texts, errors on near-duplicate claim leakage across the
+tuning/held-out split (measured with script-agnostic character n-grams), and requires >=60 reviewed
+held-out rows in gold mode. It never fills labels; unreviewed rows are excluded, never guessed.
+
 For each model change, report CPU latency per claim and peak RAM. Bootstrap 95% CIs are required.
 If a claimed improvement's interval includes zero, report it as inconclusive. Record negative results.
 Do not tune tau_single on the existing 8-claim diagnostic or held-out set; choose it using a distinct

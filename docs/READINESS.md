@@ -53,7 +53,8 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
   Application Control policy).
 - **Human-reviewed held-out labels** (≥60). Drafted candidates exist
   (`data/annotations/phase0_candidates.csv`, 100 proposed rows, 62 held-out / 38 tuning) but are
-  machine-proposed and **not gold**.
+  machine-proposed and **not gold**. Annotation validation tooling now exists
+  (`experiments/annotation_tools.py`) and rejects cross-split leakage.
 - `tau_single` tuning on a tuning split (blocked on the reviewed labels).
 - Deployment verification (no live URL).
 
@@ -98,3 +99,8 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
    analysis, and a failure path before advertising. Acceptance: responsive public URL recorded.
 4. **Low — stale-ish docs drift** as parallel sessions commit. Fix: keep `PROJECT_STATUS.md`
    authoritative and update on each change. Acceptance: status matches `main`.
+5. **Medium — Latin-only tokenizer.** `app.core.text.tokenize` matches only `[A-Za-z0-9]`, so
+   non-Latin text tokenizes to nothing and `shingles` / `analysis/independence` collapse distinct
+   passages (Jaccard 1.0), which would overstate corroboration. Affects Hindi/Hinglish (Phase 3).
+   Fix: script-aware tokenization/shingling + a regression test. Acceptance: distinct non-Latin
+   passages are not merged into one independent source.

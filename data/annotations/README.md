@@ -20,3 +20,16 @@ Have a human reviewer verify every gold label and flag ambiguous cases for adjud
 
 Do not compute held-out metrics until at least 60 rows contain reviewed claim text and gold labels.
 Never use model output as the gold label.
+
+## Validation tooling
+
+Machine-proposed drafts live in `phase0_candidates.csv` (see `phase0_candidates.md`); they are **not**
+gold. Validate any annotation file before computing metrics:
+
+    python experiments/annotation_tools.py --path data/annotations/phase0_candidates.csv --schema draft
+    python experiments/annotation_tools.py --path data/annotations/phase0_e2e_template.csv --schema gold
+
+The validator checks required columns, claim-type/verdict enums, duplicate case ids and claim texts,
+and near-duplicate claim leakage across the tuning/held-out split (script-agnostic character
+n-grams). In `gold` mode it errors until at least 60 held-out rows are reviewed. It never fills
+labels; unreviewed rows are excluded, never guessed.
