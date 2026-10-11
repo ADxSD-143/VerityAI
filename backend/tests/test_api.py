@@ -128,3 +128,19 @@ def test_analyze_url_fetch_failure_is_reported(monkeypatch):
         response = client.post("/api/analyze-url", json={"url": "https://example.com/x"})
     assert response.status_code == 502
     assert response.json()["code"] == "url_fetch_failed"
+
+
+def test_analyze_option_bounds_are_validated():
+    with TestClient(create_app()) as client:
+        too_many = client.post("/api/analyze", json={"claim": "x", "options": {"max_claims": 99}})
+        bad_top_k = client.post("/api/analyze", json={"claim": "x", "options": {"top_k_nli": 0}})
+    assert too_many.status_code == 422
+    assert bad_top_k.status_code == 422
+    assert too_many.json()["code"] == "invalid_input"
+
+
+def test_analyze_rejects_whitespace_only_claim():
+    with TestClient(create_app()) as client:
+        response = client.post("/api/analyze", json={"claim": "   "})
+    assert response.status_code == 422
+    assert response.json()["code"] == "invalid_input"

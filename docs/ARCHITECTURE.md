@@ -3,9 +3,9 @@
 ## What VerityAI is
 
 VerityAI evaluates a claim against **retrieved evidence**. It extracts claims, retrieves
-passages from permitted public sources, ranks them with a hybrid lexical + semantic
-retriever, judges each passage against the claim with a pretrained NLI model, clusters
-evidence by source independence, and produces a conservative, traceable report.
+passages from permitted public sources, ranks them with a pretrained dense retriever (hybrid
+lexical + semantic is selectable), judges each passage against the claim with a pretrained NLI
+model, clusters evidence by source independence, and produces a conservative, traceable report.
 
 It does not "know" truth and it does not report a probability that a claim is true.
 
@@ -19,8 +19,8 @@ POST /api/analyze {claim | text | url}
   -> for each claim:
        source adapters (concurrent): Wikipedia | Wikidata | OpenAlex | (optional) FactCheck
        -> candidate passages (sentence-level, with provenance)
-       -> BM25 (lexical)  +  BGE dense embeddings
-       -> Reciprocal Rank Fusion (k=60) -> deduplicate
+       -> BGE dense ranking (default)  |  BM25 + BGE via RRF (hybrid, VERITY_RETRIEVAL_MODE)
+       -> deduplicate (near-duplicate removal)
        -> optional cross-encoder rerank of the top pool
        -> NLI (premise = passage, hypothesis = claim) on the top candidates
        -> source independence clustering (document + near-duplicate merge)
@@ -35,6 +35,8 @@ POST /api/analyze {claim | text | url}
 | `backend/app/main.py` | App factory, CORS, error handlers, static frontend mount |
 | `backend/app/api/routes.py` | `/health`, `/api/analyze`, `/api/analyze-url` |
 | `backend/app/config.py` | Environment-driven settings (all optional) |
+| `backend/app/core/limits.py` | Per-client rate limit, body-size + read-time caps, typed 408/413/429 |
+| `backend/app/core/errors.py` | Typed error hierarchy (`unsafe_url`, `url_fetch_failed`, `model_load_failed`, `analysis_timeout`, ...) |
 | `backend/app/core/text.py` | Deterministic segmentation, tokenization, shingles, entity hints |
 | `backend/app/schemas/models.py` | Pydantic v2 request/response contracts |
 | `backend/app/sources/` | One adapter per external source (see below) |
@@ -99,6 +101,11 @@ Aggregation is explicit rule-based (see `docs/theory/evidence-aggregation.md`):
   affected claim rather than a guessed label.
 - URL fetch failures return a typed HTTP error (`unsafe_url`, `url_fetch_failed`) with a safe
   message; no stack traces or local paths are exposed.
+- Request limits run before the handler: oversized or streamed bodies → 413, a body that never
+  arrives → 408, too many requests from one client → 429 (with `Retry-After`), and a slow
+  analysis → typed 504. `/health` and static assets are never rate limited.
+- A verdict resting on a **single independent source** must clear the higher `tau_single` bar,
+  otherwise it is reported as `INSUFFICIENT_EVIDENCE` rather than a forced verdict.
 
 ## Trade-offs
 
