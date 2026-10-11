@@ -67,7 +67,7 @@ The public repository and CI are verified. Phase 0 hardening is active. Deployme
 |---|---|
 | `ruff check backend experiments scripts` | All checks passed |
 | `pytest -q` (126 tests) | exit code 0, all passed |
-| `pytest -q -m live` | not automated (opt-in); sources exercised via `/api/analyze`, `eval_e2e`, and a live Zorbax-9 re-check |
+| `pytest -q -m live` (2 tests) | 2 passed in 47 s (real Wikipedia adapter + full `/api/analyze`); opt-in, excluded from CI |
 | `POST /api/analyze` (live) | 200, real multi-source evidence |
 | `POST /api/analyze-url` (metadata IP) | 400 `unsafe_url` |
 | secret scan (grep + `git ls-files`) | clean; no `.env`; no tracked file > 1 MB |
@@ -147,6 +147,7 @@ audit, the benchmark evaluations, or re-create the control files. Restart the se
 - **Rate-limiter unit tests** (`test_limits.py`): per-client isolation and unprotected-path bypass, exercised directly on `RequestLimitsMiddleware`.
 - **Limit/redirect edge cases**: a redirect loop beyond the hop limit is rejected (`url_extract`), and a streamed body with no `Content-Length` is capped while streaming (413).
 - **Input validation**: out-of-range `options` and whitespace-only claims return typed 422; `docs/ARCHITECTURE.md` reconciled with the verified implementation (request limits, dense default, single-source safeguard).
+- **Live smoke tests** (`backend/tests/test_live_smoke.py`): opt-in real-network tests for the Wikipedia adapter and the full `/api/analyze` pipeline; `live` is excluded from the default run so CI stays offline.
 
 **Existing NLI result investigation:** saved model configs show different label orders and runtime reads config.id2label. The small model's saved confusion matrix is in canonical label order and consistent with its saved predictions, so its 0.448 accuracy is not explained by an obvious label mapping swap. Existing aggregate results cannot isolate the remaining cause.
 

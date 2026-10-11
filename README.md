@@ -108,8 +108,8 @@ Copy `.env.example` to `.env`. Every value has a working default; the core pipel
 ### Test
 
 ```bash
-pytest -q                 # offline; external calls mocked with respx
-pytest -q -m live         # opt-in real-network checks
+pytest -q                 # offline; external calls mocked with respx (live tests excluded)
+pytest -q -m live         # opt-in real-network smoke tests (not run in CI)
 ruff check backend experiments scripts
 ```
 

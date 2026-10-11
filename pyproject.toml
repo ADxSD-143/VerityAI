@@ -57,7 +57,7 @@ asyncio_mode = "auto"
 markers = [
   "live: tests that hit real external services (opt-in via -m live)",
 ]
-addopts = "-q"
+addopts = '-q -m "not live"'
 
 [tool.ruff]
 line-length = 100
