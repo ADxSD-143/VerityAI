@@ -66,31 +66,36 @@ The public repository and CI are verified. Phase 0 hardening is active. Deployme
 | Command | Outcome |
 |---|---|
 | `ruff check backend experiments scripts` | All checks passed |
-| `pytest -q` (76 tests) | exit code 0, all passed |
+| `pytest -q` (106 tests) | exit code 0, all passed |
 | `pytest -q -m live` | not automated (opt-in); sources exercised via `/api/analyze`, `eval_e2e`, and a live Zorbax-9 re-check |
 | `POST /api/analyze` (live) | 200, real multi-source evidence |
 | `POST /api/analyze-url` (metadata IP) | 400 `unsafe_url` |
 | secret scan (grep + `git ls-files`) | clean; no `.env`; no tracked file > 1 MB |
-| GitHub Actions CI (run `38055136968`, `38d4e6f`) | **success** |
+| GitHub Actions CI (run `38114131072`, `89f402f`) | **success** |
 | `docker build` | **not run** — Docker is not installed on this host |
 
 ## Evaluation
 All artefacts in `experiments/results/`:
 - `fever_sample.json` — 500 claims, seed 42, labels 166 REFUTES / 167 SUPPORTS / 167 NEI; 367 gold
-  pages + 800 distractors.
-- `eval_retrieval.json` — 330 evaluable claims, 1161-page corpus. R@5/MRR: TF-IDF 0.958/0.941,
-  BM25 0.943/0.901, BGE 0.973/0.985, hybrid 0.953/0.960, hybrid+rerank 0.971/0.982.
-- `eval_nli.json` (base) — accuracy 0.675, macro-F1 0.671, 90.5 ms/pair.
-- `eval_nli_small.json` (small) — accuracy 0.448, macro-F1 0.458, 98.0 ms/pair.
+  pages + 2525 distractors (the deterministic pool caps at 2525; a 5000 request is pool-limited).
+- `eval_retrieval.json` — **harder corpus**: 330 evaluable claims, **2409 usable pages** (367 gold +
+  2042 distractors; 483 unavailable). Bootstrap 95% CIs: BGE dense R@5 0.968 [0.952, 0.981], MRR
+  **0.975 [0.961, 0.987]**; hybrid R@5 0.946 [0.923, 0.967], MRR 0.955 [0.935, 0.974]; paired MRR
+  difference (dense − hybrid) **+0.0196 [0.0027, 0.0377]**.
+- `eval_nli.json` (base) — accuracy **0.675 [0.633, 0.716]**, macro-F1 **0.671 [0.630, 0.712]**,
+  mean latency 159.9 ms/pair (contended host).
+- `eval_nli_small.json` (small) — **not reproducible on this host** (sentencepiece DLL blocked by
+  the Application Control policy); historical point estimates 0.448/0.458, no CI.
 - `eval_e2e.json` — 4/8 live claims matched (original run; unchanged). **Live re-check (single
   observation)** of the one false positive after adding the safeguard: Zorbax-9 →
   `INSUFFICIENT_EVIDENCE` (best entailment 0.519 < `tau_single` 0.75).
 - `measure_resources.json` — BGE 134.5 MB, NLI 380.0 MB, reranker 91.8 MB (all < 500 MB budget).
 
 ## Decisions
-- Default retrieval = hybrid BM25+BGE (RRF). BGE dense measured higher MRR; hybrid retained for
-  exact-term robustness — a documented judgement call, not a measured win. Reranker **off** by
-  default.
+- Default retrieval = **dense-only** (`VERITY_RETRIEVAL_MODE=dense`), chosen from the harder-corpus
+  paired CI (dense beats hybrid on MRR; interval excludes zero). `hybrid` BM25+BGE RRF remains
+  selectable; BM25 is the dense-failure fallback. The old exact-term-robustness rationale for hybrid
+  is an untested live-setting hypothesis, not a measured win. Reranker **off** by default.
 - Default NLI = base model (clearly better than the small model on this host).
 - **Aggregation safeguard** = a verdict on a single independent source needs a higher NLI bar
   (`verity_tau_nli_single_source`, default 0.75) else `INSUFFICIENT_EVIDENCE`. A principled default,

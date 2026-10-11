@@ -6,9 +6,9 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 
 ## Verified facts (evidence)
 
-- **Repo/CI**: repo is public; GitHub Actions CI runs #10 (`d16ebe4`) and #11 (`38d4e6f`) both
-  **success** (verified via the GitHub Actions API).
-- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **83 passed**
+- **Repo/CI**: repo is public; GitHub Actions CI is green on the current `main` (`89f402f`, run
+  `38114131072`) and on prior commits (verified via the GitHub Actions API).
+- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **106 passed**
   (verified locally on this host, `VERITY_PRELOAD_MODELS=false`, no network).
 - **Request hardening is implemented and tested** (`backend/app/core/limits.py`,
   `backend/app/main.py`, `backend/app/api/routes.py`): per-client sliding-window rate limit on
