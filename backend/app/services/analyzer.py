@@ -54,6 +54,8 @@ STATIC_LIMITATIONS = [
     "the claim is true.",
     "Evidence reflects each source's text at retrieval time and may differ from how it "
     "reads now.",
+    "Publication dates are shown only when a source provides them; a passage with no date "
+    "cannot be checked for recency, and dated evidence may still be outdated.",
     "Publisher fact-check verdicts are shown separately and are never treated as ground truth.",
 ]
 
@@ -304,6 +306,14 @@ class Analyzer:
                 support_sources=0, contradict_sources=0, independent_groups=len(set(groups)),
             )
 
+        claim_notes = list(claim.notes)
+        undated = sum(1 for ranked in analyzed if not ranked.passage.published_at)
+        if analyzed and undated:
+            claim_notes.append(
+                f"{undated} of {len(analyzed)} evidence passage(s) have no publication date; "
+                "the recency of this evidence could not be verified."
+            )
+
         assessment = ClaimAssessment(
             claim_id=f"c{index + 1}",
             text=claim.text,
@@ -312,7 +322,7 @@ class Analyzer:
             status=aggregate_result.status,
             explanation=aggregate_result.explanation,
             limited_corroboration=aggregate_result.limited_corroboration,
-            claim_notes=claim.notes,
+            claim_notes=claim_notes,
             stats=ClaimStats(
                 passages_considered=len(analyzed),
                 support_passages=aggregate_result.support_passages,

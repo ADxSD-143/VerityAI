@@ -101,6 +101,7 @@ def test_evidence_provenance_and_uncertainty_are_exposed(monkeypatch):
     assert item["nli_label"] == "entailment"
     assert body["meta"]["limitations"]
     assert any("not the probability" in limitation for limitation in body["meta"]["limitations"])
+    assert any("Publication dates" in limitation for limitation in body["meta"]["limitations"])
 
 
 def test_retrieved_instructions_are_not_executed(monkeypatch):

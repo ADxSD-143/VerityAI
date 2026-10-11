@@ -3,6 +3,7 @@ import pytest
 from app.core.errors import ModelLoadError
 from app.schemas.models import AnalyzeRequest, Verdict
 from app.services.analyzer import Analyzer
+from app.sources.base import EvidencePassage
 from conftest import FakeAdapter, FakeNLI, fake_retrieve_factory, make_passage, score
 
 
@@ -140,3 +141,38 @@ async def test_nli_model_failure_degrades_to_unable_to_assess(monkeypatch):
     assert claim.status == Verdict.UNABLE_TO_ASSESS
     assert report.meta.degraded_mode is True
     assert any("evidence assessment unavailable" in reason for reason in report.meta.degraded_reasons)
+
+
+def _dated_passage(text, url, published_at):
+    return EvidencePassage(
+        text=text,
+        source="fake",
+        title="T",
+        url=url,
+        publisher="fake.test",
+        page_id=url,
+        published_at=published_at,
+        retrieved_at="2026-01-01T00:00:00+00:00",
+    )
+
+
+@pytest.mark.asyncio
+async def test_undated_evidence_adds_a_recency_note(monkeypatch):
+    passages = [make_passage("Paris is the capital of France.", url="https://a.test/1")]
+    analyzer = _analyzer([FakeAdapter(passages)], [score("entailment", 0.9)])
+    monkeypatch.setattr(analyzer_module, "retrieve", fake_retrieve_factory())
+
+    report = await analyzer.analyze(AnalyzeRequest(claim="Paris is the capital of France."))
+
+    assert any("no publication date" in note for note in report.claims[0].claim_notes)
+
+
+@pytest.mark.asyncio
+async def test_dated_evidence_has_no_recency_note(monkeypatch):
+    passages = [_dated_passage("Paris is the capital of France.", "https://a.test/1", "1999")]
+    analyzer = _analyzer([FakeAdapter(passages)], [score("entailment", 0.9)])
+    monkeypatch.setattr(analyzer_module, "retrieve", fake_retrieve_factory())
+
+    report = await analyzer.analyze(AnalyzeRequest(claim="Paris is the capital of France."))
+
+    assert not any("no publication date" in note for note in report.claims[0].claim_notes)
