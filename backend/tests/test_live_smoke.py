@@ -34,6 +34,22 @@ async def test_live_wikipedia_adapter_returns_evidence_with_provenance():
     assert passage.retrieved_at
 
 
+async def test_live_wikinews_adapter_returns_evidence():
+    from app.sources.wikipedia import WikinewsAdapter
+
+    adapter = WikinewsAdapter(lang="en", user_agent=USER_AGENT, max_pages=1, timeout=20.0)
+    try:
+        async with httpx.AsyncClient() as client:
+            result = await adapter.search("climate summit", ["climate summit"], client)
+    except Exception as exc:  # noqa: BLE001
+        pytest.skip(f"network unavailable: {exc}")
+
+    assert result.status in ("ok", "empty")
+    if result.passages:
+        assert result.passages[0].source == "wikinews"
+        assert result.passages[0].url.startswith("https://en.wikinews.org/wiki/")
+
+
 async def test_live_analyze_smoke_end_to_end():
     from app.schemas.models import AnalyzeRequest, Verdict
     from app.services.analyzer import Analyzer

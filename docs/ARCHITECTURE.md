@@ -57,6 +57,8 @@ Each adapter implements `search(claim, queries, client) -> SourceResult` and fai
 - **OpenAlex** — original scholarly titles/abstracts (inverted index reconstructed).
 - **Google Fact Check Tools (ClaimReview)** — a *publisher verdict*, not original evidence;
   enabled only when `FACTCHECK_API_KEY` is set, and shown separately from our NLI assessment.
+- **Wikinews** — optional news-style source on the identical MediaWiki API; **off by default**
+  (`VERITY_ENABLE_WIKINEWS`), because its evidence value is not yet measured.
 
 ## Retrieval
 

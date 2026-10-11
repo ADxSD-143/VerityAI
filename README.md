@@ -31,7 +31,8 @@ probability that a claim is true.
 - **Pretrained NLI** — `MoritzLaurer/DeBERTa-v3-base-mnli-fever-anli`, premise = evidence passage,
   hypothesis = claim. Label order is read from the model config and unit-tested.
 - **Real sources** — Wikipedia/MediaWiki, Wikidata, OpenAlex, and (optionally) Google Fact Check
-  Tools (ClaimReview), each in its own adapter that fails soft.
+  Tools (ClaimReview) or the Wikimedia **Wikinews** news source, each in its own adapter that fails
+  soft.
 - **Source independence** — near-duplicate / syndicated passages are clustered so copies are not
   counted as independent corroboration.
 - **Conservative verdicts** — `SUPPORTED`, `REFUTED`, `INSUFFICIENT_EVIDENCE`,

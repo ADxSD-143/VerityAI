@@ -20,6 +20,7 @@ class Settings(BaseSettings):
         "VerityAI/0.1 (evidence-grounded fact-checking; +https://github.com/)"
     )
     verity_wikipedia_lang: str = "en"
+    verity_enable_wikinews: bool = False
 
     verity_bge_model_id: str = "BAAI/bge-small-en-v1.5"
     verity_bge_model_revision: str | None = None

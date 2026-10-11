@@ -7,12 +7,12 @@ from .base import SourceAdapter
 from .factcheck import FactCheckAdapter
 from .openalex import OpenAlexAdapter
 from .wikidata import WikidataAdapter
-from .wikipedia import WikipediaAdapter
+from .wikipedia import WikinewsAdapter, WikipediaAdapter
 
 
 def build_adapters(settings: Settings) -> list[SourceAdapter]:
     ua = settings.verity_user_agent
-    return [
+    adapters: list[SourceAdapter] = [
         WikipediaAdapter(
             lang=settings.verity_wikipedia_lang,
             user_agent=ua,
@@ -31,6 +31,16 @@ def build_adapters(settings: Settings) -> list[SourceAdapter]:
             timeout=settings.verity_source_timeout_s,
         ),
     ]
+    if settings.verity_enable_wikinews:
+        adapters.append(
+            WikinewsAdapter(
+                lang=settings.verity_wikipedia_lang,
+                user_agent=ua,
+                max_pages=settings.verity_max_pages_per_source,
+                timeout=settings.verity_source_timeout_s,
+            )
+        )
+    return adapters
 
 
 __all__ = [
@@ -39,5 +49,6 @@ __all__ = [
     "SourceAdapter",
     "WikidataAdapter",
     "WikipediaAdapter",
+    "WikinewsAdapter",
     "build_adapters",
 ]

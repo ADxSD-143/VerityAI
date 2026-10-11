@@ -37,9 +37,11 @@ class WikipediaAdapter(SourceAdapter):
         max_pages: int = 4,
         max_passages_per_page: int = 60,
         timeout: float = 20.0,
+        host: str | None = None,
     ) -> None:
         self.lang = lang
-        self.endpoint = f"https://{lang}.wikipedia.org/w/api.php"
+        self.host = host or f"{lang}.wikipedia.org"
+        self.endpoint = f"https://{self.host}/w/api.php"
         self.user_agent = user_agent
         self.max_pages = max_pages
         self.max_passages_per_page = max_passages_per_page
@@ -125,7 +127,7 @@ class WikipediaAdapter(SourceAdapter):
         if not extract.strip():
             return []
         resolved = page.get("title", title)
-        url = f"https://{self.lang}.wikipedia.org/wiki/" + resolved.replace(" ", "_")
+        url = f"https://{self.host}/wiki/" + resolved.replace(" ", "_")
         pageid = str(page.get("pageid", "")) or None
         stamp = now_iso()
 
@@ -139,7 +141,7 @@ class WikipediaAdapter(SourceAdapter):
                     source=self.name,
                     title=resolved,
                     url=url,
-                    publisher=f"{self.lang}.wikipedia.org",
+                    publisher=self.host,
                     page_id=pageid,
                     retrieved_at=stamp,
                 )
@@ -147,3 +149,20 @@ class WikipediaAdapter(SourceAdapter):
             if len(out) >= self.max_passages_per_page:
                 break
         return out
+
+
+class WikinewsAdapter(WikipediaAdapter):
+    """Wikinews evidence adapter (Wikimedia; keyless, same access terms as Wikipedia).
+
+    A news-style source built on the identical MediaWiki Action API. It reuses the Wikipedia
+    adapter's retrieval/extraction logic against ``{lang}.wikinews.org``. **Off by default**
+    (``VERITY_ENABLE_WIKINEWS``): its evidence value is not yet measured, so it is not activated
+    silently.
+    """
+
+    name = "wikinews"
+    access = "MediaWiki Action API (Wikinews), public, no key"
+    rate_limits = "polite use; same terms as other Wikimedia projects"
+
+    def __init__(self, *, lang: str = "en", **kwargs) -> None:
+        super().__init__(lang=lang, host=f"{lang}.wikinews.org", **kwargs)

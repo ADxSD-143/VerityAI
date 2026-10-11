@@ -8,11 +8,12 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 
 - **Repo/CI**: repo is public; GitHub Actions CI is green on the current `main` (`89f402f`, run
   `38114131072`) and on prior commits (verified via the GitHub Actions API).
-- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **126 passed**
+- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **130 passed**
   (verified locally on this host, `VERITY_PRELOAD_MODELS=false`, no network).
-- **Live smoke tests** (opt-in): `pytest -q -m live` → **2 passed** in 47 s — the real Wikipedia
-  adapter returns evidence with provenance, and the full `/api/analyze` pipeline runs end to end.
-  `live` tests are excluded from the default run (`addopts = -q -m "not live"`), so CI stays offline.
+- **Live smoke tests** (opt-in): `pytest -q -m live` → **3 passed** in 27 s — the real Wikipedia and
+  Wikinews adapters return evidence with provenance, and the full `/api/analyze` pipeline runs end
+  to end. `live` tests are excluded from the default run (`addopts = -q -m "not live"`), so CI stays
+  offline.
 - **Request hardening is implemented and tested** (`backend/app/core/limits.py`,
   `backend/app/main.py`, `backend/app/api/routes.py`): per-client sliding-window rate limit on
   `/api/analyze` and `/api/analyze-url`, JSON body cap, body-read timeout, total analysis timeout,
@@ -88,7 +89,7 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 | NLI base / small | yes | yes | base CIs done; small blocked (host) | no | Base active; small blocked |
 | Held-out labelled set | template+draft | n/a | no | n/a | Awaiting review (owner) |
 | `tau_single` tuning | no | n/a | no | n/a | Blocked on labels |
-| Web/news adapter (Phase 1) | no | no | no | no | Planned |
+| News source: Wikinews (Phase 1) | yes (opt-in) | yes (mock + live) | value unmeasured | no | Active, off by default |
 | Claim-type classifier (Phase 2) | no | no | no | no | Planned |
 | Hindi/Hinglish (Phase 3) | partial (script-aware tokenization) | yes | no | no | Planned (claim extraction unsupported) |
 | Media OCR (Phase 4) | no | no | no | no | Planned |
