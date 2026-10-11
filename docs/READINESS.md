@@ -8,7 +8,7 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 
 - **Repo/CI**: repo is public; GitHub Actions CI is green on the current `main` (`89f402f`, run
   `38114131072`) and on prior commits (verified via the GitHub Actions API).
-- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **106 passed**
+- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **108 passed**
   (verified locally on this host, `VERITY_PRELOAD_MODELS=false`, no network).
 - **Request hardening is implemented and tested** (`backend/app/core/limits.py`,
   `backend/app/main.py`, `backend/app/api/routes.py`): per-client sliding-window rate limit on
@@ -76,14 +76,15 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 | Text/claim/URL checking | yes | yes | partial (e2e 8) | no | Active |
 | Rate limiting / size+time caps | yes | yes | n/a | no | Active |
 | SSRF-safe URL fetch | yes | yes | n/a | no | Active |
+| Privacy / log hygiene | yes | yes | n/a | no | Active |
 | Aggregation safeguard | yes | yes | 1 live re-check | no | Active |
 | Dense retrieval default | yes | yes | yes (CIs) | no | Active |
-| NLI base/small | yes | yes | CIs this cycle | no | In progress |
+| NLI base / small | yes | yes | base CIs done; small blocked (host) | no | Base active; small blocked |
 | Held-out labelled set | template+draft | n/a | no | n/a | Awaiting review (owner) |
 | `tau_single` tuning | no | n/a | no | n/a | Blocked on labels |
 | Web/news adapter (Phase 1) | no | no | no | no | Planned |
 | Claim-type classifier (Phase 2) | no | no | no | no | Planned |
-| Hindi/Hinglish (Phase 3) | experimental | no | no | no | Planned |
+| Hindi/Hinglish (Phase 3) | partial (script-aware tokenization) | yes | no | no | Planned (claim extraction unsupported) |
 | Media OCR (Phase 4) | no | no | no | no | Planned |
 | Live checking (Phase 5) | no | no | no | no | Planned |
 | Public deployment | config ready | no | no | no | Blocked (HF token) |
@@ -94,8 +95,9 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
    on a single example. Fix: owner reviews candidates; add tooling to score a held-out run; tune
    only on the tuning split. Acceptance: ≥60 reviewed held-out rows; held-out metrics with CIs;
    tuning separated.
-2. **Medium — NLI results lack CIs/RAM.** Fix: re-run both candidates with the (already wired)
-   bootstrap CIs and record peak RAM. Acceptance: CIs + latency + RAM in `docs/EVALUATION.md`.
+2. **Medium — NLI results.** Base re-run now has CIs (0.675 [0.633, 0.716]); the small candidate
+   cannot load on this host (sentencepiece blocked). Remaining: peak-RAM numbers and a small-model
+   run on a permissive host. Acceptance: both candidates with CIs + RAM in `docs/EVALUATION.md`.
 3. **Medium — deploy unverified.** Fix: owner supplies HF token; then verify `/health`, one real
    analysis, and a failure path before advertising. Acceptance: responsive public URL recorded.
 4. **Low — stale-ish docs drift** as parallel sessions commit. Fix: keep `PROJECT_STATUS.md`
