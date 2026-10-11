@@ -49,6 +49,15 @@ def score_records(records: list[dict]) -> dict:
         bucket["n"] += 1
         bucket["matched"] += int(record["match"])
 
+    # Claim-type classification accuracy (Phase 2): predicted type vs the gold type.
+    typed = [r for r in records if r.get("claim_type") and r.get("predicted_claim_type")]
+    type_hits = [1.0 if r["predicted_claim_type"] == r["claim_type"] else 0.0 for r in typed]
+    type_by_gold: dict[str, dict] = {}
+    for record in typed:
+        bucket = type_by_gold.setdefault(record["claim_type"], {"n": 0, "hit": 0})
+        bucket["n"] += 1
+        bucket["hit"] += int(record["predicted_claim_type"] == record["claim_type"])
+
     return {
         "n": len(records),
         "factual_n": len(factual),
@@ -65,6 +74,15 @@ def score_records(records: list[dict]) -> dict:
                 "match": values["matched"] / values["n"] if values["n"] else None,
             }
             for claim_type, values in sorted(by_type.items())
+        },
+        "claim_type_accuracy": (sum(type_hits) / len(type_hits)) if type_hits else None,
+        "claim_type_accuracy_ci95": bootstrap_mean_ci(type_hits, seed=45),
+        "claim_type_by_gold": {
+            claim_type: {
+                "n": values["n"],
+                "accuracy": values["hit"] / values["n"] if values["n"] else None,
+            }
+            for claim_type, values in sorted(type_by_gold.items())
         },
     }
 
@@ -108,6 +126,7 @@ def main() -> None:
             "case_id": row.get("case_id"),
             "claim": row["claim_text"],
             "claim_type": claim_type,
+            "predicted_claim_type": claim.claim_type,
             "expected": expected,
             "actual": actual,
             "match": _match(claim_type, expected, actual),

@@ -153,4 +153,6 @@ is never forced on an opinion, prediction or unclear input.
 
 **Not yet evaluated.** Macro-F1 and a confusion matrix require a human-labelled claim-type set,
 which is blocked on the same owner-reviewed annotation gate as the held-out evaluation. Unit tests
-cover the rules; they are not an accuracy estimate.
+cover the rules; they are not an accuracy estimate. The held-out harness
+(`experiments/eval_e2e_heldout.py`) already records predicted-vs-gold claim-type accuracy per type
+with a bootstrap CI, so per-type numbers can be produced as soon as the labelled set is reviewed.

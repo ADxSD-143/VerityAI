@@ -44,6 +44,23 @@ def test_score_records_empty_is_safe():
     assert summary["overall_match"] is None
 
 
+def test_score_records_computes_claim_type_accuracy():
+    records = [
+        {"claim_type": "CHECKABLE_FACT", "predicted_claim_type": "CHECKABLE_FACT", "match": True},
+        {"claim_type": "OPINION_SUBJECTIVE", "predicted_claim_type": "CHECKABLE_FACT", "match": True},
+    ]
+    summary = harness.score_records(records)
+    assert summary["claim_type_accuracy"] == 0.5
+    assert summary["claim_type_accuracy_ci95"] is not None
+    assert summary["claim_type_by_gold"]["CHECKABLE_FACT"] == {"n": 1, "accuracy": 1.0}
+    assert summary["claim_type_by_gold"]["OPINION_SUBJECTIVE"] == {"n": 1, "accuracy": 0.0}
+
+
+def test_score_records_without_predictions_is_safe():
+    summary = harness.score_records([{"claim_type": "CHECKABLE_FACT", "match": True}])
+    assert summary["claim_type_accuracy"] is None
+
+
 def test_blank_template_is_refused():
     rows, _ = at.load_annotations(REPO / "data" / "annotations" / "phase0_e2e_template.csv")
     report = at.validate(rows, schema="gold", min_held_out=60)
