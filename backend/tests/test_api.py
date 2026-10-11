@@ -156,3 +156,15 @@ def test_opinion_claim_returns_not_verifiable():
     claim = response.json()["claims"][0]
     assert claim["status"] == "NOT_VERIFIABLE"
     assert claim["claim_type"] == "OPINION_SUBJECTIVE"
+
+
+def test_allegation_claim_is_not_given_a_true_false_verdict(monkeypatch):
+    passages = [make_passage("The executive was convicted of fraud in 2019.", url="https://a.test/1")]
+    with _patched_client(monkeypatch, passages, [score("entailment", 0.95)]) as client:
+        response = client.post(
+            "/api/analyze", json={"claim": "The executive was accused of fraud in 2019."}
+        )
+    assert response.status_code == 200
+    claim = response.json()["claims"][0]
+    assert claim["status"] == "NOT_VERIFIABLE"
+    assert claim["claim_type"] == "ALLEGATION"

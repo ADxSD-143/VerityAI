@@ -8,7 +8,7 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 
 - **Repo/CI**: repo is public; GitHub Actions CI is green on the current `main` (`89f402f`, run
   `38114131072`) and on prior commits (verified via the GitHub Actions API).
-- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **142 passed**
+- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **147 passed**
   (verified locally on this host, `VERITY_PRELOAD_MODELS=false`, no network).
 - **Live smoke tests** (opt-in): `pytest -q -m live` → **3 passed** in 27 s — the real Wikipedia and
   Wikinews adapters return evidence with provenance, and the full `/api/analyze` pipeline runs end
@@ -92,6 +92,7 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 | News source: Wikinews (Phase 1) | yes (opt-in) | yes (mock + live) | value unmeasured | no | Active, off by default |
 | Provenance / recency disclosure | yes | yes | n/a | no | Active |
 | Claim-type classifier (Phase 2) | yes (rules) | yes | **pending** (needs labelled set) | no | Implemented; evaluation blocked |
+| Allegation handling (Phase 2) | yes | yes | n/a | no | Active (never true/false) |
 | Hindi/Hinglish (Phase 3) | partial (script-aware tokenization) | yes | no | no | Planned (claim extraction unsupported) |
 | Media OCR (Phase 4) | no | no | no | no | Planned |
 | Live checking (Phase 5) | no | no | no | no | Planned |

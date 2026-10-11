@@ -200,3 +200,21 @@ async def test_fact_claim_carries_claim_type(monkeypatch):
     report = await analyzer.analyze(AnalyzeRequest(claim="Paris is the capital of France."))
 
     assert report.claims[0].claim_type == "CHECKABLE_FACT"
+
+
+@pytest.mark.asyncio
+async def test_allegation_never_gets_a_true_false_verdict(monkeypatch):
+    passages = [make_passage("The executive was convicted of fraud in 2019.", url="https://a.test/1")]
+    analyzer = _analyzer([FakeAdapter(passages)], [score("entailment", 0.95)])
+    monkeypatch.setattr(analyzer_module, "retrieve", fake_retrieve_factory())
+
+    report = await analyzer.analyze(
+        AnalyzeRequest(claim="The executive was accused of fraud in 2019.")
+    )
+
+    claim = report.claims[0]
+    assert claim.status == Verdict.NOT_VERIFIABLE
+    assert claim.claim_type == "ALLEGATION"
+    assert "does not declare the allegation true or false" in claim.explanation
+    assert any("official-finding" in note for note in claim.claim_notes)
+    assert claim.supporting  # the evidence is still shown, just not turned into a verdict

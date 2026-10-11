@@ -91,7 +91,8 @@ Aggregation is explicit rule-based (see `docs/theory/evidence-aggregation.md`):
 | Situation | Status |
 |---|---|
 | no strong evidence either way | `INSUFFICIENT_EVIDENCE` |
-| non-fact statement (opinion / prediction / allegation / unclear) | `NOT_VERIFIABLE` (no retrieval, no true/false) |
+| opinion / prediction / unclear | `NOT_VERIFIABLE` (no retrieval, no true/false) |
+| allegation | `NOT_VERIFIABLE` (evidence shown; "alleged" vs official finding disclosed; never true/false) |
 | strong support **and** strong contradiction | `CONFLICTING_EVIDENCE` |
 | strong support only, corroborated or single source with score ≥ `tau_single` | `SUPPORTED` (flagged `limited_corroboration` if < 2 independent sources) |
 | strong support only, single source with score < `tau_single` | `INSUFFICIENT_EVIDENCE` |

@@ -149,7 +149,9 @@ peak RAM alongside any new model comparison.
 A deterministic, rules-based classifier (`backend/app/services/claim_type.py`) classifies each
 statement as `CHECKABLE_FACT`, `OPINION_SUBJECTIVE`, `PREDICTION`, `ALLEGATION` or `UNCLEAR`.
 Non-fact statements return `NOT_VERIFIABLE` and skip the evidence pipeline, so a true/false verdict
-is never forced on an opinion, prediction or unclear input.
+is never forced on an opinion, prediction or unclear input. **Allegations** still run the evidence
+pipeline but are always `NOT_VERIFIABLE`: the report shows what the evidence says and whether an
+*official-finding* signal appears, and never declares the allegation true or false.
 
 **Not yet evaluated.** Macro-F1 and a confusion matrix require a human-labelled claim-type set,
 which is blocked on the same owner-reviewed annotation gate as the held-out evaluation. Unit tests

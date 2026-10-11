@@ -23,8 +23,9 @@ UNCLEAR = "UNCLEAR"
 
 CLAIM_TYPES = (CHECKABLE_FACT, OPINION_SUBJECTIVE, PREDICTION, ALLEGATION, UNCLEAR)
 
-#: types that must never receive a SUPPORTED/REFUTED verdict.
-NON_FACT_TYPES = frozenset({OPINION_SUBJECTIVE, PREDICTION, ALLEGATION, UNCLEAR})
+#: types that skip retrieval entirely. Allegations are deliberately excluded: they still run the
+#: evidence pipeline (to show what the evidence says), but are never given a true/false verdict.
+NO_SEARCH_TYPES = frozenset({OPINION_SUBJECTIVE, PREDICTION, UNCLEAR})
 
 _ALLEGATION = re.compile(
     r"\b(accused of|allegedly|alleged|charged with|indicted|suspect(?:ed)? of|"

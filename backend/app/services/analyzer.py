@@ -41,10 +41,11 @@ from ..schemas.models import (
 )
 from ..sources.base import EvidencePassage, SourceResult, now_iso
 from ..sources.registry import build_adapters
+from .allegation import summarize_allegation
 from .claim_extraction import ExtractedClaim, extract_claims, query_variants, single_claim
 from .claim_type import (
     ALLEGATION,
-    NON_FACT_TYPES,
+    NO_SEARCH_TYPES,
     OPINION_SUBJECTIVE,
     PREDICTION,
     UNCLEAR,
@@ -126,7 +127,7 @@ class Analyzer:
         async with httpx.AsyncClient(timeout=timeout, headers=headers) as client:
             for index, claim in enumerate(claims):
                 claim_type = classify_claim_type(claim.text)
-                if claim_type in NON_FACT_TYPES:
+                if claim_type in NO_SEARCH_TYPES:
                     claims_out.append(self._non_verifiable(claim, index, claim_type))
                     continue
                 assessment, reasons, records, failed = await self._analyze_claim(
@@ -138,6 +139,8 @@ class Analyzer:
                     use_reranker=use_reranker,
                 )
                 assessment.claim_type = claim_type
+                if claim_type == ALLEGATION:
+                    assessment = self._apply_allegation_policy(assessment)
                 claims_out.append(assessment)
                 degraded_reasons.extend(reasons)
                 source_records.extend(records)
@@ -384,6 +387,33 @@ class Analyzer:
                 independent_groups=0,
             ),
         )
+
+    @staticmethod
+    def _apply_allegation_policy(assessment: ClaimAssessment) -> ClaimAssessment:
+        """Never give an allegation a true/false verdict.
+
+        The evidence pipeline has already run, so the supporting/contradicting passages remain;
+        this rewrites the verdict to ``NOT_VERIFIABLE`` and discloses what the evidence shows,
+        including whether an official finding appears in the retrieved text.
+        """
+        passages = [item.passage for item in assessment.supporting + assessment.contradicting]
+        official_finding, notes = summarize_allegation(passages)
+        support = len(assessment.supporting)
+        contradict = len(assessment.contradicting)
+        finding = (
+            "An official-finding signal appears in the retrieved text - check the primary source."
+            if official_finding
+            else "No official finding was present in the retrieved evidence."
+        )
+        assessment.status = Verdict.NOT_VERIFIABLE
+        assessment.limited_corroboration = False
+        assessment.explanation = (
+            f"Allegation about a person or organisation. {support} retrieved passage(s) support and "
+            f"{contradict} contradict the allegation; VerityAI reports what the evidence shows and "
+            f"does not declare the allegation true or false. {finding}"
+        )
+        assessment.claim_notes = list(assessment.claim_notes) + notes
+        return assessment
 
     @staticmethod
     def _evidence_item(
