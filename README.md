@@ -118,6 +118,8 @@ pytest -q -m live         # opt-in real-network smoke tests (not run in CI)
 ruff check backend experiments scripts
 ```
 
+A manual, human-judged smoke-test checklist is in [`docs/SMOKE_TESTS.md`](docs/SMOKE_TESTS.md).
+
 ## Evaluation
 
 Reproducible scripts live in [`experiments/`](experiments/README.md):

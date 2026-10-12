@@ -2,6 +2,19 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-12 — Phase 1: app run and manual verification
+
+- Ran the app locally (CPU, cached models via `HF_HOME=D:\hf-cache`, no re-download) and verified
+  `/health`, `/`, `/docs`, `/openapi.json` and a real `/api/analyze` request. `ruff` clean;
+  `pytest` **178 passed** (3 live deselected); opt-in live tests **3 passed**; CI green (run #41).
+- Added `docs/SMOKE_TESTS.md`: a manual checklist (factual / false / opinion / prediction /
+  insufficient / URL / Hindi / Hinglish) with the "judge from cited evidence, never assume a
+  verdict" protocol.
+- Every result is traceable to a cited URL, but verdicts can still be wrong. Two failure modes were
+  observed and are recorded as **open limitations**, not fixed here: cross-lingual Hindi/Hinglish
+  verdicts, and a confident single-source refutation driven by an unrelated "Sun Microsystems"
+  passage.
+
 ## 2026-10-12 — Fix: pronoun-initial sentences misclassified as UNCLEAR
 
 - **Found during Phase 1 manual testing**: `classify_claim_type`'s `_UNCLEAR` rule matched *any*
