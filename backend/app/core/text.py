@@ -23,7 +23,7 @@ _TITLES = {
     "messrs", "mmes", "fr", "br",
 }
 
-_BOUNDARY = re.compile(r"([.!?]+)(\s+|$)")
+_BOUNDARY = re.compile(r"([.!?।॥]+)(\s+|$)")
 _ENTITY = re.compile(r"\b(?:[A-Z][a-z]{1,}|[A-Z]{2,})(?:\s+(?:[A-Z][a-z]{1,}|[A-Z]{2,}))*\b")
 _YEAR = re.compile(r"\b(1[5-9]\d{2}|20\d{2})\b")
 _NUMBER = re.compile(r"\b\d[\d,.]*\b")
@@ -48,6 +48,14 @@ _VERB_HINT = re.compile(
 # heuristic, not a parser; Hindi support remains experimental (see docs/EVALUATION.md).
 _VERB_HINT_DEV = re.compile(
     r"(है|हैं|था|थी|थे|होगा|होगी|गया|गई|किया|करता|करती|रहा|रही|होता|होती|हुआ|हुई|स्थित)"
+)
+# Roman-script (Hinglish) transliterations of the same copulas/auxiliaries, so Latin-script Hindi
+# ("... New Delhi hai.") is recognised too. "the" is deliberately omitted: it is a high-frequency
+# English article and would over-accept English fragments. Heuristic, not a parser.
+_VERB_HINT_HINGLISH = re.compile(
+    r"\b(hai|hain|hoon|hun|tha|thi|hoga|hogi|hoge|gaya|gayi|gaye|kiya|kiye|"
+    r"karta|karti|karte|raha|rahi|rahe|hota|hoti|hote|hua|hui|hue|sthit)\b",
+    re.IGNORECASE,
 )
 
 
@@ -153,7 +161,11 @@ def looks_like_claim(sentence: str) -> bool:
         return False
     if re.match(r"^[-*•\d.)\s]+$", text):
         return False
-    if not (_VERB_HINT.search(text) or _VERB_HINT_DEV.search(text)):
+    if not (
+        _VERB_HINT.search(text)
+        or _VERB_HINT_DEV.search(text)
+        or _VERB_HINT_HINGLISH.search(text)
+    ):
         return False
     return True
 

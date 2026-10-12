@@ -1,7 +1,7 @@
 # VerityAI Project Status
 
 ## Last Updated
-2026-10-10 (Asia/Kolkata)
+2026-10-12 (Asia/Kolkata)
 
 ## Current Milestone
 Product Phase 0 — reliability hardening **IN PROGRESS**. Historical M0–M6 are complete; M7 deployment remains pending on a Hugging Face token.
@@ -153,7 +153,7 @@ audit, the benchmark evaluations, or re-create the control files. Restart the se
 - **Phase 2 (partial)**: deterministic rules-based claim-type classifier (`services/claim_type.py`); opinions/predictions/allegations/unclear return `NOT_VERIFIABLE` instead of a forced true/false verdict. Classifier accuracy is **not yet evaluated** (needs a labelled set).
 - **Claim-type evaluation ready**: the held-out harness (`experiments/eval_e2e_heldout.py`) now scores predicted-vs-gold claim-type accuracy per type with a bootstrap CI, for when the labelled set exists.
 - **Allegation handling**: allegations run the evidence pipeline but are always `NOT_VERIFIABLE`; the report discloses support/contradict counts and whether an *official-finding* signal appears, and never declares the allegation true or false (`services/allegation.py`).
-- **Phase 3 (partial)**: tokenization is Unicode-aware and claim detection now accepts Devanagari copulas/verbs, so Hindi statements are no longer rejected outright. Models remain English-first; Hindi quality is **unverified** (no labelled set).
+- **Phase 3 (partial)**: tokenization is Unicode-aware; claim detection accepts Devanagari copulas/verbs **and** their Roman/Hinglish transliterations (`hai`, `tha`, `sthit`, ...), and the Devanagari danda (`।`) is a sentence boundary, so Hindi and Hinglish statements are extracted (and multi-sentence Hindi text is segmented) instead of being rejected or collapsed. Models remain English-first; Hindi quality is **unverified** (no labelled set).
 - **Frontend integration test** (`backend/tests/test_frontend.py`): the served page exposes the expected UI contract, static assets load, and `app.js` calls `/api/analyze` and knows every backend status.
 - **README capability status** table added (implemented / tested / evaluated / blocked).
 - **Citation + injection checks**: every returned evidence URL is absolute http(s), and instructions embedded in fetched URL content do not change the verdict.

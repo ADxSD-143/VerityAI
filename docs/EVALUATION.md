@@ -162,8 +162,11 @@ with a bootstrap CI, so per-type numbers can be produced as soon as the labelled
 ## Hindi / Hinglish (Phase 3 — experimental, unverified)
 
 Tokenization is Unicode-aware, so Devanagari text produces tokens, and claim detection accepts
-common Hindi copulas/verbs (`है`, `था`, `स्थित`, ...). This means Hindi statements are no longer
-rejected before retrieval, and distinct Hindi passages are not merged as duplicates.
+common Hindi copulas/verbs in **both** Devanagari (`है`, `था`, `स्थित`, ...) and Roman/Hinglish
+transliteration (`hai`, `tha`, `sthit`, ...). The Devanagari danda (`।`/`॥`) is treated as a sentence
+boundary, so a Hindi paragraph is segmented into per-sentence claims instead of one block. Hindi
+statements are therefore no longer rejected before retrieval, and distinct Hindi passages are not
+merged as duplicates.
 
 **No Hindi quality claim is made.** The dense retriever (`bge-small-en-v1.5`) and the NLI model are
 English-first, and no labelled Hindi/Hinglish set has been reviewed. Hindi/Hinglish performance must

@@ -16,6 +16,27 @@ def test_extract_claims_filters_and_keeps_offsets():
         assert text[claim.start : claim.end] == claim.text
 
 
+def test_extract_claims_segments_roman_hinglish():
+    text = (
+        "Bharat ki rajdhani New Delhi hai. Taj Mahal Agra mein sthit hai. "
+        "Yeh film bahut acchi thi."
+    )
+    claims = extract_claims(text, max_claims=10)
+    assert len(claims) == 3
+    assert "New Delhi hai" in claims[0].text
+    assert "Taj Mahal" in claims[1].text
+    for claim in claims:
+        assert text[claim.start : claim.end] == claim.text
+
+
+def test_extract_claims_segments_devanagari_on_danda():
+    text = "भारत की राजधानी नई दिल्ली है। ताजमहल आगरा में स्थित है। मुंबई बड़ा शहर है।"
+    claims = extract_claims(text, max_claims=10)
+    assert len(claims) == 3
+    for claim in claims:
+        assert text[claim.start : claim.end] == claim.text
+
+
 def test_extract_claims_falls_back_to_whole_text():
     claims = extract_claims("no", max_claims=5)
     assert len(claims) == 1

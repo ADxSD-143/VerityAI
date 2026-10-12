@@ -8,7 +8,7 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 
 - **Repo/CI**: repo is public; GitHub Actions CI is green on the current `main` (`89f402f`, run
   `38114131072`) and on prior commits (verified via the GitHub Actions API).
-- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **154 passed**
+- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **159 passed**
   (verified locally on this host, `VERITY_PRELOAD_MODELS=false`, no network).
 - **Live smoke tests** (opt-in): `pytest -q -m live` → **3 passed** in 27 s — the real Wikipedia and
   Wikinews adapters return evidence with provenance, and the full `/api/analyze` pipeline runs end
@@ -93,7 +93,7 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 | Provenance / recency disclosure | yes | yes | n/a | no | Active |
 | Claim-type classifier (Phase 2) | yes (rules) | yes | **pending** (needs labelled set) | no | Implemented; evaluation blocked |
 | Allegation handling (Phase 2) | yes | yes | n/a | no | Active (never true/false) |
-| Hindi/Hinglish (Phase 3) | partial (Unicode tokenization + claim-detection heuristic) | yes | no | no | Planned (models English-first) |
+| Hindi/Hinglish (Phase 3) | partial (Unicode tokenization; Devanagari + Roman claim detection; danda segmentation) | yes | no | no | Planned (models English-first) |
 | Media OCR (Phase 4) | no | no | no | no | Planned |
 | Live checking (Phase 5) | no | no | no | no | Planned |
 | Public deployment | config ready | no | no | no | Blocked (HF token) |
@@ -116,5 +116,8 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
    shingle set as "no comparable content" (0.0) instead of 1.0. Distinct non-Latin or
    punctuation-only passages are therefore no longer merged into one "independent" source.
    Regression tests: `test_distinct_non_latin_passages_are_independent`,
-   `test_identical_non_latin_passages_merge`, and text-level tests. Still open (Phase 3):
-   `looks_like_claim`'s verb hint is Latin-only, so pure-Hindi claims are not extracted.
+   `test_identical_non_latin_passages_merge`, and text-level tests. **Extended (2026-10-12):** claim
+   detection now also accepts Roman/Hinglish copulas (`hai`, `tha`, `sthit`, ...) and the Devanagari
+   danda (`।`) is a sentence boundary, so pure-Hindi and Latin-script Hinglish claims are extracted
+   (`test_looks_like_claim_accepts_roman_hinglish`, `test_split_sentences_on_devanagari_danda`).
+   Hindi *quality* remains unverified (models are English-first, no labelled set).

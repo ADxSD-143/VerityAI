@@ -2,6 +2,25 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-12 — Roman-Hinglish + danda claim extraction (Phase 3)
+
+- **Found**: `looks_like_claim` accepted Devanagari copulas (`है`, `था`, ...) but had no Roman-script
+  equivalent, so **every** Hinglish sentence ("Bharat ki rajdhani New Delhi hai.") was rejected and a
+  Hinglish article collapsed to one whole-text claim. The single accidental pass relied on an English
+  word ("...100 centuries..." matched `[a-z]{3,}s`).
+- **Found**: the sentence-boundary regex (`[.!?]`) omitted the Devanagari danda `।`/`॥`, so a
+  three-sentence Hindi paragraph was extracted as **one** claim.
+- **Fix 1**: added `_VERB_HINT_HINGLISH`, Roman transliterations of the same copulas/auxiliaries
+  (`hai, hain, tha, thi, hoga, gaya, kiya, karta, raha, hota, hua, sthit, ...`), wired into
+  `looks_like_claim`. `the` is deliberately excluded — it is a high-frequency English article and
+  would over-accept English fragments.
+- **Fix 2**: added `।`/`॥` to `_BOUNDARY`; danda-terminated text now segments per sentence.
+- Tests: Roman-Hinglish acceptance, a negative English-fragment case (the hint must not leak), and
+  danda segmentation at both the text and claim-extraction levels. **159 tests pass, ruff clean.**
+- Scope unchanged: models remain English-first and Hindi quality is still **unverified** (no labelled
+  set). The `<5`-token floor still rejects very short fragments ("Bharat ek desh hai."), consistent
+  with English behaviour.
+
 ## 2026-10-11 — Classifier diagnostic vs proposed annotations
 
 - Ran the rules classifier over the 100 **machine-proposed** candidate rows as a *diagnostic* (the

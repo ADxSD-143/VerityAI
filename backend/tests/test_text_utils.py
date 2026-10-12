@@ -79,6 +79,29 @@ def test_looks_like_claim_accepts_hindi_statements():
     assert not looks_like_claim("क्या ताजमहल आगरा में है?")
 
 
+def test_looks_like_claim_accepts_roman_hinglish():
+    assert looks_like_claim("Bharat ki rajdhani New Delhi hai.")
+    assert looks_like_claim("Taj Mahal Agra mein sthit hai.")
+    assert looks_like_claim("Sachin Tendulkar ne 100 centuries banaye.")
+
+
+def test_hinglish_verb_hint_does_not_over_accept_english():
+    # A verb-less noun fragment must stay rejected; the Roman hint must not leak on English.
+    assert not looks_like_claim("The large old red brick building.")
+    assert not looks_like_claim("A bright colorful autumn afternoon.")
+
+
+def test_split_sentences_on_devanagari_danda():
+    text = "भारत की राजधानी नई दिल्ली है। ताजमहल आगरा में स्थित है।"
+    sentences = split_sentences(text)
+    assert [s.text for s in sentences] == [
+        "भारत की राजधानी नई दिल्ली है।",
+        "ताजमहल आगरा में स्थित है।",
+    ]
+    for sentence in sentences:
+        assert text[sentence.start : sentence.end] == sentence.text
+
+
 def test_empty_shingles_are_not_treated_as_duplicates():
     assert shingles("") == frozenset()
     assert jaccard(shingles(""), shingles("... !!!")) == 0.0
