@@ -57,3 +57,11 @@ def test_unclear_statements():
     assert classify_claim_type("Things are getting worse.") == UNCLEAR
     assert classify_claim_type("Everyone knows that.") == UNCLEAR
     assert classify_claim_type("short") == UNCLEAR
+
+
+def test_pronoun_initial_factual_sentences_are_checkable():
+    # A leading it/this/that/they does not make a concrete sentence non-verifiable.
+    assert classify_claim_type("It was completed in 1889 and stands 330 metres tall.") == CHECKABLE_FACT
+    assert classify_claim_type("This tower is located in Paris.") == CHECKABLE_FACT
+    assert classify_claim_type("They built the bridge in 1889.") == CHECKABLE_FACT
+    assert classify_claim_type("That building was designed by Gustave Eiffel.") == CHECKABLE_FACT

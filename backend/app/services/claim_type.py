@@ -48,7 +48,7 @@ _PREDICTION = re.compile(
     re.IGNORECASE,
 )
 _UNCLEAR = re.compile(
-    r"^(things|stuff|it|this|that|they|everyone|nobody|everything|nothing|"
+    r"^(things|stuff|everyone|nobody|everything|nothing|"
     r"the situation|the system|the government)\b",
     re.IGNORECASE,
 )

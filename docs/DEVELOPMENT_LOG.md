@@ -2,6 +2,19 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-12 — Fix: pronoun-initial sentences misclassified as UNCLEAR
+
+- **Found during Phase 1 manual testing**: `classify_claim_type`'s `_UNCLEAR` rule matched *any*
+  sentence starting with `it`/`this`/`that`/`they`, so concrete facts read from an article ("It was
+  completed in 1889...", "This tower is located in Paris.") were labelled `UNCLEAR` and skipped the
+  evidence pipeline (returned `NOT_VERIFIABLE`).
+- **Fix**: removed the bare pronouns from the vague-subject rule, keeping the genuinely vague
+  subjects (`things`, `stuff`, `everyone`, `nobody`, `everything`, `nothing`, `the situation`,
+  `the system`, `the government`). Verified live: the Eiffel Tower article's "It is named after the
+  engineer Gustave Eiffel..." is now `CHECKABLE_FACT` and analysed instead of `NOT_VERIFIABLE`.
+- Regression test `test_pronoun_initial_factual_sentences_are_checkable`. **178 tests pass, ruff
+  clean.**
+
 ## 2026-10-12 — Honest NOT_VERIFIABLE badge in the UI
 
 - **Found**: the frontend labelled **every** `NOT_VERIFIABLE` claim "Opinion / not directly
