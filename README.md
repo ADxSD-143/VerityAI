@@ -191,7 +191,7 @@ Honest matrix — a capability counts as done only when it is implemented, teste
 | NLI (base model) | Evaluated with CIs · small model blocked on this host |
 | Claim-type classification + allegation handling | Implemented · tested · **accuracy not yet evaluated** |
 | Provenance / recency disclosure | Implemented · tested |
-| Hindi / Hinglish | Experimental (tokenization, claim detection, claim-type + negation parity) · **unverified** |
+| Hindi / Hinglish | Accepted, but non-English input returns `UNABLE_TO_ASSESS` with a language disclosure (models are English-first) · **verdict quality unverified** |
 | Held-out end-to-end evaluation | **Blocked** on human-reviewed labels |
 | `tau_single` tuning | **Blocked** on a reviewed tuning split |
 | Media (OCR) and live checking | Planned |
@@ -209,8 +209,11 @@ Honest matrix — a capability counts as done only when it is implemented, teste
   returns `INSUFFICIENT_EVIDENCE`. A confident single-source error (score ≥ 0.75) is still possible.
 - Retrieval can pull a *different entity* with a similar name (the Eiffel Tower page vs Eiffel Tower
   (Paris, Texas)), which can surface as `CONFLICTING_EVIDENCE` for an otherwise simple claim.
-- English-first. Hindi/Hinglish input is accepted but **not verified** (see
-  [`docs/EVALUATION.md`](docs/EVALUATION.md)).
+- English-first. Non-English input is detected and returned as `UNABLE_TO_ASSESS` with a
+  disclosure instead of a possibly-wrong verdict, because the pretrained models cannot assess it.
+  Detection covers a majority non-Latin script and Roman-script Hinglish, but **not** other
+  Latin-script languages (e.g. French or German), which are still treated as English
+  (see [`docs/EVALUATION.md`](docs/EVALUATION.md)).
 - FEVER-retrieval results do not imply real-world accuracy for current events or arbitrary sites.
 - Rate limiting is process-local and based on the socket peer IP; proxies may cause shared buckets, and multiple workers do not share counters.
 - DNS-rebinding TOCTOU on URL fetch is mitigated, not eliminated (see

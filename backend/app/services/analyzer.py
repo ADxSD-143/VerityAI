@@ -22,7 +22,7 @@ from ..analysis.independence import cluster_passages, document_key
 from ..analysis.nli import NLIModel, NLIScore
 from ..config import Settings, get_settings
 from ..core.errors import ModelLoadError
-from ..core.text import normalize_whitespace
+from ..core.text import looks_english, normalize_whitespace
 from ..models_io import device, loaded_models
 from ..retrieval.pipeline import RankedPassage, default_embedding_cache, retrieve
 from ..schemas.models import (
@@ -129,6 +129,9 @@ class Analyzer:
                 claim_type = classify_claim_type(claim.text)
                 if claim_type in NO_SEARCH_TYPES:
                     claims_out.append(self._non_verifiable(claim, index, claim_type))
+                    continue
+                if not looks_english(claim.text):
+                    claims_out.append(self._unsupported_language(claim, index, claim_type))
                     continue
                 assessment, reasons, records, failed = await self._analyze_claim(
                     claim,
@@ -378,6 +381,37 @@ class Analyzer:
             explanation=explanations.get(claim_type, "Not verifiable against retrieved evidence."),
             limited_corroboration=False,
             claim_notes=list(claim.notes),
+            stats=ClaimStats(
+                passages_considered=0,
+                support_passages=0,
+                contradict_passages=0,
+                support_sources=0,
+                contradict_sources=0,
+                independent_groups=0,
+            ),
+        )
+
+    @staticmethod
+    def _unsupported_language(
+        claim: ExtractedClaim, index: int, claim_type: str
+    ) -> ClaimAssessment:
+        return ClaimAssessment(
+            claim_id=f"c{index + 1}",
+            text=claim.text,
+            start=claim.start,
+            end=claim.end,
+            status=Verdict.UNABLE_TO_ASSESS,
+            claim_type=claim_type,
+            explanation=(
+                "This statement appears to be in a language the retrieval and entailment models "
+                "do not support (they are English-first), so no true/false verdict is given."
+            ),
+            limited_corroboration=False,
+            claim_notes=list(claim.notes)
+            + [
+                "Non-English input: the pretrained models are English-only, so this statement was "
+                "not assessed against evidence."
+            ],
             stats=ClaimStats(
                 passages_considered=0,
                 support_passages=0,

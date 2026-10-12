@@ -2,6 +2,21 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-12 — Language gate: non-English input returns UNABLE_TO_ASSESS
+
+- **Problem**: the retriever and NLI model are English-first, and manual testing returned wrong
+  verdicts on non-English input (a true Hindi claim -> `CONFLICTING_EVIDENCE`; a true Hinglish claim
+  -> `REFUTED`). A confident wrong verdict for an unsupported language is misleading.
+- **Fix**: added `looks_english` (`app/core/text.py`) — a deliberately conservative heuristic (a
+  majority non-Latin script, or >= 2 distinctive Roman-Hinglish function words). `analyzer.analyze`
+  now returns `UNABLE_TO_ASSESS` with a language disclosure for non-English claims, skipping
+  retrieval and NLI, instead of a possibly-wrong verdict. The gate runs *after* claim-type routing,
+  so opinions/predictions are still `NOT_VERIFIABLE`.
+- **Boundary**: other Latin-script languages (French, German, ...) are **not** detected and still
+  pass through; documented in `docs/EVALUATION.md` and the README limitations.
+- Tests: `test_looks_english_heuristic`, `test_non_english_claim_is_unable_to_assess`,
+  `test_non_english_claim_is_unable_to_assess_with_disclosure`. **181 tests pass, ruff clean.**
+
 ## 2026-10-12 — Phase 1: app run and manual verification
 
 - Ran the app locally (CPU, cached models via `HF_HOME=D:\hf-cache`, no re-download) and verified

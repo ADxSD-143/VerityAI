@@ -66,7 +66,7 @@ The public repository and CI are verified. Phase 0 hardening is active. Deployme
 | Command | Outcome |
 |---|---|
 | `ruff check backend experiments scripts` | All checks passed |
-| `pytest -q` (178 tests) | exit code 0, all passed |
+| `pytest -q` (181 tests) | exit code 0, all passed |
 | `pytest -q -m live` (3 tests) | 3 passed in 27 s (Wikipedia + Wikinews adapters + full `/api/analyze`); opt-in, excluded from CI |
 | `POST /api/analyze` (live) | 200, real multi-source evidence |
 | `POST /api/analyze-url` (metadata IP) | 400 `unsafe_url` |
@@ -154,7 +154,7 @@ audit, the benchmark evaluations, or re-create the control files. Restart the se
 - **Phase 2 (partial)**: deterministic rules-based claim-type classifier (`services/claim_type.py`); opinions/predictions/allegations/unclear return `NOT_VERIFIABLE` instead of a forced true/false verdict. Classifier accuracy is **not yet evaluated** (needs a labelled set).
 - **Claim-type evaluation ready**: the held-out harness (`experiments/eval_e2e_heldout.py`) now scores predicted-vs-gold claim-type accuracy per type with a bootstrap CI, for when the labelled set exists.
 - **Allegation handling**: allegations run the evidence pipeline but are always `NOT_VERIFIABLE`; the report discloses support/contradict counts and whether an *official-finding* signal appears, and never declares the allegation true or false (`services/allegation.py`).
-- **Phase 3 (partial)**: tokenization is Unicode-aware; claim detection accepts Devanagari copulas/verbs **and** their Roman/Hinglish transliterations (`hai`, `tha`, `sthit`, ...), and the Devanagari danda (`।`) is a sentence boundary, so Hindi and Hinglish statements are extracted (and multi-sentence Hindi text is segmented) instead of being rejected or collapsed. Claim-type pre-classification and negation disclosure also recognise Hindi/Hinglish opinion/prediction/allegation markers, so non-fact Hindi/Hinglish statements route to `NOT_VERIFIABLE` instead of a forced verdict. Models remain English-first; Hindi quality is **unverified** (no labelled set).
+- **Phase 3 (partial)**: tokenization is Unicode-aware; claim detection accepts Devanagari copulas/verbs **and** their Roman/Hinglish transliterations (`hai`, `tha`, `sthit`, ...), and the Devanagari danda (`।`) is a sentence boundary, so Hindi and Hinglish statements are extracted (and multi-sentence Hindi text is segmented) instead of being rejected or collapsed. Claim-type pre-classification and negation disclosure also recognise Hindi/Hinglish opinion/prediction/allegation markers, so non-fact Hindi/Hinglish statements route to `NOT_VERIFIABLE` instead of a forced verdict. **Language gate**: non-English input is detected (`looks_english`) and returned as `UNABLE_TO_ASSESS` with a disclosure rather than a possibly-wrong verdict; other Latin-script languages are not detected. Models remain English-first; Hindi quality is **unverified** (no labelled set).
 - **Frontend integration test** (`backend/tests/test_frontend.py`): the served page exposes the expected UI contract, static assets load, and `app.js` calls `/api/analyze` and knows every backend status.
 - **README capability status** table added (implemented / tested / evaluated / blocked).
 - **Citation + injection checks**: every returned evidence URL is absolute http(s), and instructions embedded in fetched URL content do not change the verdict.

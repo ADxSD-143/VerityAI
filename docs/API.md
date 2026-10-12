@@ -117,6 +117,10 @@ that the claim is true.
 `SUPPORTED`, `REFUTED`, `INSUFFICIENT_EVIDENCE`, `CONFLICTING_EVIDENCE`, `UNABLE_TO_ASSESS`,
 `NOT_VERIFIABLE`.
 
+`UNABLE_TO_ASSESS` is returned both when the evidence pipeline cannot complete (no source
+reachable, or the NLI model unavailable) and when the input is not in a language the pretrained
+models support (they are English-first); the `explanation` discloses which case applies.
+
 ### Claim types
 
 Each claim carries a `claim_type` (deterministic rules classifier):

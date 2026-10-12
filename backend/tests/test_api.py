@@ -158,6 +158,16 @@ def test_opinion_claim_returns_not_verifiable():
     assert claim["claim_type"] == "OPINION_SUBJECTIVE"
 
 
+def test_non_english_claim_is_unable_to_assess_with_disclosure():
+    with TestClient(create_app()) as client:
+        response = client.post("/api/analyze", json={"claim": "भारत की राजधानी नई दिल्ली है।"})
+    assert response.status_code == 200
+    claim = response.json()["claims"][0]
+    assert claim["status"] == "UNABLE_TO_ASSESS"
+    assert "language" in claim["explanation"]
+    assert any("Non-English" in note for note in claim["claim_notes"])
+
+
 def test_allegation_claim_is_not_given_a_true_false_verdict(monkeypatch):
     passages = [make_passage("The executive was convicted of fraud in 2019.", url="https://a.test/1")]
     with _patched_client(monkeypatch, passages, [score("entailment", 0.95)]) as client:

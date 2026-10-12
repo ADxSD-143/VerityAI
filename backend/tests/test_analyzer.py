@@ -203,6 +203,20 @@ async def test_fact_claim_carries_claim_type(monkeypatch):
 
 
 @pytest.mark.asyncio
+async def test_non_english_claim_is_unable_to_assess(monkeypatch):
+    analyzer = _analyzer([FakeAdapter([])], [])
+    monkeypatch.setattr(analyzer_module, "retrieve", fake_retrieve_factory())
+
+    report = await analyzer.analyze(AnalyzeRequest(claim="भारत की राजधानी नई दिल्ली है।"))
+
+    claim = report.claims[0]
+    assert claim.status == Verdict.UNABLE_TO_ASSESS
+    assert report.sources_queried == []
+    assert "language" in claim.explanation
+    assert any("Non-English" in note for note in claim.claim_notes)
+
+
+@pytest.mark.asyncio
 async def test_allegation_never_gets_a_true_false_verdict(monkeypatch):
     passages = [make_passage("The executive was convicted of fraud in 2019.", url="https://a.test/1")]
     analyzer = _analyzer([FakeAdapter(passages)], [score("entailment", 0.95)])

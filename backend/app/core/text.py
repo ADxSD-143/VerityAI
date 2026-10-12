@@ -176,6 +176,41 @@ def looks_like_claim(sentence: str) -> bool:
     return True
 
 
+_LATIN_LETTER = re.compile(r"[A-Za-z]")
+_UNICODE_LETTER = re.compile(r"[^\W\d_]")
+# Roman-script Hindi/Hinglish function words. Chosen to avoid English collisions and require two
+# matches, so ordinary English is never flagged.
+_HINGLISH_MARKERS = frozenset({
+    "hai", "hain", "nahi", "nahin", "ka", "ki", "ke", "ko", "mein", "aur", "yeh", "ye",
+    "woh", "tha", "thi", "hoga", "hogi", "raha", "rahi", "karta", "karti", "kya", "bahut",
+    "accha", "achha", "desh", "sabse", "abhi", "kal", "tum", "aap", "mera", "meri", "apna",
+    "apni", "sakta", "sakti",
+})
+
+
+def _non_latin_letter_ratio(text: str) -> float:
+    letters = _UNICODE_LETTER.findall(text)
+    if not letters:
+        return 0.0
+    return sum(1 for letter in letters if not _LATIN_LETTER.match(letter)) / len(letters)
+
+
+def looks_english(text: str) -> bool:
+    """Best-effort check that ``text`` is in the English/Latin-script domain the pretrained
+    models support. Deliberately conservative: only clearly non-English input (a majority
+    non-Latin script, or several distinctive Roman-Hinglish function words) is flagged, so
+    ordinary English is never gated. Other Latin-script languages (e.g. French, German) are
+    not detected; see docs/EVALUATION.md."""
+    cleaned = normalize_whitespace(text)
+    if len(_UNICODE_LETTER.findall(cleaned)) < 3:
+        return True
+    if _non_latin_letter_ratio(cleaned) >= 0.25:
+        return False
+    if len(set(tokenize(cleaned)) & _HINGLISH_MARKERS) >= 2:
+        return False
+    return True
+
+
 def shingles(text: str, n: int = 5) -> frozenset[int]:
     tokens = tokenize(text)
     if not tokens:

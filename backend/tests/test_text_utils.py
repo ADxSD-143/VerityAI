@@ -4,6 +4,7 @@ from app.core.text import (
     has_negation,
     has_year,
     jaccard,
+    looks_english,
     looks_like_claim,
     normalize_whitespace,
     shingles,
@@ -61,6 +62,15 @@ def test_has_negation_handles_hindi_and_hinglish():
     assert has_negation("Yeh sach nahi hai.")
     assert has_negation("Yeh sach nahin hai.")
     assert not has_negation("Bharat ek desh hai.")
+
+
+def test_looks_english_heuristic():
+    assert looks_english("The Eiffel Tower is located in Paris.")
+    assert looks_english("World War II ended in 1945.")
+    assert looks_english("The café served crème brûlée.")  # accented Latin stays English
+    assert not looks_english("भारत की राजधानी नई दिल्ली है।")
+    assert not looks_english("Bharat ki rajdhani New Delhi hai.")
+    assert not looks_english("Modi sabse best PM hai.")
 
 
 def test_normalize_whitespace_and_domain():

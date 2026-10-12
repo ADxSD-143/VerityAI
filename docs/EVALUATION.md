@@ -173,6 +173,13 @@ Claim-type pre-classification and the negation disclosure also recognise Hindi/H
 from a forced true/false verdict instead of being treated as checkable facts. These are deterministic
 rules; their accuracy is **not** measured against a labelled set.
 
+**Language gate (2026-10-12).** Because the retriever and NLI model are English-first and returned
+wrong verdicts on Hindi/Hinglish, non-English input is now returned as `UNABLE_TO_ASSESS` with a
+disclosure instead of a possibly-wrong `SUPPORTED`/`REFUTED`. Detection is a heuristic — a majority
+non-Latin script, or two or more distinctive Roman-Hinglish function words (`looks_english` in
+`app/core/text.py`). It is deliberately conservative (ordinary English is never gated) and does
+**not** detect other Latin-script languages (French, German, ...); those still pass through.
+
 **No Hindi quality claim is made.** The dense retriever (`bge-small-en-v1.5`) and the NLI model are
 English-first, and no labelled Hindi/Hinglish set has been reviewed. Hindi/Hinglish performance must
 not be inferred from English results; it requires a representative human-labelled evaluation that is

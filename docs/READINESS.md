@@ -9,7 +9,7 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 
 - **Repo/CI**: repo is public; GitHub Actions CI is green on `main` — latest verified run #38 on
   `25f435d` (2026-10-12) = success, checked via the GitHub Actions API.
-- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **178 passed**
+- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **181 passed**
   (verified locally on this host, `VERITY_PRELOAD_MODELS=false`, no network).
 - **Live smoke tests** (opt-in): `pytest -q -m live` → **3 passed** in 27 s — the real Wikipedia and
   Wikinews adapters return evidence with provenance, and the full `/api/analyze` pipeline runs end
@@ -94,7 +94,7 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 | Provenance / recency disclosure | yes | yes | n/a | no | Active |
 | Claim-type classifier (Phase 2) | yes (rules) | yes | **pending** (needs labelled set) | no | Implemented; evaluation blocked |
 | Allegation handling (Phase 2) | yes | yes | n/a | no | Active (never true/false) |
-| Hindi/Hinglish (Phase 3) | partial (Unicode tokenization; Devanagari + Roman claim detection; danda segmentation; claim-type + negation markers) | yes | no | no | Planned (models English-first) |
+| Hindi/Hinglish (Phase 3) | non-English input is detected and returned as `UNABLE_TO_ASSESS` with a disclosure (English-first models) | yes | no | no | Gate active; verdict quality unverified |
 | Media OCR (Phase 4) | no | no | no | no | Planned |
 | Live checking (Phase 5) | no | no | no | no | Planned |
 | Public deployment | config ready | no | no | no | Blocked (HF token) |
