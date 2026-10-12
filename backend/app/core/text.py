@@ -143,9 +143,15 @@ def has_year(text: str) -> bool:
     return bool(_YEAR.search(text))
 
 
+_NEGATION = re.compile(
+    r"\b(not|no|never|none|neither|nor|without|cannot|can't|isn't|"
+    r"wasn't|aren't|weren't|doesn't|don't|didn't|nahi|nahin)\b|(नहीं|नही)",
+    re.IGNORECASE,
+)
+
+
 def has_negation(text: str) -> bool:
-    return bool(re.search(r"\b(not|no|never|none|neither|nor|without|cannot|can't|isn't|"
-                          r"wasn't|aren't|weren't|doesn't|don't|didn't)\b", text, re.I))
+    return bool(_NEGATION.search(text))
 
 
 def looks_like_claim(sentence: str) -> bool:

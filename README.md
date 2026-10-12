@@ -189,7 +189,7 @@ Honest matrix — a capability counts as done only when it is implemented, teste
 | NLI (base model) | Evaluated with CIs · small model blocked on this host |
 | Claim-type classification + allegation handling | Implemented · tested · **accuracy not yet evaluated** |
 | Provenance / recency disclosure | Implemented · tested |
-| Hindi / Hinglish | Experimental (tokenization + claim detection only) · **unverified** |
+| Hindi / Hinglish | Experimental (tokenization, claim detection, claim-type + negation parity) · **unverified** |
 | Held-out end-to-end evaluation | **Blocked** on human-reviewed labels |
 | `tau_single` tuning | **Blocked** on a reviewed tuning split |
 | Media (OCR) and live checking | Planned |

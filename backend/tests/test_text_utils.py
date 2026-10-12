@@ -56,6 +56,13 @@ def test_entity_hints_negation_and_year():
     assert not has_year("It was released recently")
 
 
+def test_has_negation_handles_hindi_and_hinglish():
+    assert has_negation("यह सच नहीं है।")
+    assert has_negation("Yeh sach nahi hai.")
+    assert has_negation("Yeh sach nahin hai.")
+    assert not has_negation("Bharat ek desh hai.")
+
+
 def test_normalize_whitespace_and_domain():
     assert normalize_whitespace("  a   b\n c ") == "a b c"
     assert domain_of("https://en.wikipedia.org/wiki/Paris") == "en.wikipedia.org"

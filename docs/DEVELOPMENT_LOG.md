@@ -2,6 +2,23 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-12 — Hindi/Hinglish claim-type and negation parity (Phase 3)
+
+- **Gap**: `classify_claim_type` matched only English markers plus `sabse`/`सबसे`, so a
+  Hindi/Hinglish **prediction** ("... honge") or **allegation** ("... aarop laga") was classified
+  `CHECKABLE_FACT` and forced through the true/false verdict pipeline — the non-verifiable path was
+  English-only. `has_negation` likewise only saw English, so the "contains negation" disclosure was
+  missing for Hindi claims.
+- **Fix**: added deterministic Hindi/Hinglish markers for opinion (`mujhe lagta`, `mere khayal`,
+  `मुझे लगता`, `मेरे ख्याल`), prediction (`hoga`/`jayega`/`karega`/`rahega` families and their
+  Devanagari forms) and allegation (`aarop`/`ilzaam`/`आरोप`/`इलज़ाम`), plus `nahi`/`nahin`/`नहीं` in
+  `has_negation`. Not tuned on any labelled set; the marker lists are deliberately finite and are not
+  exhaustive.
+- Tests: `test_hindi_and_hinglish_first_person_opinions`, `..._predictions`, `..._allegations`, and
+  `test_has_negation_handles_hindi_and_hinglish`. **163 tests pass, ruff clean.**
+- **Unverified**: these rules are unit-tested only; classifier accuracy against a human-labelled set
+  remains an open Phase 2 gate (no labels), and Hindi/Hinglish quality remains unverified.
+
 ## 2026-10-12 — Roman-Hinglish + danda claim extraction (Phase 3)
 
 - **Found**: `looks_like_claim` accepted Devanagari copulas (`है`, `था`, ...) but had no Roman-script

@@ -168,6 +168,11 @@ boundary, so a Hindi paragraph is segmented into per-sentence claims instead of 
 statements are therefore no longer rejected before retrieval, and distinct Hindi passages are not
 merged as duplicates.
 
+Claim-type pre-classification and the negation disclosure also recognise Hindi/Hinglish markers
+(opinion, prediction, allegation, negation), so Hindi/Hinglish non-fact statements are routed away
+from a forced true/false verdict instead of being treated as checkable facts. These are deterministic
+rules; their accuracy is **not** measured against a labelled set.
+
 **No Hindi quality claim is made.** The dense retriever (`bge-small-en-v1.5`) and the NLI model are
 English-first, and no labelled Hindi/Hinglish set has been reviewed. Hindi/Hinglish performance must
 not be inferred from English results; it requires a representative human-labelled evaluation that is

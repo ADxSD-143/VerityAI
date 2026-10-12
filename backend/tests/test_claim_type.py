@@ -30,6 +30,23 @@ def test_hindi_and_hinglish_superlatives_are_opinions():
     assert classify_claim_type("यह सबसे अच्छा विकल्प है।") == OPINION_SUBJECTIVE
 
 
+def test_hindi_and_hinglish_first_person_opinions():
+    assert classify_claim_type("Mujhe lagta hai ki yeh sahi hai.") == OPINION_SUBJECTIVE
+    assert classify_claim_type("मेरे ख्याल से यह सही है।") == OPINION_SUBJECTIVE
+
+
+def test_hindi_and_hinglish_predictions():
+    assert classify_claim_type("Modi agle saal phir PM honge.") == PREDICTION
+    assert classify_claim_type("Baarish kal hogi.") == PREDICTION
+    assert classify_claim_type("भारत अगले साल विकासशील रहेगा।") == PREDICTION
+
+
+def test_hindi_and_hinglish_allegations():
+    assert classify_claim_type("Mantri par bhrashtachar ka aarop laga.") == ALLEGATION
+    assert classify_claim_type("Neta par ilzaam lagaya gaya.") == ALLEGATION
+    assert classify_claim_type("मंत्री पर भ्रष्टाचार का आरोप लगा।") == ALLEGATION
+
+
 def test_allegations():
     assert classify_claim_type("The minister was accused of corruption in 2019.") == ALLEGATION
     assert classify_claim_type("A company executive was charged with fraud last year.") == ALLEGATION

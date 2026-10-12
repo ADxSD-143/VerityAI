@@ -29,18 +29,22 @@ NO_SEARCH_TYPES = frozenset({OPINION_SUBJECTIVE, PREDICTION, UNCLEAR})
 
 _ALLEGATION = re.compile(
     r"\b(accused of|allegedly|alleged|charged with|indicted|suspect(?:ed)? of|"
-    r"rumou?red to|allegations?|acquitted of|convicted of)\b",
+    r"rumou?red to|allegations?|acquitted of|convicted of|aarop|aaropi|ilzaam|iljam)\b|"
+    r"(आरोप|आरोपी|इलज़ाम|इलजाम|आरोपित)",
     re.IGNORECASE,
 )
 _OPINION = re.compile(
     r"\b(i think|i believe|i feel|in my opinion|imo|personally|the best|the worst|"
     r"the greatest|the hottest|the most beautiful|the ugliest|overrated|underrated|"
-    r"better than|worse than|should|is the best|is the worst)\b|(?:sabse|सबसे)",
+    r"better than|worse than|should|is the best|is the worst|mujhe lagta|mere khaya?l|"
+    r"mere hisaab)\b|(?:sabse|सबसे|मुझे लगता|मेरे ख्याय?ल|मेरे हिसाब)",
     re.IGNORECASE,
 )
 _PREDICTION = re.compile(
     r"\b(will|won't|will not|going to|gonna|predict|predicts|forecast|by 20\d{2}|"
-    r"next year|next decade|next season)\b",
+    r"next year|next decade|next season|hoga|hogi|honge|jayega|jayegi|jayenge|"
+    r"karega|karegi|karenge|rahega|rahegi|rahenge)\b|"
+    r"(होगा|होगी|होंगे|जाएगा|जाएगी|जाएँगे|करेगा|करेगी|करेंगे|रहेगा|रहेगी|रहेंगे)",
     re.IGNORECASE,
 )
 _UNCLEAR = re.compile(
