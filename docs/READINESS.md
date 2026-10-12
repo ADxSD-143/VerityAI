@@ -8,7 +8,7 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 
 - **Repo/CI**: repo is public; GitHub Actions CI is green on the current `main` (`89f402f`, run
   `38114131072`) and on prior commits (verified via the GitHub Actions API).
-- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **163 passed**
+- **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **177 passed**
   (verified locally on this host, `VERITY_PRELOAD_MODELS=false`, no network).
 - **Live smoke tests** (opt-in): `pytest -q -m live` → **3 passed** in 27 s — the real Wikipedia and
   Wikinews adapters return evidence with provenance, and the full `/api/analyze` pipeline runs end
@@ -25,8 +25,8 @@ and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
   `backend/app/retrieval/pipeline.py`); BM25 retained as the dense-failure fallback.
 - **SSRF controls** implemented and unit-tested (`backend/app/services/url_extract.py`,
   `backend/tests/test_url_safety.py`): scheme/port allowlist, no credentials, all resolved IPs
-  checked (incl. IPv4-mapped/6to4/teredo), per-hop redirect re-validation, size/time caps,
-  content-type allowlist.
+  checked (incl. IPv4-mapped, IPv4-translated, 6to4, teredo and NAT64, plus explicit NAT64 prefixes),
+  per-hop redirect re-validation, size/time caps, content-type allowlist.
 
 ## Historical results (with provenance)
 

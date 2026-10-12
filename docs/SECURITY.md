@@ -27,9 +27,9 @@ Implemented in backend/app/services/url_extract.py.
 
 - Only http and https; URLs with embedded credentials are rejected; only ports 80 and 443.
 - The hostname is resolved and every returned address is checked against private, loopback,
-  link-local, reserved, multicast and unspecified ranges, including IPv4-mapped IPv6, 6to4 and
-  teredo forms, plus explicit networks (carrier-grade NAT 100.64.0.0/10, documentation ranges,
-  169.254.0.0/16).
+  link-local, reserved, multicast and unspecified ranges, including IPv4-mapped, IPv4-translated,
+  6to4 and teredo IPv6 forms, plus explicitly blocked networks (carrier-grade NAT 100.64.0.0/10,
+  documentation ranges, 169.254.0.0/16, and the NAT64 prefixes 64:ff9b::/96 and 64:ff9b:1::/48).
 - Redirects are followed manually (max 5) and scheme/host/address are re-validated at every hop.
 - Connect + read timeouts and a hard response-size cap (default 3 MB) are enforced while streaming.
 - Content types are allow-listed (text/html, application/xhtml+xml, text/plain).

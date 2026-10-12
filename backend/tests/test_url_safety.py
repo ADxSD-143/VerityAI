@@ -13,6 +13,7 @@ PUBLIC_IP = "93.184.216.34"
 @pytest.mark.parametrize(
     "address",
     [
+        # IPv4 private / loopback / link-local / metadata / reserved
         "127.0.0.1",
         "10.0.0.5",
         "192.168.1.10",
@@ -20,10 +21,26 @@ PUBLIC_IP = "93.184.216.34"
         "169.254.169.254",
         "0.0.0.0",
         "100.64.0.1",
+        "192.0.0.1",
+        "192.0.2.1",
+        "198.18.0.1",
+        "198.51.100.1",
+        "203.0.113.1",
+        "240.0.0.1",
+        "255.255.255.255",
+        # IPv6 loopback / unique-local / link-local
         "::1",
         "fc00::1",
+        "fd00::1",
         "fe80::1",
+        # IPv6 transition mechanisms that embed a private IPv4 destination
         "::ffff:127.0.0.1",
+        "::ffff:169.254.169.254",
+        "::ffff:0:127.0.0.1",                       # IPv4-translated
+        "2002:7f00:1::",                            # 6to4 -> 127.0.0.1
+        "2001:0000:4136:e378:8000:63bf:3fff:fdd2",  # Teredo
+        "64:ff9b::7f00:1",                          # NAT64 -> 127.0.0.1
+        "64:ff9b::a9fe:a9fe",                       # NAT64 -> 169.254.169.254
     ],
 )
 def test_blocked_addresses(address):

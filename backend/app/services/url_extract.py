@@ -4,7 +4,7 @@ Security controls:
   * only ``http`` and ``https``; no embedded credentials; ports restricted to 80/443;
   * the hostname is resolved and *every* resolved address is checked against
     private / loopback / link-local / reserved / multicast / unspecified ranges,
-    including IPv4-mapped and 6to4/teredo IPv6 forms;
+    including IPv4-mapped, IPv4-translated, 6to4, teredo and NAT64 IPv6 forms;
   * redirects are followed manually (max 5) and re-validated at every hop;
   * connect + read timeouts, a hard response-size cap, and a content-type allowlist;
   * article text is extracted from the already-fetched HTML by trafilatura -- the
@@ -42,6 +42,10 @@ _EXTRA_BLOCKED_NETWORKS = [
     ipaddress.ip_network("203.0.113.0/24"),
     ipaddress.ip_network("169.254.0.0/16"),  # link-local / cloud metadata
     ipaddress.ip_network("fd00::/8"),
+    # NAT64 prefixes embed an IPv4 destination in an IPv6 address; block them explicitly
+    # rather than relying on the stdlib's ``is_reserved`` flag, which is version-dependent.
+    ipaddress.ip_network("64:ff9b::/96"),    # NAT64 well-known prefix
+    ipaddress.ip_network("64:ff9b:1::/48"),  # NAT64 local-use prefix
 ]
 
 

@@ -2,6 +2,22 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-12 — Explicit NAT64 SSRF blocking + IPv6 transition regression tests
+
+- **Found (while auditing)**: the SSRF validator blocked NAT64 (`64:ff9b::/96`) and IPv4-translated
+  (`::ffff:0:0/96`) destinations only *incidentally*, via `ipaddress.is_reserved`; only 6to4 and
+  teredo had dedicated handling. `is_reserved` semantics are Python-version-dependent, so the NAT64
+  block was fragile.
+- **Fix**: added the NAT64 well-known (`64:ff9b::/96`) and local-use (`64:ff9b:1::/48`) prefixes to
+  the explicit blocked-network list in `url_extract.py`. 6to4 stays blocked via the `sixtofour`
+  property and teredo via `is_private` (2001::/32).
+- **Tests**: extended `test_blocked_addresses` from 11 to 25 cases — IPv4 reserved/documentation
+  ranges, IPv6 unique-local/link-local, and the IPv4-mapped / IPv4-translated / 6to4 / teredo / NAT64
+  transition forms that embed a private destination. **177 tests pass, ruff clean.**
+- Lesson: a security control that relies on a stdlib predicate's *incidental* coverage is not a
+  control; make the blocked ranges explicit and lock them with tests. No production behaviour changed
+  for the previously-blocked cases (the tests still pass).
+
 ## 2026-10-12 — Hindi/Hinglish claim-type and negation parity (Phase 3)
 
 - **Gap**: `classify_claim_type` matched only English markers plus `sabse`/`सबसे`, so a

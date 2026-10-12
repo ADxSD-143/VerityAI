@@ -147,6 +147,7 @@ audit, the benchmark evaluations, or re-create the control files. Restart the se
 - **Rate-limiter unit tests** (`test_limits.py`): per-client isolation and unprotected-path bypass, exercised directly on `RequestLimitsMiddleware`.
 - **Limit/redirect edge cases**: a redirect loop beyond the hop limit is rejected (`url_extract`), and a streamed body with no `Content-Length` is capped while streaming (413).
 - **Input validation**: out-of-range `options` and whitespace-only claims return typed 422; `docs/ARCHITECTURE.md` reconciled with the verified implementation (request limits, dense default, single-source safeguard).
+- **SSRF hardening**: NAT64 (`64:ff9b::/96`, `64:ff9b:1::/48`) prefixes are now explicitly blocked (previously only incidentally, via `ipaddress.is_reserved`); `test_url_safety.py` covers IPv4 reserved/documentation ranges and the IPv4-mapped / IPv4-translated / 6to4 / teredo / NAT64 transition forms. `docs/SECURITY.md` updated.
 - **Live smoke tests** (`backend/tests/test_live_smoke.py`): opt-in real-network tests for the Wikipedia adapter and the full `/api/analyze` pipeline; `live` is excluded from the default run so CI stays offline.
 - **Phase 1 (partial)**: optional keyless **Wikinews** news source (`VERITY_ENABLE_WIKINEWS`, off by default) reusing the MediaWiki adapter; registry excludes it unless enabled.
 - **Provenance/recency**: the report carries a publication-date limitation, and each claim notes how many of its evidence passages lack a date and therefore cannot be checked for recency.
