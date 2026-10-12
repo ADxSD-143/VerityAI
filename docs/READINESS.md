@@ -1,13 +1,14 @@
 # VerityAI readiness report
 
-Snapshot: `main` = `875f042` (public repo `ADxSD-143/VerityAI`), working tree clean at audit time.
+Snapshot: public repo `ADxSD-143/VerityAI`, `main` reconciled 2026-10-12 (last verified CI run #38 on
+`25f435d` = success), working tree clean at audit time.
 This report separates verified facts, historical results, unverified assumptions, missing evidence
 and owner blockers. It does not replace `docs/PROJECT_STATUS.md`.
 
 ## Verified facts (evidence)
 
-- **Repo/CI**: repo is public; GitHub Actions CI is green on the current `main` (`89f402f`, run
-  `38114131072`) and on prior commits (verified via the GitHub Actions API).
+- **Repo/CI**: repo is public; GitHub Actions CI is green on `main` — latest verified run #38 on
+  `25f435d` (2026-10-12) = success, checked via the GitHub Actions API.
 - **Offline suite**: `ruff check backend experiments scripts` clean; `pytest -q` → **177 passed**
   (verified locally on this host, `VERITY_PRELOAD_MODELS=false`, no network).
 - **Live smoke tests** (opt-in): `pytest -q -m live` → **3 passed** in 27 s — the real Wikipedia and

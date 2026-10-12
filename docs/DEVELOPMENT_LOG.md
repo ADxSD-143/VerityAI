@@ -2,6 +2,17 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-12 — Control-doc reconciliation
+
+- **Found**: `PLAN.md` M2 still recorded "hybrid retained as default", contradicting the shipped
+  implementation (`verity_retrieval_mode="dense"`) and `docs/EVALUATION.md`. `docs/READINESS.md`
+  pinned a stale snapshot (`main` = `875f042`) and a stale CI run, and `docs/PROJECT_STATUS.md`
+  listed a stale CI run, commit and test count.
+- **Fix**: M2 now states that a later harder-corpus run superseded the hybrid default and that the
+  runtime default is dense-only; the READINESS snapshot/CI line, the PROJECT_STATUS GitHub/CI/test
+  rows are updated to the current verified state (177 tests; CI run #38 on `25f435d`, 2026-10-12).
+  No behavioural change; documentation only.
+
 ## 2026-10-12 — Explicit NAT64 SSRF blocking + IPv6 transition regression tests
 
 - **Found (while auditing)**: the SSRF validator blocked NAT64 (`64:ff9b::/96`) and IPv4-translated

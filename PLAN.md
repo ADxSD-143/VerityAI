@@ -59,8 +59,11 @@ baselines for evaluation only; retrieval benchmark script; measured results.
 measured performance; no silent keyword-only fallback without a visible degraded mode.
 **Recorded.** `experiments/eval_retrieval.py` over 330 evaluable claims / 1161-page reconstructed
 corpus: TF-IDF R@5 0.958 / MRR 0.941; BM25 0.943 / 0.901; BGE dense 0.973 / 0.985; hybrid RRF
-0.953 / 0.960; hybrid+rerank 0.971 / 0.982. Dense measured highest MRR; hybrid retained as default
-for exact-term robustness (documented judgement call). Reranker left disabled by default.
+0.953 / 0.960; hybrid+rerank 0.971 / 0.982. Dense measured highest MRR. At this gate hybrid was
+retained as the default for exact-term robustness (a documented judgement call); a later,
+harder-corpus run **superseded** that decision — see `docs/EVALUATION.md` and
+`docs/experiments/001-retrieval-comparison.md` — so the runtime default is now **dense-only**
+(`VERITY_RETRIEVAL_MODE=dense`), with `hybrid` selectable. Reranker left disabled by default.
 **Risks/fallback.** BGE too slow/large → `bge-small` retained; document latency.
 
 ## M3 — NLI, aggregation, claim assessment — `PASS`

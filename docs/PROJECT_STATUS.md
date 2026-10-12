@@ -30,10 +30,10 @@ The public repository and CI are verified. Phase 0 hardening is active. Deployme
 - **M4** — FEVER `labelled_dev` sample (500, seed 42), all evaluation artefacts saved.
 - **M5** (code) — SSRF-safe URL extraction + tests; secret scan clean.
 - **M6** (code/docs/CI) — full docs set, CI workflow, Dockerfile, README Spaces frontmatter; **CI
-  verified green on GitHub** (latest main CI run `38055136968` on `38d4e6f` ⇒ success; run #1 on `47a7602` ⇒
-  success).
+  verified green on GitHub** (green at M6 completion on `38d4e6f`; latest verified run #38 on
+  `25f435d` ⇒ success, 2026-10-12).
 - **M7 (part)** — **GitHub publication**: public repo at
-  [`github.com/ADxSD-143/VerityAI`](https://github.com/ADxSD-143/VerityAI), `main` = `38d4e6f`.
+  [`github.com/ADxSD-143/VerityAI`](https://github.com/ADxSD-143/VerityAI), `main` = `25f435d` (2026-10-12).
 - **Aggregation safeguard** — single-source verdicts must clear `tau_single` (default 0.75); adds
   `backend/tests/test_aggregation_regression.py`. Closes the recorded Zorbax-9 false positive
   (re-checked live: now `INSUFFICIENT_EVIDENCE`, best entailment 0.519).
@@ -66,12 +66,12 @@ The public repository and CI are verified. Phase 0 hardening is active. Deployme
 | Command | Outcome |
 |---|---|
 | `ruff check backend experiments scripts` | All checks passed |
-| `pytest -q` (154 tests) | exit code 0, all passed |
+| `pytest -q` (177 tests) | exit code 0, all passed |
 | `pytest -q -m live` (3 tests) | 3 passed in 27 s (Wikipedia + Wikinews adapters + full `/api/analyze`); opt-in, excluded from CI |
 | `POST /api/analyze` (live) | 200, real multi-source evidence |
 | `POST /api/analyze-url` (metadata IP) | 400 `unsafe_url` |
 | secret scan (grep + `git ls-files`) | clean; no `.env`; no tracked file > 1 MB |
-| GitHub Actions CI (run `38114131072`, `89f402f`) | **success** |
+| GitHub Actions CI (run #38, `25f435d`, 2026-10-12) | **success** |
 | `docker build` | **not run** — Docker is not installed on this host |
 
 ## Evaluation
@@ -113,7 +113,7 @@ All artefacts in `experiments/results/`:
 
 ## GitHub
 **Published**: [`github.com/ADxSD-143/VerityAI`](https://github.com/ADxSD-143/VerityAI), public,
-default branch `main`, `38d4e6f` on `main`, CI green.
+default branch `main`; last verified CI run #38 on `25f435d` (2026-10-12) = success.
 
 ## Deployment
 Not deployed. `Dockerfile` + README Spaces frontmatter are ready (port 7860). Public URL to be
