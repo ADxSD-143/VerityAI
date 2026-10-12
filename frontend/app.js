@@ -30,8 +30,24 @@
     CONFLICTING_EVIDENCE: "Conflicting evidence",
     INSUFFICIENT_EVIDENCE: "Insufficient evidence",
     UNABLE_TO_ASSESS: "Unable to assess",
-    NOT_VERIFIABLE: "Opinion / not directly verifiable",
+    NOT_VERIFIABLE: "Not directly verifiable",
   };
+
+  // NOT_VERIFIABLE covers several claim types; label the badge with the actual reason rather
+  // than implying every non-verifiable statement is an opinion.
+  const CLAIM_TYPE_LABELS = {
+    OPINION_SUBJECTIVE: "Opinion — not verifiable",
+    PREDICTION: "Prediction — not verifiable",
+    ALLEGATION: "Allegation — not verifiable",
+    UNCLEAR: "No checkable claim",
+  };
+
+  function badgeLabel(claim) {
+    if (claim.status === "NOT_VERIFIABLE") {
+      return CLAIM_TYPE_LABELS[claim.claim_type] || STATUS_LABELS.NOT_VERIFIABLE;
+    }
+    return STATUS_LABELS[claim.status] || claim.status;
+  }
 
   const $ = (id) => document.getElementById(id);
   const form = $("analyze-form");
@@ -261,7 +277,7 @@
   function claimCard(claim) {
     const head = h("div", { class: "claim-head" },
       h("p", { class: "claim-text", text: claim.text }),
-      h("span", { class: "badge " + claim.status, text: STATUS_LABELS[claim.status] || claim.status }),
+      h("span", { class: "badge " + claim.status, text: badgeLabel(claim) }),
       h("p", { class: "explanation", text: claim.explanation }),
       claim.limited_corroboration
         ? h("p", { class: "limited-note", text: "Corroboration is limited: the decisive evidence comes from a single independent source." }) : null,

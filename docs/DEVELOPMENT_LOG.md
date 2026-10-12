@@ -2,6 +2,15 @@
 
 Newest first. Records decisions, real errors and their root causes, and lessons learned.
 
+## 2026-10-12 — Honest NOT_VERIFIABLE badge in the UI
+
+- **Found**: the frontend labelled **every** `NOT_VERIFIABLE` claim "Opinion / not directly
+  verifiable", which is wrong for predictions, allegations and unclear statements.
+- **Fix**: the badge now reflects the actual claim type (Opinion / Prediction / Allegation — not
+  verifiable; No checkable claim), falling back to a neutral "Not directly verifiable". The frontend
+  test asserts the claim-type labels are present and the misleading string is gone. 177 tests pass,
+  ruff clean.
+
 ## 2026-10-12 — Control-doc reconciliation
 
 - **Found**: `PLAN.md` M2 still recorded "hybrid retained as default", contradicting the shipped

@@ -30,3 +30,7 @@ def test_static_assets_are_served_and_call_the_api():
     ):
         assert status in app_js.text
     assert "/api/analyze" in app_js.text
+    # NOT_VERIFIABLE is labelled by claim type, not blanket-called an opinion.
+    for claim_type in ("OPINION_SUBJECTIVE", "PREDICTION", "ALLEGATION", "UNCLEAR"):
+        assert claim_type in app_js.text
+    assert "Opinion / not directly verifiable" not in app_js.text
