@@ -1,7 +1,7 @@
 # VerityAI Project Status
 
 ## Last Updated
-2026-10-12 (Asia/Kolkata)
+2026-10-14 (Asia/Kolkata)
 
 ## Current Milestone
 Product Phase 0 — reliability hardening **IN PROGRESS**. Historical M0–M6 are complete; M7 deployment remains pending on a Hugging Face token.
@@ -30,10 +30,10 @@ The public repository and CI are verified. Phase 0 hardening is active. Deployme
 - **M4** — FEVER `labelled_dev` sample (500, seed 42), all evaluation artefacts saved.
 - **M5** (code) — SSRF-safe URL extraction + tests; secret scan clean.
 - **M6** (code/docs/CI) — full docs set, CI workflow, Dockerfile, README Spaces frontmatter; **CI
-  verified green on GitHub** (green at M6 completion on `38d4e6f`; latest verified run #38 on
-  `25f435d` ⇒ success, 2026-10-12).
+  verified green on GitHub** (green at M6 completion on `38d4e6f`; latest verified run #43 on
+  `4f2a9f2` ⇒ success, 2026-10-12).
 - **M7 (part)** — **GitHub publication**: public repo at
-  [`github.com/ADxSD-143/VerityAI`](https://github.com/ADxSD-143/VerityAI), `main` = `25f435d` (2026-10-12).
+  [`github.com/ADxSD-143/VerityAI`](https://github.com/ADxSD-143/VerityAI), `main` = `4f2a9f2` (2026-10-12).
 - **Aggregation safeguard** — single-source verdicts must clear `tau_single` (default 0.75); adds
   `backend/tests/test_aggregation_regression.py`. Closes the recorded Zorbax-9 false positive
   (re-checked live: now `INSUFFICIENT_EVIDENCE`, best entailment 0.519).
@@ -71,7 +71,7 @@ The public repository and CI are verified. Phase 0 hardening is active. Deployme
 | `POST /api/analyze` (live) | 200, real multi-source evidence |
 | `POST /api/analyze-url` (metadata IP) | 400 `unsafe_url` |
 | secret scan (grep + `git ls-files`) | clean; no `.env`; no tracked file > 1 MB |
-| GitHub Actions CI (run #38, `25f435d`, 2026-10-12) | **success** |
+| GitHub Actions CI (run #43, `4f2a9f2`, 2026-10-12) | **success** |
 | `docker build` | **not run** — Docker is not installed on this host |
 
 ## Evaluation
@@ -113,7 +113,7 @@ All artefacts in `experiments/results/`:
 
 ## GitHub
 **Published**: [`github.com/ADxSD-143/VerityAI`](https://github.com/ADxSD-143/VerityAI), public,
-default branch `main`; last verified CI run #38 on `25f435d` (2026-10-12) = success.
+default branch `main`; last verified CI run #43 on `4f2a9f2` (2026-10-12) = success.
 
 ## Deployment
 Not deployed. `Dockerfile` + README Spaces frontmatter are ready (port 7860). Public URL to be

@@ -93,7 +93,7 @@ multilingual assessment limited to a documented experimental note.
 **Gate.** No fabricated labels; splits respected; example IDs preserved; metrics regenerable;
 limitations documented.
 **Recorded.** `experiments/results/` holds `fever_sample.json` (500 claims, seed 42, distribution
-166/167/167, 367 gold + 800 distractor pages), `eval_retrieval.json`, `eval_nli.json`,
+166/167/167, 367 gold + 2525 distractor pages), `eval_retrieval.json`, `eval_nli.json`,
 `eval_nli_small.json`, `eval_e2e.json`, `measure_resources.json`. Multilingual support is
 documented as **experimental / unverified** (no labelled multilingual set obtained).
 **Risks/fallback.** FEVER wiki dump too large → fixed recorded corpus reconstructed from
@@ -145,8 +145,8 @@ blocker reported); no secrets exposed.
 **Risks/fallback.** `gh` CLI missing / HF token missing → prepare all artifacts, document the
 exact blocker and the one manual step required; never claim deployment without verification.
 **Recorded (GitHub half — done).** Repository is **public** at
-`https://github.com/ADxSD-143/VerityAI`; `main` = `eec56f7`; GitHub Actions CI **green**
-(run `38050601549`, success).
+`https://github.com/ADxSD-143/VerityAI`; `main` = `4f2a9f2`; GitHub Actions CI **green**
+(run #43, success).
 **Pending (deployment half).** The Hugging Face Space is **not deployed**. No Hugging Face token is
 present (no `HF_TOKEN`, no cached login) and Docker is not installed, so the image cannot be built
 locally (HF Spaces builds it server-side). Deploy artifacts are ready (`Dockerfile`, README Spaces

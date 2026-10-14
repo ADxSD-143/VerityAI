@@ -44,8 +44,8 @@ Record the **observed** status and the top cited URL for each; decide correctnes
 | 4 | Prediction — expect `NOT_VERIFIABLE` | `Check @{claim="Bitcoin will reach one million dollars by 2030."}` | |
 | 5 | Insufficient evidence (niche/nonsense) | `Check @{claim="The Zorbax-9 spacecraft landed on the Sun in 2019."}` | |
 | 6 | URL input | `Check @{url="https://en.wikipedia.org/wiki/Eiffel_Tower"}` | |
-| 7 | Hindi (accepted; quality unverified) | `Check @{claim="भारत की राजधानी नई दिल्ली है।"}` | |
-| 8 | Hinglish (accepted; quality unverified) | `Check @{claim="Bharat ki rajdhani New Delhi hai."}` | |
+| 7 | Hindi — expect `UNABLE_TO_ASSESS` (language gate) | `Check @{claim="भारत की राजधानी नई दिल्ली है।"}` | |
+| 8 | Hinglish — expect `UNABLE_TO_ASSESS` (language gate) | `Check @{claim="Bharat ki rajdhani New Delhi hai."}` | |
 
 ## How to read a result
 
@@ -53,6 +53,9 @@ Record the **observed** status and the top cited URL for each; decide correctnes
 - Open the cited URL and confirm the passage really says what the item claims.
 - `INSUFFICIENT_EVIDENCE` and `CONFLICTING_EVIDENCE` are honest non-commitments, not failures.
 - `NOT_VERIFIABLE` for an opinion/prediction/allegation/unclear statement is correct behaviour.
+- `UNABLE_TO_ASSESS` means no verdict was produced — either the evidence pipeline could not
+  complete (no source reachable, or the NLI model unavailable) or the input is not in a language
+  the models support; the `explanation` states which.
 - The analysis endpoints are rate-limited to **10 requests / 60 seconds per client** (HTTP 429).
 
 ## Known limitations to expect (see `README.md` and `docs/EVALUATION.md`)
@@ -61,6 +64,10 @@ Record the **observed** status and the top cited URL for each; decide correctnes
   (Paris, Texas)), which can surface as `CONFLICTING_EVIDENCE` for a simple claim.
 - A **confident single-source error** is possible: the single-source safeguard only downgrades below
   `tau_single` (default 0.75).
-- **Hindi/Hinglish** input is accepted but the models are English-first; verdict quality is
-  **unverified** and the NLI model can return wrong verdicts on non-English text.
+- **Hindi/Hinglish** input is accepted (Unicode tokenization, claim detection and claim-type
+  routing still apply), but the language gate flags non-English text and returns
+  `UNABLE_TO_ASSESS` with a disclosure; retrieval and NLI are skipped, so no true/false verdict is
+  produced. Detection covers a majority non-Latin script and Roman-script Hinglish, but **not**
+  other Latin-script languages (e.g. French or German), which still pass through to the
+  English-first models.
 - A source may fail transiently (`status="error"` in `sources_queried`), e.g. upstream throttling.
